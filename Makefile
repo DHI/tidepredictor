@@ -1,4 +1,4 @@
-LIB = my_library
+LIB = tidepredictor
 
 check: lint typecheck test doctest
 

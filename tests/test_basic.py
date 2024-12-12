@@ -1,6 +1,6 @@
-import my_library as ml
+import tidepredictor as tp
 
 
 def test_module_docstring():
 
-    assert "useful" in ml.__doc__
+    assert "useful" in tp.__doc__

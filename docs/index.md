@@ -1,4 +1,4 @@
-# Welcome to my_library
+# Welcome to tidepredictor
 
 See more in [Getting started](getting_started.md)
 
