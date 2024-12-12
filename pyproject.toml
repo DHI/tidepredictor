@@ -16,7 +16,9 @@ exclude = ["notebooks", "tests", "images"]
 name = "tidepredictor"
 version = "0.0.1"
 dependencies = [
-    "numpy"
+    "numpy",
+    "setuptools>=75.6.0",
+    "utide==0.3.0",
 ]
 
 authors = [
