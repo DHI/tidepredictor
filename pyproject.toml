@@ -16,10 +16,13 @@ exclude = ["notebooks", "tests", "images"]
 name = "tidepredictor"
 version = "0.0.1"
 dependencies = [
+    "ipykernel>=6.29.5",
+    "netcdf4>=1.7.2",
     "numpy",
     "polars==1.17.1",
     "setuptools>=75.6.0",
     "utide==0.3.0",
+    "xarray>=2024.11.0",
 ]
 
 authors = [
@@ -65,6 +68,9 @@ notebooks = [
 
 [dependency-groups]
 dev = [
+    "mkdocs-material>=9.5.48",
+    "mkdocs>=1.6.1",
+    "mkdocstrings>=0.27.0",
     "mypy>=1.13.0",
     "pytest>=8.3.4",
     "ruff>=0.8.2",
@@ -76,7 +82,7 @@ dev = [
 lint.ignore = ["E501"]
 
 [tool.mypy]
-python_version = "3.9"
+python_version = "3.11"
 ignore_missing_imports = true
 warn_unreachable = false
 no_implicit_optional = true
