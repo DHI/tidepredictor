@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Annotated, Optional
+from typing import Annotated
 import typer
 from datetime import datetime, timedelta
 
