@@ -1,8 +1,10 @@
 # tidepredictor: Predict tides with Python
 
+![](logo.png)
+
 ## Dependencies
 
-* [Utide](https://github.com/wesleybowman/UTide)# `tidepredictor`
+* [Utide](https://github.com/wesleybowman/UTide)
 
 Predict the tides for a given location.
 
