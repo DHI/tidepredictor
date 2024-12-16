@@ -6,7 +6,7 @@ import polars as pl
 from enum import Enum
 
 
-class PredictionType(Enum):
+class PredictionType(str, Enum):
     level = "level"
     current = "current"
 
