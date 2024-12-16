@@ -21,6 +21,7 @@ dependencies = [
     "numpy",
     "polars==1.17.1",
     "setuptools>=75.6.0",
+    "typer>=0.15.1",
     "utide==0.3.0",
     "xarray>=2024.11.0",
 ]
@@ -40,6 +41,10 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering",
 ]
+
+[project.scripts]
+tidepredictor = "tidepredictor.main:app"
+
 
 [project.optional-dependencies]
 dev = [
