@@ -46,7 +46,6 @@ def main(
     )
 
     if output is None:
-        print("output is none")
         match format:
             case Format.json:
                 typer.echo(df.write_json())
