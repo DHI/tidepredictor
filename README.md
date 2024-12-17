@@ -32,6 +32,7 @@ $ tidepredictor [OPTIONS]
 
 <details>
 <summary>Code</summary>
+
 ```python
 import polars as pl
 from utide._ut_constants import ut_constants
@@ -49,6 +50,7 @@ consts = (
 with pl.Config(set_float_precision=4):
     print(consts.head(10))
 ```
+
 </details>
 
 
