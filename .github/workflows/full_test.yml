@@ -6,6 +6,10 @@ name: Full test
 on:
   push:
     branches: [main]
+    paths: 
+      - "tidepredictor/**"
+      - ".github/workflows/full_test.yml"
+      - "tests/**"
   pull_request:
     branches: [main]
 
