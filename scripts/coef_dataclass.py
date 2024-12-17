@@ -1,6 +1,5 @@
 import os
 import numpy as np
-import json
 import toml
 from dataclasses import dataclass
 from typing import Any
@@ -12,7 +11,7 @@ class Coef:
     mean: float
     A: np.ndarray
     g: np.ndarray
-    aux: dict[str, Any]
+    aux: dict[str, Any]  # TODO exctract aux to a separate dataclass
 
     def __post_init__(self):
         assert len(self.A) == len(self.g) == len(self.name) == len(self.aux["frq"])
@@ -27,8 +26,8 @@ class Coef:
         return data
 
     @staticmethod
-    def from_toml(toml_file: str) -> "Coef":
-        with open(toml_file, "r") as file:
+    def from_toml(file_path: str) -> "Coef":
+        with open(file_path, "r") as file:
             data = toml.load(file)
         data = Coef._convert_data(data)
         return Coef(**data)
