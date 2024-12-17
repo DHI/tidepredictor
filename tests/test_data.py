@@ -13,7 +13,7 @@ def level_constituent_file_path() -> Path:
 def test_read_constituents(level_constituent_file_path) -> None:
     reader = ConstituentReader(level_constituent_file_path)
 
-    const = reader.read_constituents(lat=0.0, lon=0.0)
+    const = reader.get_constituents(lat=0.0, lon=0.0)
     assert const["M2"].amplitude == pytest.approx(0.44190001487731934)
     assert const["M2"].phase == pytest.approx(103.89859771728516)
 
