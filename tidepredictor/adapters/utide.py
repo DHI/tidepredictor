@@ -1,10 +1,18 @@
 """Utide adapter module."""
 
+from dataclasses import asdict
+from pathlib import Path
+
+import numpy as np
+from utide import ut_constants
 from tidepredictor.adapters import TidePredictorAdapter, PredictionType
 
 from datetime import datetime, timedelta
 
 import polars as pl
+
+from tidepredictor.data import ConstituentReader
+from tidepredictor.utide import Coef
 # import utide
 
 
@@ -48,3 +56,44 @@ class UtideAdapter(TidePredictorAdapter):
                 )
 
         return df
+
+    # TODO this should probably be a private method
+    @staticmethod
+    def coef(fp: Path, lon: float, lat: float) -> Coef:
+        """Get the coefficients for a given location.
+
+        Parameters
+        ----------
+        fp : Path
+            The path to the data file.
+        lon : float
+            The longitude of the location.
+        lat : float
+            The latitude of the location.
+        """
+        reader = ConstituentReader(fp)
+
+        cons = reader.get_constituents(lon=lon, lat=lat)
+        names = list(cons.keys())
+        amps = np.array([v.amplitude for v in cons.values()])
+        phases = np.array([v.phase for v in cons.values()])
+
+        # TODO get template
+        template = Coef.from_toml("scripts/coef.toml")
+        coef = Coef(**asdict(template))
+
+        coef.name = names
+        coef.A = amps
+        coef.g = phases
+
+        unames = ut_constants["const"]["name"]
+        ufreqs = ut_constants["const"]["freq"]
+
+        freq_map = {n: float(f) for n, f in zip(unames, ufreqs)}
+
+        freqs = np.array([freq_map[name] for name in names])
+
+        coef.aux["frq"] = freqs
+        coef.aux["lind"] = np.array([unames.tolist().index(n) for n in names])
+
+        return coef
