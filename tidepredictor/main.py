@@ -5,7 +5,7 @@ import typer
 from datetime import datetime, timedelta
 
 from tidepredictor.adapters.protocol import PredictionType
-from tidepredictor.adapters.utide import UtideAdapter
+from tidepredictor.utide import UtideAdapter
 
 app = typer.Typer()
 
