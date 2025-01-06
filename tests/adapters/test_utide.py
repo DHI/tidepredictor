@@ -4,7 +4,7 @@ from pathlib import Path
 
 from utide._ut_constants import ut_constants
 import numpy as np
-from scripts.coef_dataclass import Coef
+from tidepredictor.utide import Coef
 
 
 import mikeio
@@ -51,9 +51,11 @@ def test_utide_vs_mike_precalculated():
     template = Coef.from_toml("scripts/coef.toml")
     lat = 0.0
     lon = 0.0
+    # TODO use re-organized datafile
     reader = ConstituentReader(
         Path("tests/data/GlobalTideElevation_DTU-TPXO8_2min_v1_UpperCase_test.nc")
     )
+    # TODO extract this to a function
     cons = reader.get_constituents(lon=lon, lat=lat)
     names = list(cons.keys())
     amps = np.array([v.amplitude for v in cons.values()])
@@ -75,6 +77,7 @@ def test_utide_vs_mike_precalculated():
     coef.aux["frq"] = freqs
     coef.aux["lind"] = np.array([unames.tolist().index(n) for n in names])
     t = pd.date_range(start=ds.time[0], end=ds.time[1], freq="1h")
+    # TODO end
 
     tide = reconstruct(t, asdict(coef))
     udf = pl.DataFrame({"time": t, "utide": tide["h"]})

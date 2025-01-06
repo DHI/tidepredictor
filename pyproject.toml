@@ -22,6 +22,7 @@ dependencies = [
     "polars==1.17.1",
     "setuptools>=75.6.0",
     "typer>=0.15.1",
+    "types-toml>=0.10.8.20240310",
     "utide==0.3.0",
     "xarray>=2024.11.0",
 ]
@@ -82,6 +83,8 @@ dev = [
     "matplotlib>=3.10.0",
     "toml>=0.10.2",
     "plotly>=5.24.1",
+    "marimo>=0.10.2",
+    "folium>=0.19.2",
 ]
 
 
