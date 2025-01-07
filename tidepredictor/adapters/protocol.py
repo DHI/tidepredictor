@@ -18,5 +18,10 @@ class TidePredictorAdapter(Protocol):
     def __init__(self, consituents, type: PredictionType) -> None: ...
 
     def predict(
-        self, start: datetime, end: datetime, freq: timedelta = timedelta(hours=1)
+        self,
+        lon: float,
+        lat: float,
+        start: datetime,
+        end: datetime,
+        freq: timedelta = timedelta(hours=1),
     ) -> pl.DataFrame: ...

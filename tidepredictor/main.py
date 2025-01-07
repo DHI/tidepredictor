@@ -36,10 +36,16 @@ def main(
     """
     Predict the tides for a given location.
     """
-    # TODO configure engine
-    predictor = UtideAdapter(consituents=None, type=type)
+    # TODO figure out where to store constituents
+    path = (
+        Path(__file__).parent.parent
+        / "data/constituents_2min/GlobalTideElevation_DTU-TPXO8_2min_v1_UpperCase.nc"
+    )
+    predictor = UtideAdapter(consituents=path, type=type)
 
     df = predictor.predict(
+        lon=lon,
+        lat=lat,
         start=start,
         end=end,
         interval=timedelta(minutes=interval),

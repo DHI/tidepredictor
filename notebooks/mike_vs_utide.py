@@ -14,10 +14,24 @@ def _():
 
 
 @app.cell
+def _(mo):
+    mo.md(r"""# MIKE Tidepredictor output (0.25 deg)""")
+    return
+
+
+@app.cell
 def _(mikeio):
     ds = mikeio.read("../data/MIKE/tide_elevation.dfs0")
     ds
     return (ds,)
+
+
+@app.cell
+def _(ds, mo):
+    items = [x.name for x in ds.items]
+    item_sel = mo.ui.dropdown(items,value=items[0], label="Item")
+    item_sel
+    return item_sel, items
 
 
 @app.cell
@@ -40,67 +54,52 @@ def _(item_sel):
 
 
 @app.cell
-def _(lat, lon, reader):
-    cons = reader.get_constituents(lon=lon,lat=lat)
-    from utide._ut_constants import ut_constants
-    import numpy as np
-    from scripts.coef_dataclass import Coef
-    from dataclasses import asdict
-
-    template = Coef.from_toml("../scripts/coef.toml")
-
-    names = list(cons.keys())
-    amps = np.array([v.amplitude for v in cons.values()])
-    phases = np.array([v.phase for v in cons.values()])
-
-    coef = Coef(**asdict(template))
-
-    coef.name = names
-    coef.A = amps
-    coef.g = phases
-
-    unames = ut_constants["const"]["name"]
-    ufreqs = ut_constants["const"]["freq"]
-
-    freq_map = {n: float(f) for n, f in zip(unames, ufreqs)}
-
-    freqs = np.array([freq_map[name] for name in names])
-
-    coef.aux["frq"] = freqs
-    coef.aux["lind"] = np.array([unames.tolist().index(n) for n in names])
-    return (
-        Coef,
-        amps,
-        asdict,
-        coef,
-        cons,
-        freq_map,
-        freqs,
-        names,
-        np,
-        phases,
-        template,
-        ufreqs,
-        unames,
-        ut_constants,
-    )
+def _(mo):
+    mo.md(r"""# Utide""")
+    return
 
 
 @app.cell
-def _(asdict, coef, dates):
+def _(Path, lat, lon):
+    import numpy as np
+    from tidepredictor.adapters import UtideAdapter
+
+    coef = UtideAdapter.coef(
+            fp=Path("../data/constituents_2min/GlobalTideElevation_DTU-TPXO8_2min_v1_UpperCase.nc"),
+            lon=lon,
+            lat=lat,
+        )
+    return UtideAdapter, coef, np
+
+
+@app.cell
+def _(coef):
+    coef
+    return
+
+
+@app.cell
+def _(coef, dates):
     from utide import reconstruct
+    from dataclasses import asdict
     import pandas as pd
 
     t = pd.date_range(start=dates.value[0], end=dates.value[1], freq="1h")
 
     tide = reconstruct(t, asdict(coef))
-    return pd, reconstruct, t, tide
+    return asdict, pd, reconstruct, t, tide
 
 
 @app.cell
 def _(pl, t, tide):
     udf = pl.DataFrame({"time": t,"utide": tide["h"]})
     return (udf,)
+
+
+@app.cell
+def _(mo):
+    mo.md("""# Compare""")
+    return
 
 
 @app.cell
@@ -119,17 +118,9 @@ def _(ds):
 @app.cell
 def _(mo, start, stop):
     from datetime import date
-    dates = mo.ui.date_range(value=(date(2024,1,1),date(2024,1,4)),start=start,stop=stop)
+    dates = mo.ui.date_range(value=(date(2024,1,1),date(2024,1,4)),start=start,stop=stop, label="Dates")
     dates
     return date, dates
-
-
-@app.cell
-def _(ds, mo):
-    items = [x.name for x in ds.items]
-    item_sel = mo.ui.dropdown(items,value=items[0])
-    item_sel
-    return item_sel, items
 
 
 @app.cell
@@ -138,6 +129,18 @@ def _(lat, lon, mdf, px, udf):
     df = both.unpivot(index="time")
     px.line(df, x="time", y="value", color="variable", title=f"{lon}E, {lat}N")
     return both, df
+
+
+@app.cell
+def _(both):
+    diff = both["utide"] - both["mike"]
+    return (diff,)
+
+
+@app.cell
+def _(both):
+    both.head()
+    return
 
 
 @app.cell

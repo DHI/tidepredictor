@@ -2,13 +2,14 @@
 
 from pathlib import Path
 import numpy as np
+import pandas as pd
 import toml
 from dataclasses import dataclass
 from typing import Any
 
 from dataclasses import asdict
 
-from utide import ut_constants
+from utide import reconstruct, ut_constants
 from tidepredictor.adapters import TidePredictorAdapter, PredictionType
 
 from datetime import datetime, timedelta
@@ -58,40 +59,53 @@ class UtideAdapter(TidePredictorAdapter):
         The type of prediction to make.
     """
 
-    def __init__(self, consituents, type: PredictionType) -> None:
+    def __init__(self, consituents: Path, type: PredictionType) -> None:
         self._consituents = consituents
         self._type = type
 
         # TODO convert constituents to utide format
 
     def predict(
-        self, start: datetime, end: datetime, interval: timedelta = timedelta(hours=1)
+        self,
+        lon: float,
+        lat: float,
+        start: datetime,
+        end: datetime,
+        interval: timedelta = timedelta(hours=1),
     ) -> pl.DataFrame:
         """Predict tide levels or currents using utide."""
-        # res = utide.reconstruct(t=, coef= , epoch=, constit=)
-        # TODO convert utide.Bunch to polars.DataFrame
 
         df = pl.DataFrame().with_columns(
-            pl.datetime_range(start, end, interval=interval).alias("time"),
+            # TODO use ms instead of ns
+            pl.datetime_range(start, end, interval=interval, time_unit="ns").alias(
+                "time"
+            ),
         )
 
         match self._type:
             case PredictionType.level:
+                coef = self._coef(
+                    fp=self._consituents,
+                    lon=lon,
+                    lat=lat,
+                )
+                # TODO do we need this?
+                t = pd.date_range(start=start, end=end, freq=interval)
+                tide = reconstruct(t, asdict(coef), verbose=False)
                 df = df.with_columns(
-                    pl.zeros(pl.col("time").len()).alias("level"),
+                    pl.Series("level", tide["h"]).alias("level"),
                 )
             case PredictionType.current:
                 df = df.with_columns(
+                    # TODO implement currents
                     pl.zeros(pl.col("time").len()).alias("u"),
                     pl.zeros(pl.col("time").len()).alias("v"),
                 )
 
         return df
 
-    # TODO this should probably be a private method
-    @staticmethod
-    def coef(fp: Path, lon: float, lat: float) -> Coef:
-        """Get the coefficients for a given location.
+    def _coef(self, fp: Path, lon: float, lat: float) -> Coef:
+        """Get the coefficients for a given location for elevation.
 
         Parameters
         ----------
@@ -102,6 +116,10 @@ class UtideAdapter(TidePredictorAdapter):
         lat : float
             The latitude of the location.
         """
+
+        if self._type != PredictionType.level:
+            raise NotImplementedError("Only level predictions are supported.")
+
         reader = ConstituentReader(fp)
 
         cons = reader.get_constituents(lon=lon, lat=lat)

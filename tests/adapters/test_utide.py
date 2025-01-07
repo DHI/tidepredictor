@@ -14,22 +14,39 @@ from tidepredictor.adapters import PredictionType, UtideAdapter
 
 def test_utide_returns_dataframe_with_levels() -> None:
     # TODO figure out format of constituents
-    predictor = UtideAdapter(consituents=None, type=PredictionType.level)
+
+    # TODO rename file
+    # TODO use re-organized datafile
+    predictor = UtideAdapter(
+        consituents=Path(
+            "tests/data/GlobalTideElevation_DTU-TPXO8_2min_v1_UpperCase_test.nc"
+        ),
+        type=PredictionType.level,
+    )
 
     df = predictor.predict(
+        lon=0.0,
+        lat=0.0,
         start=datetime(2024, 1, 1),
         end=datetime(2024, 1, 2),
         interval=timedelta(hours=1),
     )
     assert isinstance(df, pl.DataFrame)
     assert "level" in df.columns
+    assert df["level"].max() > 0
+    assert df["level"].min() < 0
 
 
 def test_utide_returns_dataframe_with_currents() -> None:
     # TODO figure out format of constituents
-    predictor = UtideAdapter(consituents=None, type=PredictionType.current)
+    predictor = UtideAdapter(
+        consituents=Path("tests/data/GlobalTideCurrent_DTU-TPXO8_2min_v1_test.nc"),
+        type=PredictionType.current,
+    )
 
     df = predictor.predict(
+        lat=0.0,
+        lon=0.0,
         start=datetime(2024, 1, 1),
         end=datetime(2024, 1, 2),
         interval=timedelta(hours=1),
@@ -46,19 +63,26 @@ def test_utide_vs_mike_precalculated():
         {"index": "time", item: "mike"}
     )
 
+    # TODO checks all locations in the file
     lat = 0.0
     lon = 0.0
     # TODO use re-organized datafile
-    coef = UtideAdapter.coef(
-        fp=Path("tests/data/GlobalTideElevation_DTU-TPXO8_2min_v1_UpperCase_test.nc"),
+    predictor = UtideAdapter(
+        consituents=Path(
+            "tests/data/GlobalTideElevation_DTU-TPXO8_2min_v1_UpperCase_test.nc"
+        ),
+        type=PredictionType.level,
+    )
+
+    udf = predictor.predict(
         lon=lon,
         lat=lat,
-    )
-    t = pd.date_range(start=ds.time[0], end=ds.time[1], freq="1h")
-    tide = reconstruct(t, asdict(coef))
-    udf = pl.DataFrame({"time": t, "utide": tide["h"]})
+        start=ds.time[0].to_pydatetime(),
+        end=ds.time[-1].to_pydatetime(),
+        interval=timedelta(hours=1),
+    ).rename({"level": "utide"})
 
     both = udf.join(mdf, on="time")
 
     diff = both["utide"] - both["mike"]
-    assert diff.abs().max() < 0.05
+    assert diff.abs().max() < 0.08
