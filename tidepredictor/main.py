@@ -17,16 +17,22 @@ class Format(str, Enum):
 
 @app.command()
 def main(
-    lon: Annotated[float, typer.Option(help="Longitude")],
-    lat: Annotated[float, typer.Option(help="Latitude")],
+    lon: Annotated[
+        float, typer.Option("--lon", "-x", help="Longitude", min=-180, max=180)
+    ],
+    lat: Annotated[
+        float, typer.Option("--lat", "-y", help="Latitude", min=-90, max=90)
+    ],
     start: Annotated[datetime, typer.Option("--start", "-s", help="Start date")],
     end: Annotated[datetime, typer.Option("--end", "-e", help="End date")],
     interval: Annotated[
-        int, typer.Option("--interval", "-i", help="Interval in minutes")
+        int, typer.Option("--interval", "-i", help="Interval in minutes", min=1)
     ] = 30,
     output: Annotated[
         Optional[Path],
-        typer.Option("--output", "-o", help="Output file, default is stdout"),
+        typer.Option(
+            "--output", "-o", help="Output file, default is stdout", writable=True
+        ),
     ] = None,
     format: Annotated[Format, typer.Option(help="Output format")] = Format.csv,
     type: Annotated[
