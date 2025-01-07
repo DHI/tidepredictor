@@ -39,7 +39,7 @@ def main(
     # TODO figure out where to store constituents
     path = (
         Path(__file__).parent.parent
-        / "data/constituents_2min/GlobalTideElevation_DTU-TPXO8_2min_v1_UpperCase.nc"
+        / "tests/data/GlobalTideElevation_DTU-TPXO8_2min_v1_UpperCase_test.nc"
     )
     predictor = UtideAdapter(consituents=path, type=type)
 
