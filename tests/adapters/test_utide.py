@@ -51,7 +51,7 @@ def test_utide_returns_dataframe_with_currents() -> None:
 
 
 def test_utide_vs_mike_precalculated():
-    ds = mikeio.read("data/MIKE/tide_elevation.dfs0")
+    ds = mikeio.read("tests/data/tide_elevation.dfs0")
     item = "Level (0,0)"
     mdf = pl.from_pandas(ds[item].to_dataframe().reset_index()).rename(
         {"index": "time", item: "mike"}
