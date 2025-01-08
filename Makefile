@@ -15,7 +15,7 @@ test:
 	uv run pytest --disable-warnings
 
 typecheck:
-	mypy $(LIB)/ --config-file pyproject.toml
+	uv run mypy $(LIB)/ --config-file pyproject.toml
 
 doctest:
 	pytest --doctest-modules $(LIB)
@@ -32,5 +32,14 @@ clean:
 	python -c "import shutil; shutil.rmtree('htmlcov', ignore_errors=True)"
 	python -c "import os; os.remove('.coverage') if os.path.exists('.coverage') else None"
 	python -c "import shutil; shutil.rmtree('site', ignore_errors=True)"
+
+install:
+	uv tool install .
+	mkdir -p ~/.local/share/tidepredictor
+	cp tests/data/* ~/.local/share/tidepredictor
+
+uninstall:
+	uv tool uninstall tidepredictor
+	rm -rf ~/.local/share/tidepredictor
 
 FORCE:
