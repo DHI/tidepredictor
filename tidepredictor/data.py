@@ -44,11 +44,13 @@ class ConstituentReader:
             .sel(lon=lon, lat=lat, method="nearest")
             .to_dataframe()
         )
-        amps = df["amplitude"].to_dict()
-        phases = df["phase"].to_dict()
+
+        amps = df["amplitude"]
+        phases = df["phase"]
 
         merged = {
-            key: dict(amplitude=amps[key], phase=phases[key]) for key in amps.keys()
+            key: {"amplitude": amp, "phase": phase}
+            for key, amp, phase in zip(amps.index, amps, phases)
         }
 
         res = {k: Constituent(**v) for k, v in merged.items()}
