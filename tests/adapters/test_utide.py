@@ -7,14 +7,8 @@ from tidepredictor.adapters import PredictionType, UtideAdapter
 
 
 def test_utide_returns_dataframe_with_levels() -> None:
-    # TODO figure out format of constituents
-
-    # TODO rename file
-    # TODO use re-organized datafile
     predictor = UtideAdapter(
-        consituents=Path(
-            "tests/data/GlobalTideElevation_DTU-TPXO8_2min_v1_UpperCase_test.nc"
-        ),
+        consituents=Path("tests/data/elevation.nc"),
         type=PredictionType.level,
     )
 
@@ -60,11 +54,8 @@ def test_utide_vs_mike_precalculated():
     # TODO checks all locations in the file
     lat = 0.0
     lon = 0.0
-    # TODO use re-organized datafile
     predictor = UtideAdapter(
-        consituents=Path(
-            "tests/data/GlobalTideElevation_DTU-TPXO8_2min_v1_UpperCase_test.nc"
-        ),
+        consituents=Path("tests/data/elevation.nc"),
         type=PredictionType.level,
     )
 

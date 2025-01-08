@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
 
 import xarray as xr
 
@@ -40,29 +39,18 @@ class ConstituentReader:
         dict[str, Constituent]
             The constituents.
         """
-
-        data = (
+        df = (
             xr.open_dataset(self.file_path)
-            .isel(time=0)  # TODO remove time from datafile
-            .drop_vars("time")
             .sel(lon=lon, lat=lat, method="nearest")
-            .to_dict()["data_vars"]
+            .to_dataframe()
         )
+        amps = df["amplitude"].to_dict()
+        phases = df["phase"].to_dict()
 
-        amps = self._extract_data(data, "amplitude")
-        phases = self._extract_data(data, "phase")
-
-        merged = {key: {**amps[key], **phases[key]} for key in amps.keys()}
+        merged = {
+            key: dict(amplitude=amps[key], phase=phases[key]) for key in amps.keys()
+        }
 
         res = {k: Constituent(**v) for k, v in merged.items()}
 
-        return res
-
-    @staticmethod
-    def _extract_data(data: dict[str, Any], name: str) -> dict[str, Any]:
-        res = {
-            k.split("_")[0]: {name: v["data"]}  # there is also attrs in the dict
-            for k, v in data.items()
-            if k.endswith(name)
-        }
         return res
