@@ -3,6 +3,10 @@ name: Documentation
 on: 
   push:
     branches: [ main]
+    paths: 
+      - "tidepredictor/**"
+      - ".github/workflows/docs.yml"
+      - "docs/**"
   pull_request:
     branches: [ main]
 
