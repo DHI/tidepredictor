@@ -1,38 +1,45 @@
 name: Documentation
 
-on:
+on: 
   push:
-    branches: ["main"]
-    paths:
-      - "docs/**"
-      - "mkdocs.yml"
-      - "tidepredictor/**"
+    branches: [ main]
+  pull_request:
+    branches: [ main]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
 
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.11
+        python-version: "3.11"
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+      with:
+          version: "0.5.15"
         
-    - name: Install package
+    - name: Install library
       run: |
-        pip install .[dev]
+        uv sync --group docs
     
     - name: Build documentation
       run: |
-        mkdocs build
-    
+        make docs
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: docs
+        path: docs/_site/
+
     - name: Publish to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3.6.1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: site
+        publish_dir: docs/_site/
+      

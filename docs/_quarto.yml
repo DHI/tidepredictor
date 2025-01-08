@@ -1,0 +1,48 @@
+project:
+  type: website
+
+website:
+  title: "Tidepredictor"
+  page-footer: "© 2024 DHI Group"
+  repo-url: https://github.com/DHI/tidepredictor
+  repo-actions: [edit]
+  repo-subdir: docs
+  
+  navbar:
+    tools:
+    - icon: github
+      menu:
+      - text: Source Code
+        url:  https://github.com/DHI/tidepredictor
+      - text: Report a Bug
+        url:  https://github.com/DHI/tidepredictor/issues
+    left:
+      - href: index.qmd
+        text: Home
+      - href: getting-started.qmd
+        text: Getting Started
+      - href: api/index.qmd
+        text: API Reference       
+
+
+quartodoc:
+  style: pkgdown
+  title: API Reference
+  dir: api
+  package: tidepredictor
+  renderer:
+    style: markdown
+    display_name: relative
+
+  sections:
+    - title: Modules
+      desc: ""
+      contents:
+        - adapters
+        - utide
+    
+    
+format:
+  html:
+    theme: cosmo
+    toc: true
