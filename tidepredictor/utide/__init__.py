@@ -3,7 +3,7 @@
 from pathlib import Path
 import numpy as np
 import pandas as pd
-import toml
+import toml  # type: ignore
 from dataclasses import dataclass
 from typing import Any
 

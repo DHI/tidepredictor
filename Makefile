@@ -6,10 +6,10 @@ build: typecheck test
 	python -m build
 
 lint:
-	ruff check $(LIB)
+	uv run ruff check $(LIB)
 
 format:
-	ruff format $(LIB)
+	uv run ruff format $(LIB)
 
 test:
 	uv run pytest --disable-warnings
