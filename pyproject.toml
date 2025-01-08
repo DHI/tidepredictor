@@ -54,9 +54,6 @@ dev = [
   "pytest",
   "ruff",
   "mypy",
-  "mkdocs",
-  "mkdocstrings[python]", 
-  "mkdocs-material",
   "types-toml>=0.10.8.20240310",
 ]
 
@@ -78,8 +75,6 @@ notebooks = [
 [dependency-groups]
 dev = [
     "mkdocs-material>=9.5.48",
-    "mkdocs>=1.6.1",
-    "mkdocstrings>=0.27.0",
     "mypy>=1.13.0",
     "pytest>=8.3.4",
     "ruff>=0.8.2",
@@ -88,6 +83,11 @@ dev = [
     "marimo>=0.10.2",
     "folium>=0.19.2",
     "pre-commit>=4.0.1",
+]
+
+docs = [
+    "quarto-cli>=1.6.40",
+    "quartodoc>=0.9.1",
 ]
 
 

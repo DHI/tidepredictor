@@ -1,0 +1,7 @@
+# Welcome to tidepredictor
+
+![](images/logo.png)
+
+See more in [Getting started](getting-started.qmd)
+
+A complete reference is available [here](/api)

@@ -23,8 +23,9 @@ doctest:
 coverage: 
 	pytest --cov-report html --cov=$(LIB) tests/
 
-docs: FORCE
-	mkdocs build
+docs: tidepredictor/*.py docs/*.qmd docs/_quarto.yml
+	cd docs && uv run quartodoc build
+	uv run quarto render docs
 
 clean:
 	python -c "import shutil; shutil.rmtree('dist', ignore_errors=True)"
