@@ -20,12 +20,11 @@ dependencies = [
     "numpy>=2.2.1",
     "netcdf4>=1.7.2",
     "polars>=1.17.1",
-    "setuptools==62.1.0", # used by utide
+    "setuptools", # used by utide
     "typer>=0.15.1",
     "toml>=0.10.2",
     "utide==0.3.0",
     "xarray==2024.11.0",
-    
 ]
 
 authors = [
@@ -88,6 +87,13 @@ dev = [
 docs = [
     "quarto-cli>=1.6.40",
     "quartodoc>=0.9.1",
+]
+
+test= [
+  "pytest",
+  "pytest-cov",
+  "mypy",
+  "mikeio"
 ]
 
 

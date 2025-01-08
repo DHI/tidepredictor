@@ -12,7 +12,7 @@ format:
 	ruff format $(LIB)
 
 test:
-	pytest --disable-warnings
+	uv run pytest --disable-warnings
 
 typecheck:
 	mypy $(LIB)/ --config-file pyproject.toml
