@@ -63,7 +63,10 @@ class UtideAdapter(TidePredictorAdapter):
         self._consituents = consituents
         self._type = type
 
-        # TODO convert constituents to utide format
+        # TODO validation
+
+    def __repr__(self):
+        return f"UtideAdapter(consituents={self._consituents}, type={self._type})"
 
     def predict(
         self,

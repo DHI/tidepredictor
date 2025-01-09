@@ -2,6 +2,58 @@
 
 ## Installation
 
+TODO
+
+## Usage
+
+`tidepredictor` can be used either as a command line tool or as a Python library.
+
+### Command line
+
 ```bash
-pip install tidepredictor
+$ tidepredictor -x 15.0 -y 58.0 -s "2024-01-01" -e "2024-01-01 06:00:00" -i 30
+ time,level
+2024-01-01 00:00:00,-0.23005383929341
+2024-01-01 00:30:00,-0.25469254130407887
+2024-01-01 01:00:00,-0.25508701731158095
+2024-01-01 01:30:00,-0.23188505378869703
+2024-01-01 02:00:00,-0.18749975913996147
+2024-01-01 02:30:00,-0.12583296056206333
+2024-01-01 03:00:00,-0.051895458442239854
+2024-01-01 03:30:00,0.028622562288443416
+2024-01-01 04:00:00,0.10978032932536673
+2024-01-01 04:30:00,0.18577536127300007
+2024-01-01 05:00:00,0.2512700237380429
+2024-01-01 05:30:00,0.30165067160350273
+2024-01-01 06:00:00,0.3332277132542259
+```
+
+### Python library
+
+```{python}
+from pathlib import Path
+
+DATA_DIR = Path("~/.local/share/tidepredictor")
+path = (DATA_DIR / "elevation.nc").expanduser()
+path
+```
+
+
+```{python}
+from datetime import datetime
+from tidepredictor import UtideAdapter, PredictionType
+
+predictor = UtideAdapter(consituents=path, type=PredictionType.level)
+
+predictor
+```
+
+```{python}
+df = predictor.predict(
+    lon=0.0,
+    lat=0.0,
+    start=datetime(2021, 1, 1),
+    end=datetime(2021, 1, 2),
+)
+df.head()
 ```

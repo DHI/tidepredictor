@@ -2666,6 +2666,7 @@ dependencies = [
 [package.dev-dependencies]
 dev = [
     { name = "folium" },
+    { name = "ipykernel" },
     { name = "marimo" },
     { name = "matplotlib" },
     { name = "mkdocs-material" },
@@ -2701,6 +2702,7 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [
     { name = "folium", specifier = ">=0.19.2" },
+    { name = "ipykernel", specifier = ">=6.29.5" },
     { name = "marimo", specifier = ">=0.10.2" },
     { name = "matplotlib", specifier = ">=3.10.0" },
     { name = "mkdocs-material", specifier = ">=9.5.48" },

@@ -57,6 +57,7 @@ dev = [
     "marimo>=0.10.2",
     "folium>=0.19.2",
     "pre-commit>=4.0.1",
+    "ipykernel>=6.29.5",
 ]
 
 docs = [
