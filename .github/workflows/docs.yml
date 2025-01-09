@@ -30,6 +30,11 @@ jobs:
       run: |
         uv sync --group docs
     
+    - name: Copy constituents to standard data dir
+      run: |
+          mkdir -p ~/.local/share/tidepredictor
+          cp tests/data/elevation.nc ~/.local/share/tidepredictor/
+    
     - name: Build documentation
       run: |
         make docs

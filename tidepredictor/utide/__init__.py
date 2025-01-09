@@ -53,8 +53,8 @@ class UtideAdapter(TidePredictorAdapter):
 
     Parameters
     ----------
-    consituents : Any
-        The constituents to use for the prediction.
+    consituents : Path
+        Path to the constituents file to use for the prediction.
     type : PredictionType
         The type of prediction to make.
     """
