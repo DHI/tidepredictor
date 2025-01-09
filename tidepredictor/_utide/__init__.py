@@ -6,18 +6,20 @@ import pandas as pd
 import toml  # type: ignore
 from dataclasses import dataclass
 from typing import Any
+from datetime import datetime, timedelta
 
 from dataclasses import asdict
-
-from utide import reconstruct, ut_constants
 from tidepredictor.adapters import TidePredictorAdapter, PredictionType
-
-from datetime import datetime, timedelta
+from tidepredictor.data import ConstituentReader
 
 import polars as pl
 
-from tidepredictor.data import ConstituentReader
-# import utide
+import warnings
+
+# Suppress warnings issued by utide
+warnings.filterwarnings("ignore", category=RuntimeWarning)
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+from utide import reconstruct, ut_constants  # noqa: E402
 
 
 @dataclass

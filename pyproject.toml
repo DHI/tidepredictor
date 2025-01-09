@@ -68,8 +68,8 @@ docs = [
 test= [
   "pytest",
   "pytest-cov",
-  "mypy",
-  "mikeio"
+  "mypy==1.13.0",
+  "mikeio",
 ]
 
 
