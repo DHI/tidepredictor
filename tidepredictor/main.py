@@ -4,8 +4,7 @@ from typing import Annotated, Optional
 import typer
 from datetime import datetime, timedelta
 
-from tidepredictor.adapters.protocol import PredictionType
-from tidepredictor.utide import UtideAdapter
+from tidepredictor import PredictionType, UtideAdapter
 
 app = typer.Typer()
 

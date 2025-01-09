@@ -2,8 +2,4 @@
 
 from .protocol import TidePredictorAdapter, PredictionType
 
-# from .utide import UtideAdapter
-from ..utide import UtideAdapter
-
-
-__all__ = ["TidePredictorAdapter", "PredictionType", "UtideAdapter"]
+__all__ = ["TidePredictorAdapter", "PredictionType"]

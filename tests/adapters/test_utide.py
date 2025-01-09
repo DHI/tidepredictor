@@ -3,7 +3,7 @@ from pathlib import Path
 
 import mikeio
 import polars as pl
-from tidepredictor.adapters import PredictionType, UtideAdapter
+from tidepredictor import PredictionType, UtideAdapter
 
 
 def test_utide_returns_dataframe_with_levels() -> None:
