@@ -10,6 +10,7 @@ def _():
     import mikeio
     import polars as pl
     import plotly.express as px
+
     return mikeio, mo, pl, px
 
 
@@ -29,7 +30,7 @@ def _(mikeio):
 @app.cell
 def _(ds, mo):
     items = [x.name for x in ds.items]
-    item_sel = mo.ui.dropdown(items,value=items[0], label="Item")
+    item_sel = mo.ui.dropdown(items, value=items[0], label="Item")
     item_sel
     return item_sel, items
 
@@ -40,7 +41,9 @@ def _():
     from tidepredictor.data import ConstituentReader
 
     reader = ConstituentReader(
-        Path("../data/constituents_2min/GlobalTideElevation_DTU-TPXO8_2min_v1_UpperCase.nc")
+        Path(
+            "../data/constituents_2min/GlobalTideElevation_DTU-TPXO8_2min_v1_UpperCase.nc"
+        )
     )
     return ConstituentReader, Path, reader
 
@@ -62,13 +65,15 @@ def _(mo):
 @app.cell
 def _(Path, lat, lon):
     import numpy as np
-    from tidepredictor.adapters import UtideAdapter
+    from tidepredictor import UtideAdapter
 
     coef = UtideAdapter.coef(
-            fp=Path("../data/constituents_2min/GlobalTideElevation_DTU-TPXO8_2min_v1_UpperCase.nc"),
-            lon=lon,
-            lat=lat,
-        )
+        fp=Path(
+            "../data/constituents_2min/GlobalTideElevation_DTU-TPXO8_2min_v1_UpperCase.nc"
+        ),
+        lon=lon,
+        lat=lat,
+    )
     return UtideAdapter, coef, np
 
 
@@ -92,7 +97,7 @@ def _(coef, dates):
 
 @app.cell
 def _(pl, t, tide):
-    udf = pl.DataFrame({"time": t,"utide": tide["h"]})
+    udf = pl.DataFrame({"time": t, "utide": tide["h"]})
     return (udf,)
 
 
@@ -104,7 +109,9 @@ def _(mo):
 
 @app.cell
 def _(ds, item_sel, pl):
-    mdf = pl.from_pandas(ds[item_sel.value].to_dataframe().reset_index()).rename({"index":"time", item_sel.value: "mike"})
+    mdf = pl.from_pandas(ds[item_sel.value].to_dataframe().reset_index()).rename(
+        {"index": "time", item_sel.value: "mike"}
+    )
     return (mdf,)
 
 
@@ -118,7 +125,13 @@ def _(ds):
 @app.cell
 def _(mo, start, stop):
     from datetime import date
-    dates = mo.ui.date_range(value=(date(2024,1,1),date(2024,1,4)),start=start,stop=stop, label="Dates")
+
+    dates = mo.ui.date_range(
+        value=(date(2024, 1, 1), date(2024, 1, 4)),
+        start=start,
+        stop=stop,
+        label="Dates",
+    )
     dates
     return date, dates
 
