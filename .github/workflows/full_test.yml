@@ -32,6 +32,11 @@ jobs:
       - name: Install library
         run: |
           uv sync --group test
+
+      - name: Copy constituents to standard data dir
+        run: |
+          mkdir -p ~/.local/share/tidepredictor
+          cp tests/data/elevation.nc ~/.local/share/tidepredictor/
       - name: Static type check
         run: make typecheck
       - name: Test with pytest

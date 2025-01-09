@@ -42,11 +42,9 @@ def main(
     """
     Predict the tides for a given location.
     """
-    # TODO figure out where to store constituents
-    path = (
-        Path(__file__).parent.parent
-        / "tests/data/GlobalTideElevation_DTU-TPXO8_2min_v1_UpperCase_test.nc"
-    )
+    # TODO is there a standard way to get this location?
+    DATA_DIR = Path("~/.local/share/tidepredictor")
+    path = (DATA_DIR / "elevation.nc").expanduser()
     predictor = UtideAdapter(consituents=path, type=type)
 
     df = predictor.predict(
