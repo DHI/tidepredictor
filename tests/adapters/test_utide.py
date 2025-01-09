@@ -26,9 +26,8 @@ def test_utide_returns_dataframe_with_levels() -> None:
 
 
 def test_utide_returns_dataframe_with_currents() -> None:
-    # TODO figure out format of constituents
     predictor = UtideAdapter(
-        consituents=Path("tests/data/GlobalTideCurrent_DTU-TPXO8_2min_v1_test.nc"),
+        consituents=Path("tests/data/currents.nc"),
         type=PredictionType.current,
     )
 
@@ -40,8 +39,10 @@ def test_utide_returns_dataframe_with_currents() -> None:
         interval=timedelta(hours=1),
     )
     assert isinstance(df, pl.DataFrame)
-    assert "u" in df.columns
-    assert "v" in df.columns
+    assert df["u"].max() > 0
+    assert df["u"].min() < 0
+    assert df["v"].max() > 0
+    assert df["v"].min() < 0
 
 
 def test_utide_vs_mike_precalculated():

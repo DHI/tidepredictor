@@ -43,7 +43,10 @@ def main(
     """
     # TODO is there a standard way to get this location?
     DATA_DIR = Path("~/.local/share/tidepredictor")
-    path = (DATA_DIR / "elevation.nc").expanduser()
+
+    NAME = {PredictionType.current: "currents.nc", PredictionType.level: "elevation.nc"}
+    path = (DATA_DIR / NAME[type]).expanduser()
+
     predictor = UtideAdapter(consituents=path, type=type)
 
     df = predictor.predict(

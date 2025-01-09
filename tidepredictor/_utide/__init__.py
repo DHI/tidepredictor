@@ -25,9 +25,14 @@ from utide import reconstruct, ut_constants  # noqa: E402
 @dataclass
 class Coef:
     name: list[str]
-    mean: float
-    A: np.ndarray
+    mean: float  # level
+    umean: float  # current
+    vmean: float  # current
+    A: np.ndarray  # level
     g: np.ndarray
+    Lsmaj: np.ndarray  # current
+    Lsmin: np.ndarray  # current
+    theta: np.ndarray  # current
     aux: dict[str, Any]  # TODO exctract aux to a separate dataclass
 
     def __post_init__(self):
@@ -86,7 +91,8 @@ class UtideAdapter(TidePredictorAdapter):
                 "time"
             ),
         )
-
+        # TODO do we need this?
+        t = pd.date_range(start=start, end=end, freq=interval)
         match self._type:
             case PredictionType.level:
                 coef = self._coef(
@@ -94,17 +100,25 @@ class UtideAdapter(TidePredictorAdapter):
                     lon=lon,
                     lat=lat,
                 )
-                # TODO do we need this?
-                t = pd.date_range(start=start, end=end, freq=interval)
                 tide = reconstruct(t, asdict(coef), verbose=False)
                 df = df.with_columns(
                     pl.Series("level", tide["h"]).alias("level"),
                 )
             case PredictionType.current:
+                coef = self._coef(
+                    fp=self._consituents,
+                    lon=lon,
+                    lat=lat,
+                )
+                coefd = asdict(coef)
+                coefd["aux"]["opt"]["twodim"] = True
+                uv = reconstruct(t, coefd, verbose=False)
+
                 df = df.with_columns(
-                    # TODO implement currents
-                    pl.zeros(pl.col("time").len()).alias("u"),
-                    pl.zeros(pl.col("time").len()).alias("v"),
+                    pl.Series("u", uv["u"]).alias("u"),
+                    pl.Series("v", uv["v"]).alias("v"),
+                    # pl.zeros(pl.col("time").len()).alias("u"),
+                    # pl.zeros(pl.col("time").len()).alias("v"),
                 )
 
         return df
@@ -122,28 +136,32 @@ class UtideAdapter(TidePredictorAdapter):
             The latitude of the location.
         """
 
-        if self._type != PredictionType.level:
-            raise NotImplementedError("Only level predictions are supported.")
-
-        reader = ConstituentReader(fp)
-
-        cons = reader.get_constituents(lon=lon, lat=lat)
-        names = list(cons.keys())
-        amps = np.array([v.amplitude for v in cons.values()])
-        phases = np.array([v.phase for v in cons.values()])
-
         template = Coef.from_toml(Path(__file__).parent / "coef.toml")
         coef = Coef(**asdict(template))
 
-        coef.name = names
-        coef.A = amps
-        coef.g = phases
+        reader = ConstituentReader(fp)
+
+        match self._type:
+            case PredictionType.level:
+                cons = reader.get_level_constituents(lon=lon, lat=lat)
+                coef.A = np.array([v.amplitude for v in cons.values()])
+                coef.g = np.array([v.phase for v in cons.values()])
+                names = list(cons.keys())
+
+            case PredictionType.current:
+                ccons = reader.get_current_constituents(lon=lon, lat=lat)
+                coef.Lsmaj = np.array([v.major_axis for v in ccons.values()])
+                coef.Lsmin = np.array([v.minor_axis for v in ccons.values()])
+                coef.theta = np.array([v.inclination for v in ccons.values()])
+                coef.g = np.array([v.phase for v in ccons.values()])
+                names = list(ccons.keys())
 
         unames = ut_constants["const"]["name"]
         ufreqs = ut_constants["const"]["freq"]
 
         freq_map = {n: float(f) for n, f in zip(unames, ufreqs)}
 
+        coef.name = names
         freqs = np.array([freq_map[name] for name in names])
 
         coef.aux["frq"] = freqs
