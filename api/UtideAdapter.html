@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>utide – Tidepredictor</title>
+<title>utideadapter – Tidepredictor</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -164,15 +164,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tidepredictor.utide" id="toc-tidepredictor.utide" class="nav-link active" data-scroll-target="#tidepredictor.utide">utide</a>
+  <li><a href="#tidepredictor.UtideAdapter" id="toc-tidepredictor.UtideAdapter" class="nav-link active" data-scroll-target="#tidepredictor.UtideAdapter">UtideAdapter</a>
   <ul class="collapse">
-  <li><a href="#classes" id="toc-classes" class="nav-link" data-scroll-target="#classes">Classes</a>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
-  <li><a href="#tidepredictor.utide.UtideAdapter" id="toc-tidepredictor.utide.UtideAdapter" class="nav-link" data-scroll-target="#tidepredictor.utide.UtideAdapter">UtideAdapter</a></li>
+  <li><a href="#tidepredictor.UtideAdapter.predict" id="toc-tidepredictor.UtideAdapter.predict" class="nav-link" data-scroll-target="#tidepredictor.UtideAdapter.predict">predict</a></li>
   </ul></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/DHI/tidepredictor/edit/main/docs/api/utide.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/DHI/tidepredictor/edit/main/docs/api/UtideAdapter.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
@@ -180,32 +181,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="tidepredictor.utide" class="level1">
-<h1>utide</h1>
-<p><code>utide</code></p>
-<p>Utide adapter module.</p>
-<section id="classes" class="level2">
-<h2 class="anchored" data-anchor-id="classes">Classes</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#tidepredictor.utide.UtideAdapter">UtideAdapter</a></td>
-<td>Adapter for the utide tide predictor engine.</td>
-</tr>
-</tbody>
-</table>
-<section id="tidepredictor.utide.UtideAdapter" class="level3">
-<h3 class="anchored" data-anchor-id="tidepredictor.utide.UtideAdapter">UtideAdapter</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>utide.UtideAdapter(<span class="va">self</span>, consituents, <span class="bu">type</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="tidepredictor.UtideAdapter" class="level1">
+<h1>UtideAdapter</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>UtideAdapter(<span class="va">self</span>, consituents, <span class="bu">type</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Adapter for the utide tide predictor engine.</p>
-<section id="parameters" class="level4 doc-section doc-section-parameters">
-<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
+<section id="parameters" class="level2 doc-section doc-section-parameters">
+<h2 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 13%">
@@ -237,8 +218,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="methods" class="level4">
-<h4 class="anchored" data-anchor-id="methods">Methods</h4>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -248,19 +229,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#tidepredictor.utide.UtideAdapter.predict">predict</a></td>
+<td><a href="#tidepredictor.UtideAdapter.predict">predict</a></td>
 <td>Predict tide levels or currents using utide.</td>
 </tr>
 </tbody>
 </table>
-<section id="tidepredictor.utide.UtideAdapter.predict" class="level5">
-<h5 class="anchored" data-anchor-id="tidepredictor.utide.UtideAdapter.predict">predict</h5>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>utide.UtideAdapter.predict(lon, lat, start, end, interval<span class="op">=</span>timedelta(hours<span class="op">=</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="tidepredictor.UtideAdapter.predict" class="level3">
+<h3 class="anchored" data-anchor-id="tidepredictor.UtideAdapter.predict">predict</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>UtideAdapter.predict(lon, lat, start, end, interval<span class="op">=</span>timedelta(hours<span class="op">=</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Predict tide levels or currents using utide.</p>
 
 
-</section>
-</section>
 </section>
 </section>
 </section>
@@ -691,7 +670,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>© 2024 DHI Group</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DHI/tidepredictor/edit/main/docs/api/utide.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DHI/tidepredictor/edit/main/docs/api/UtideAdapter.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
