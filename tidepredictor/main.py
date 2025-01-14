@@ -2,7 +2,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Annotated, Optional
 import typer
-from datetime import datetime, timedelta
+from datetime import datetime, time, timedelta
 
 from tidepredictor import PredictionType, UtideAdapter
 
@@ -14,6 +14,9 @@ class Format(str, Enum):
     json = "json"
 
 
+midnight = datetime.combine(datetime.today(), time.min)
+
+
 @app.command()
 def main(
     lon: Annotated[
@@ -22,8 +25,13 @@ def main(
     lat: Annotated[
         float, typer.Option("--lat", "-y", help="Latitude", min=-90, max=90)
     ],
-    start: Annotated[datetime, typer.Option("--start", "-s", help="Start date")],
-    end: Annotated[datetime, typer.Option("--end", "-e", help="End date")],
+    start: Annotated[
+        Optional[datetime],
+        typer.Option("--start", "-s", help="Start date"),
+    ] = None,
+    end: Annotated[
+        Optional[datetime], typer.Option("--end", "-e", help="End date")
+    ] = None,
     interval: Annotated[
         int, typer.Option("--interval", "-i", help="Interval in minutes", min=1)
     ] = 30,
@@ -49,11 +57,14 @@ def main(
 
     predictor = UtideAdapter(consituents=path, type=type)
 
+    prediction_start: datetime = start or midnight
+    prediction_end: datetime = end or (prediction_start + timedelta(days=1))
+
     df = predictor.predict(
         lon=lon,
         lat=lat,
-        start=start,
-        end=end,
+        start=prediction_start,
+        end=prediction_end,
         interval=timedelta(minutes=interval),
     )
 
