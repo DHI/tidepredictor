@@ -1,4 +1,4 @@
-from ghcr.io/astral-sh/uv:python3.13-bookworm-slim
+FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim
 
 # Create a new user named tide and add to the sudo group
 RUN useradd -m -s /bin/bash tide && echo "tide:password" | chpasswd \
@@ -12,7 +12,7 @@ ENV PATH=$PATH:/home/tide/.local/bin
 
 WORKDIR /home/tide
 
-RUN uv sync --frozen
+RUN uv sync --no-dev
 
 RUN uv tool install .
 
