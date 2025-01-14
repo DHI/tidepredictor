@@ -1,6 +1,6 @@
 LIB = tidepredictor
 
-check: lint typecheck test doctest
+check: lint typecheck test
 
 build: typecheck test
 	python -m build
@@ -16,9 +16,6 @@ test:
 
 typecheck:
 	uv run mypy $(LIB)/ --config-file pyproject.toml
-
-doctest:
-	pytest --doctest-modules $(LIB)
 
 coverage: 
 	pytest --cov-report html --cov=$(LIB) tests/

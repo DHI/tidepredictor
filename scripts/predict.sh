@@ -1,0 +1,1 @@
+tidepredictor -x 0.0 -y 0.0 -s "$(date '+%Y-%m-%d')" -e "$(date -d '+1 day' '+%Y-%m-%d')" -i 60 | gnuplot -e "set datafile separator ','; set xdata time; set timefmt '%Y-%m-%d %H:%M:%S'; set format x '%H'; set terminal dumb; plot '-' using 1:2 with lines notitle"
