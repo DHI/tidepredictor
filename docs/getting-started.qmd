@@ -34,7 +34,7 @@ $ tidepredictor -x 15.0 -y 58.0 -s "2024-01-01" -e "2024-01-01 06:00:00" -i 30
 from pathlib import Path
 
 DATA_DIR = Path("~/.local/share/tidepredictor")
-path = (DATA_DIR / "elevation.nc").expanduser()
+path = (DATA_DIR / "level.nc").expanduser()
 path
 ```
 

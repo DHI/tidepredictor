@@ -8,7 +8,7 @@ from tidepredictor import PredictionType, UtideAdapter
 
 def test_utide_returns_dataframe_with_levels() -> None:
     predictor = UtideAdapter(
-        consituents=Path("tests/data/elevation.nc"),
+        consituents=Path("tests/data/level.nc"),
         type=PredictionType.level,
     )
 
@@ -46,7 +46,7 @@ def test_utide_returns_dataframe_with_currents() -> None:
 
 
 def test_utide_vs_mike_precalculated():
-    ds = mikeio.read("tests/data/tide_elevation.dfs0")
+    ds = mikeio.read("tests/data/tide_level.dfs0")
     item = "Level (0,0)"
     mdf = pl.from_pandas(ds[item].to_dataframe().reset_index()).rename(
         {"index": "time", item: "mike"}
@@ -56,7 +56,7 @@ def test_utide_vs_mike_precalculated():
     lat = 0.0
     lon = 0.0
     predictor = UtideAdapter(
-        consituents=Path("tests/data/elevation.nc"),
+        consituents=Path("tests/data/level.nc"),
         type=PredictionType.level,
     )
 
@@ -72,3 +72,32 @@ def test_utide_vs_mike_precalculated():
 
     diff = both["utide"] - both["mike"]
     assert diff.abs().max() < 0.08
+
+
+def test_utide_vs_mike_precalculated_currents():
+    ds = mikeio.read("tests/data/tide_currents.dfs0")
+    v_item = "Tidal current component (geographic North) (Current (0,0))"
+    mdf = pl.from_pandas(ds[v_item].to_dataframe().reset_index()).rename(
+        {"index": "time", v_item: "mike"}
+    )
+
+    # TODO checks all locations in the file
+    lat = 0.0
+    lon = 0.0
+    predictor = UtideAdapter(
+        consituents=Path("tests/data/currents.nc"),
+        type=PredictionType.current,
+    )
+
+    udf = predictor.predict(
+        lon=lon,
+        lat=lat,
+        start=ds.time[0].to_pydatetime(),
+        end=ds.time[-1].to_pydatetime(),
+        interval=timedelta(hours=1),
+    ).rename({"v": "utide"})
+
+    both = udf.join(mdf, on="time")
+
+    diff = both["utide"] - both["mike"]
+    assert diff.abs().max() < 0.0008

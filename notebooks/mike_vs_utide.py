@@ -22,7 +22,7 @@ def _(mo):
 
 @app.cell
 def _(mikeio):
-    ds = mikeio.read("../data/MIKE/tide_elevation.dfs0")
+    ds = mikeio.read("../data/MIKE/tide_level.dfs0")
     ds
     return (ds,)
 

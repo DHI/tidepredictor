@@ -5,7 +5,7 @@ from tidepredictor.data import ConstituentReader
 
 @pytest.fixture
 def level_constituent_file_path() -> Path:
-    p = Path("tests/data/elevation.nc")
+    p = Path("tests/data/level.nc")
     assert p.exists()
     return p
 

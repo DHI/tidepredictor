@@ -124,7 +124,7 @@ class UtideAdapter(TidePredictorAdapter):
         return df
 
     def _coef(self, fp: Path, lon: float, lat: float) -> Coef:
-        """Get the coefficients for a given location for elevation.
+        """Get the coefficients for a given location for level.
 
         Parameters
         ----------
