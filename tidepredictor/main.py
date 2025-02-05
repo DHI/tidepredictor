@@ -4,7 +4,7 @@ from typing import Annotated, Optional
 import typer
 from datetime import datetime, time, timedelta
 
-from tidepredictor import PredictionType, UtideAdapter
+from tidepredictor import PredictionType, UtideAdapter, NetCDFConstituentRepository
 
 app = typer.Typer()
 
@@ -45,7 +45,7 @@ def main(
     type: Annotated[
         PredictionType, typer.Option(help="Type of prediction, level or u,v")
     ] = PredictionType.level,
-):
+) -> None:
     """
     Predict the tides for a given location.
     """
@@ -55,7 +55,9 @@ def main(
     NAME = {PredictionType.current: "currents.nc", PredictionType.level: "level.nc"}
     path = (DATA_DIR / NAME[type]).expanduser()
 
-    predictor = UtideAdapter(consituents=path, type=type)
+    repo = NetCDFConstituentRepository(path)
+
+    predictor = UtideAdapter(consituent_repo=repo, type=type)
 
     prediction_start: datetime = start or midnight
     prediction_end: datetime = end or (prediction_start + timedelta(days=1))

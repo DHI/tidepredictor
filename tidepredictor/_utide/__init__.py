@@ -10,11 +10,12 @@ from datetime import datetime, timedelta
 
 from dataclasses import asdict
 from tidepredictor.adapters import TidePredictorAdapter, PredictionType
-from tidepredictor.data import ConstituentReader
 
 import polars as pl
 
 import warnings
+
+from tidepredictor.adapters.protocol import ConstituentRepository
 
 # Suppress warnings issued by utide
 warnings.filterwarnings("ignore", category=RuntimeWarning)
@@ -35,7 +36,7 @@ class Coef:
     theta: np.ndarray  # current
     aux: dict[str, Any]  # TODO exctract aux to a separate dataclass
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         assert len(self.A) == len(self.g) == len(self.name) == len(self.aux["frq"])
 
     @staticmethod
@@ -60,20 +61,22 @@ class UtideAdapter(TidePredictorAdapter):
 
     Parameters
     ----------
-    consituents : Path
-        Path to the constituents file to use for the prediction.
+    consituent_repo : ConstituentRepository
+        Repository
     type : PredictionType
         The type of prediction to make.
     """
 
-    def __init__(self, consituents: Path, type: PredictionType) -> None:
-        self._consituents = consituents
+    def __init__(
+        self, consituent_repo: ConstituentRepository, type: PredictionType
+    ) -> None:
+        self._consituent_repo = consituent_repo
         self._type = type
 
         # TODO validation
 
-    def __repr__(self):
-        return f"UtideAdapter(consituents={self._consituents}, type={self._type})"
+    def __repr__(self) -> str:
+        return f"UtideAdapter(consituents={self._consituent_repo}, type={self._type})"
 
     def predict(
         self,
@@ -96,7 +99,6 @@ class UtideAdapter(TidePredictorAdapter):
         match self._type:
             case PredictionType.level:
                 coef = self._coef(
-                    fp=self._consituents,
                     lon=lon,
                     lat=lat,
                 )
@@ -106,7 +108,6 @@ class UtideAdapter(TidePredictorAdapter):
                 )
             case PredictionType.current:
                 coef = self._coef(
-                    fp=self._consituents,
                     lon=lon,
                     lat=lat,
                 )
@@ -123,33 +124,28 @@ class UtideAdapter(TidePredictorAdapter):
 
         return df
 
-    def _coef(self, fp: Path, lon: float, lat: float) -> Coef:
+    def _coef(self, lon: float, lat: float) -> Coef:
         """Get the coefficients for a given location for level.
 
         Parameters
         ----------
-        fp : Path
-            The path to the data file.
         lon : float
             The longitude of the location.
         lat : float
             The latitude of the location.
         """
-
         template = Coef.from_toml(Path(__file__).parent / "coef.toml")
         coef = Coef(**asdict(template))
 
-        reader = ConstituentReader(fp)
-
         match self._type:
             case PredictionType.level:
-                cons = reader.get_level_constituents(lon=lon, lat=lat)
+                cons = self._consituent_repo.get_level_constituents(lon=lon, lat=lat)
                 coef.A = np.array([v.amplitude for v in cons.values()])
                 coef.g = np.array([v.phase for v in cons.values()])
                 names = list(cons.keys())
 
             case PredictionType.current:
-                ccons = reader.get_current_constituents(lon=lon, lat=lat)
+                ccons = self._consituent_repo.get_current_constituents(lon=lon, lat=lat)
                 coef.Lsmaj = np.array([v.major_axis for v in ccons.values()])
                 coef.Lsmin = np.array([v.minor_axis for v in ccons.values()])
                 coef.theta = np.array([v.inclination for v in ccons.values()])

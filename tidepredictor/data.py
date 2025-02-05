@@ -1,11 +1,12 @@
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Protocol
 
 import xarray as xr
 
 
 @dataclass
-class LevelConsituent:
+class LevelConstituent:
     """
     Represents a tidal constituent.
     """
@@ -15,7 +16,7 @@ class LevelConsituent:
 
 
 @dataclass
-class CurrentConsituent:
+class CurrentConstituent:
     """
     Represents a tidal constituent.
     """
@@ -37,7 +38,7 @@ class ConstituentReader:
 
     def get_level_constituents(
         self, *, lat: float, lon: float
-    ) -> dict[str, LevelConsituent]:
+    ) -> dict[str, LevelConstituent]:
         """
         Reads constituents from a file and returns them as a dictionary.
 
@@ -67,13 +68,13 @@ class ConstituentReader:
             for key, amp, phase in zip(amps.index, amps, phases)
         }
 
-        res = {k: LevelConsituent(**v) for k, v in merged.items()}
+        res = {k: LevelConstituent(**v) for k, v in merged.items()}
 
         return res
 
     def get_current_constituents(
         self, *, lat: float, lon: float
-    ) -> dict[str, CurrentConsituent]:
+    ) -> dict[str, CurrentConstituent]:
         """Reads constituents from a file and returns them as a dictionary.
 
         Parameters
@@ -111,5 +112,32 @@ class ConstituentReader:
             )
         }
 
-        res = {k: CurrentConsituent(**v) for k, v in merged.items()}
+        res = {k: CurrentConstituent(**v) for k, v in merged.items()}
         return res
+
+
+class ConstituentRepository(Protocol):
+    def get_level_constituents(
+        self, lon: float, lat: float
+    ) -> dict[str, LevelConstituent]:
+        pass
+
+    def get_current_constituents(
+        self, lon: float, lat: float
+    ) -> dict[str, CurrentConstituent]:
+        pass
+
+
+class NetCDFConstituentRepository(ConstituentRepository):
+    def __init__(self, fp: Path) -> None:
+        self._reader = ConstituentReader(fp)
+
+    def get_level_constituents(
+        self, lon: float, lat: float
+    ) -> dict[str, LevelConstituent]:
+        return self._reader.get_level_constituents(lat=lat, lon=lon)
+
+    def get_current_constituents(
+        self, lon: float, lat: float
+    ) -> dict[str, CurrentConstituent]:
+        return self._reader.get_current_constituents(lat=lat, lon=lon)
