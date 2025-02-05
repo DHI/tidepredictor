@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c75bcb89907db7808f0349b764a1a524.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-5027bf1c1f92ac6615724d89c8213d6a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -183,16 +183,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="tidepredictor.UtideAdapter" class="level1">
 <h1>UtideAdapter</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>UtideAdapter(<span class="va">self</span>, consituents, <span class="bu">type</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>UtideAdapter(<span class="va">self</span>, consituent_repo, <span class="bu">type</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Adapter for the utide tide predictor engine.</p>
 <section id="parameters" class="level2 doc-section doc-section-parameters">
 <h2 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h2>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 13%">
-<col style="width: 16%">
-<col style="width: 58%">
-<col style="width: 12%">
+<col style="width: 20%">
+<col style="width: 27%">
+<col style="width: 38%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -204,9 +204,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td>consituents</td>
-<td>Path</td>
-<td>Path to the constituents file to use for the prediction.</td>
+<td>consituent_repo</td>
+<td>ConstituentRepository</td>
+<td>Repository</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
