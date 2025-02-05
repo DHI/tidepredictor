@@ -41,9 +41,11 @@ path
 
 ```{python}
 from datetime import datetime
-from tidepredictor import UtideAdapter, PredictionType
+from tidepredictor import UtideAdapter, PredictionType, NetCDFConstituentRepository
 
-predictor = UtideAdapter(consituents=path, type=PredictionType.level)
+repo = NetCDFConstituentRepository(path)
+
+predictor = UtideAdapter(consituent_repo=repo, type=PredictionType.level)
 
 predictor
 ```
