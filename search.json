@@ -1,0 +1,79 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome to tidepredictor",
+    "section": "",
+    "text": "Welcome to tidepredictor\n\nSee more in Getting started\nA complete reference is available here"
+  },
+  {
+    "objectID": "api/index.html",
+    "href": "api/index.html",
+    "title": "API Reference",
+    "section": "",
+    "text": "UtideAdapter\nAdapter for the utide tide predictor engine.\n\n\nNetCDFConstituentRepository\nA repository of tidal constituents stored in a NetCDF file."
+  },
+  {
+    "objectID": "api/index.html#classes",
+    "href": "api/index.html#classes",
+    "title": "API Reference",
+    "section": "",
+    "text": "UtideAdapter\nAdapter for the utide tide predictor engine.\n\n\nNetCDFConstituentRepository\nA repository of tidal constituents stored in a NetCDF file."
+  },
+  {
+    "objectID": "api/NetCDFConstituentRepository.html",
+    "href": "api/NetCDFConstituentRepository.html",
+    "title": "NetCDFConstituentRepository",
+    "section": "",
+    "text": "NetCDFConstituentRepository(self, fp)\nA repository of tidal constituents stored in a NetCDF file.\n\n\n\n\n\nName\nDescription\n\n\n\n\nget_current_constituents\nGet the current constituents for a given longitude and latitude.\n\n\nget_level_constituents\nGet the level constituents for a given longitude and latitude.\n\n\n\n\n\nNetCDFConstituentRepository.get_current_constituents(lon, lat)\nGet the current constituents for a given longitude and latitude.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, CurrentConstituent]\nThe current constituents.\n\n\n\n\n\n\n\nNetCDFConstituentRepository.get_level_constituents(lon, lat)\nGet the level constituents for a given longitude and latitude.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, LevelConstituent]\nThe level constituents."
+  },
+  {
+    "objectID": "api/NetCDFConstituentRepository.html#methods",
+    "href": "api/NetCDFConstituentRepository.html#methods",
+    "title": "NetCDFConstituentRepository",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nget_current_constituents\nGet the current constituents for a given longitude and latitude.\n\n\nget_level_constituents\nGet the level constituents for a given longitude and latitude.\n\n\n\n\n\nNetCDFConstituentRepository.get_current_constituents(lon, lat)\nGet the current constituents for a given longitude and latitude.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, CurrentConstituent]\nThe current constituents.\n\n\n\n\n\n\n\nNetCDFConstituentRepository.get_level_constituents(lon, lat)\nGet the level constituents for a given longitude and latitude.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, LevelConstituent]\nThe level constituents."
+  },
+  {
+    "objectID": "api/UtideAdapter.html",
+    "href": "api/UtideAdapter.html",
+    "title": "UtideAdapter",
+    "section": "",
+    "text": "UtideAdapter(self, constituent_repo, type)\nAdapter for the utide tide predictor engine.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nconstituent_repo\nConstituentRepository\nRepository\nrequired\n\n\ntype\nPredictionType\nThe type of prediction to make.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\npredict\nPredict tide levels or currents using utide.\n\n\n\n\n\nUtideAdapter.predict(lon, lat, start, end, interval=timedelta(hours=1))\nPredict tide levels or currents using utide.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\nstart\ndatetime\nThe start date.\nrequired\n\n\nend\ndatetime\nThe end date.\nrequired\n\n\ninterval\ntimedelta\nThe interval between predictions.\ntimedelta(hours=1)\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npl.DataFrame\nThe predicted tide levels or currents.\n\n\n\n\n\n\nThe workhorse of this functions the reconstruct function from UTide"
+  },
+  {
+    "objectID": "api/UtideAdapter.html#parameters",
+    "href": "api/UtideAdapter.html#parameters",
+    "title": "UtideAdapter",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nconstituent_repo\nConstituentRepository\nRepository\nrequired\n\n\ntype\nPredictionType\nThe type of prediction to make.\nrequired"
+  },
+  {
+    "objectID": "api/UtideAdapter.html#methods",
+    "href": "api/UtideAdapter.html#methods",
+    "title": "UtideAdapter",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\npredict\nPredict tide levels or currents using utide.\n\n\n\n\n\nUtideAdapter.predict(lon, lat, start, end, interval=timedelta(hours=1))\nPredict tide levels or currents using utide.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\nstart\ndatetime\nThe start date.\nrequired\n\n\nend\ndatetime\nThe end date.\nrequired\n\n\ninterval\ntimedelta\nThe interval between predictions.\ntimedelta(hours=1)\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npl.DataFrame\nThe predicted tide levels or currents.\n\n\n\n\n\n\nThe workhorse of this functions the reconstruct function from UTide"
+  },
+  {
+    "objectID": "getting-started.html",
+    "href": "getting-started.html",
+    "title": "Getting started",
+    "section": "",
+    "text": "Install the tidepredictor package from the distributed wheel file.\n\npip install tidepredictor-*.whl\n\nCopy constituent files (.nc files) to the ~/.local/share/tidepredictor directory."
+  },
+  {
+    "objectID": "getting-started.html#installation",
+    "href": "getting-started.html#installation",
+    "title": "Getting started",
+    "section": "",
+    "text": "Install the tidepredictor package from the distributed wheel file.\n\npip install tidepredictor-*.whl\n\nCopy constituent files (.nc files) to the ~/.local/share/tidepredictor directory."
+  },
+  {
+    "objectID": "getting-started.html#usage",
+    "href": "getting-started.html#usage",
+    "title": "Getting started",
+    "section": "Usage",
+    "text": "Usage\ntidepredictor can be used either as a command line tool or as a Python library.\n\nCommand line\n\n!tidepredictor -x 15.0 -y 58.0 -s \"2024-01-01\" -e \"2024-01-01 06:00:00\" -i 30\n\ntime,level\n2024-01-01T00:00:00Z,-0.230\n2024-01-01T00:30:00Z,-0.255\n2024-01-01T01:00:00Z,-0.255\n2024-01-01T01:30:00Z,-0.232\n2024-01-01T02:00:00Z,-0.187\n2024-01-01T02:30:00Z,-0.126\n2024-01-01T03:00:00Z,-0.052\n2024-01-01T03:30:00Z,0.029\n2024-01-01T04:00:00Z,0.110\n2024-01-01T04:30:00Z,0.186\n2024-01-01T05:00:00Z,0.251\n2024-01-01T05:30:00Z,0.302\n2024-01-01T06:00:00Z,0.333\n\n\n\nAll options are available as command line arguments.\n\n!tidepredictor --help\n\n                                                                                \n Usage: tidepredictor [OPTIONS]                                                 \n                                                                                \n Predict the tides for a given location.                                        \n                                                                                \n╭─ Options ────────────────────────────────────────────────────────────────────╮\n│ *  --lon                 -x      FLOAT RANGE           Longitude             │\n│                                  [-180&lt;=x&lt;=180]        [default: None]       │\n│                                                        [required]            │\n│ *  --lat                 -y      FLOAT RANGE           Latitude              │\n│                                  [-90&lt;=x&lt;=90]          [default: None]       │\n│                                                        [required]            │\n│    --start               -s      [%Y-%m-%d|%Y-%m-%dT%  Start date            │\n│                                  H:%M:%S|%Y-%m-%d      [default: None]       │\n│                                  %H:%M:%S]                                   │\n│    --end                 -e      [%Y-%m-%d|%Y-%m-%dT%  End date              │\n│                                  H:%M:%S|%Y-%m-%d      [default: None]       │\n│                                  %H:%M:%S]                                   │\n│    --interval            -i      INTEGER RANGE [x&gt;=1]  Interval in minutes   │\n│                                                        [default: 30]         │\n│    --output              -o      PATH                  Output file, default  │\n│                                                        is stdout             │\n│                                                        [default: None]       │\n│    --format                      [csv|json]            Output format         │\n│                                                        [default: csv]        │\n│    --type                        [level|current]       Type of prediction,   │\n│                                                        level or u,v          │\n│                                                        [default: level]      │\n│    --precision           -p      INTEGER RANGE [x&gt;=0]  Number of decimal     │\n│                                                        places. (csv only)    │\n│                                                        [default: 3]          │\n│    --install-completion                                Install completion    │\n│                                                        for the current       │\n│                                                        shell.                │\n│    --show-completion                                   Show completion for   │\n│                                                        the current shell, to │\n│                                                        copy it or customize  │\n│                                                        the installation.     │\n│    --help                                              Show this message and │\n│                                                        exit.                 │\n╰──────────────────────────────────────────────────────────────────────────────╯\n\n\n\n\n\nPython library\n\nfrom pathlib import Path\nfrom datetime import datetime\nfrom tidepredictor import UtideAdapter, PredictionType, NetCDFConstituentRepository\n\nDATA_DIR = Path(\"~/.local/share/tidepredictor\")\npath = (DATA_DIR / \"level.nc\").expanduser()\n\nrepo = NetCDFConstituentRepository(path)\n\npredictor = UtideAdapter(repo, type=PredictionType.level)\n\ndf = predictor.predict(\n    lon=0.0,\n    lat=0.0,\n    start=datetime(2021, 1, 1),\n    end=datetime(2021, 1, 2),\n)\ndf.head()\n\n\nshape: (5, 2)\n\n\n\ntime\nlevel\n\n\ndatetime[ns]\nf64\n\n\n\n\n2021-01-01 00:00:00\n-0.312357\n\n\n2021-01-01 01:00:00\n-0.105695\n\n\n2021-01-01 02:00:00\n0.14836\n\n\n2021-01-01 03:00:00\n0.383749\n\n\n2021-01-01 04:00:00\n0.53892"
+  }
+]

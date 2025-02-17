@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>utideadapter – Tidepredictor</title>
+<title>getting-started – Tidepredictor</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,22 +57,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5c67a7444eebc356e54fdce0a63e8750.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5c67a7444eebc356e54fdce0a63e8750.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -100,6 +100,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -111,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Tidepredictor</span>
     </a>
   </div>
@@ -122,15 +125,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../getting-started.html"> 
+    <a class="nav-link active" href="./getting-started.html" aria-current="page"> 
 <span class="menu-text">Getting Started</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../api/index.html"> 
+    <a class="nav-link" href="./api/index.html"> 
 <span class="menu-text">API Reference</span></a>
   </li>  
 </ul>
@@ -164,157 +167,190 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tidepredictor.UtideAdapter" id="toc-tidepredictor.UtideAdapter" class="nav-link active" data-scroll-target="#tidepredictor.UtideAdapter">UtideAdapter</a>
+  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a>
   <ul class="collapse">
-  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
-  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
-  <ul class="collapse">
-  <li><a href="#tidepredictor.UtideAdapter.predict" id="toc-tidepredictor.UtideAdapter.predict" class="nav-link" data-scroll-target="#tidepredictor.UtideAdapter.predict">predict</a></li>
-  </ul></li>
+  <li><a href="#command-line" id="toc-command-line" class="nav-link" data-scroll-target="#command-line">Command line</a></li>
+  <li><a href="#python-library" id="toc-python-library" class="nav-link" data-scroll-target="#python-library">Python library</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/DHI/tidepredictor/edit/main/docs/api/UtideAdapter.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/DHI/tidepredictor/edit/main/docs/getting-started.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Getting started</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="tidepredictor.UtideAdapter" class="level1">
-<h1>UtideAdapter</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>UtideAdapter(<span class="va">self</span>, constituent_repo, <span class="bu">type</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Adapter for the utide tide predictor engine.</p>
-<section id="parameters" class="level2 doc-section doc-section-parameters">
-<h2 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 26%">
-<col style="width: 38%">
-<col style="width: 13%">
-</colgroup>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<ol type="1">
+<li>Install the tidepredictor package from the distributed wheel file.</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install tidepredictor-<span class="pp">*</span>.whl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li>Copy constituent files (<code>.nc</code> files) to the <code>~/.local/share/tidepredictor</code> directory.</li>
+</ol>
+</section>
+<section id="usage" class="level2">
+<h2 class="anchored" data-anchor-id="usage">Usage</h2>
+<p><code>tidepredictor</code> can be used either as a command line tool or as a Python library.</p>
+<section id="command-line" class="level3">
+<h3 class="anchored" data-anchor-id="command-line">Command line</h3>
+<div id="fde3b89b" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">-</span>x <span class="fl">15.0</span> <span class="op">-</span>y <span class="fl">58.0</span> <span class="op">-</span>s <span class="st">"2024-01-01"</span> <span class="op">-</span>e <span class="st">"2024-01-01 06:00:00"</span> <span class="op">-</span>i <span class="dv">30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>time,level
+2024-01-01T00:00:00Z,-0.230
+2024-01-01T00:30:00Z,-0.255
+2024-01-01T01:00:00Z,-0.255
+2024-01-01T01:30:00Z,-0.232
+2024-01-01T02:00:00Z,-0.187
+2024-01-01T02:30:00Z,-0.126
+2024-01-01T03:00:00Z,-0.052
+2024-01-01T03:30:00Z,0.029
+2024-01-01T04:00:00Z,0.110
+2024-01-01T04:30:00Z,0.186
+2024-01-01T05:00:00Z,0.251
+2024-01-01T05:30:00Z,0.302
+2024-01-01T06:00:00Z,0.333
+</code></pre>
+</div>
+</div>
+<p>All options are available as command line arguments.</p>
+<div id="6a4a8d54" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                                
+ Usage: tidepredictor [OPTIONS]                                                 
+                                                                                
+ Predict the tides for a given location.                                        
+                                                                                
+╭─ Options ────────────────────────────────────────────────────────────────────╮
+│ *  --lon                 -x      FLOAT RANGE           Longitude             │
+│                                  [-180&lt;=x&lt;=180]        [default: None]       │
+│                                                        [required]            │
+│ *  --lat                 -y      FLOAT RANGE           Latitude              │
+│                                  [-90&lt;=x&lt;=90]          [default: None]       │
+│                                                        [required]            │
+│    --start               -s      [%Y-%m-%d|%Y-%m-%dT%  Start date            │
+│                                  H:%M:%S|%Y-%m-%d      [default: None]       │
+│                                  %H:%M:%S]                                   │
+│    --end                 -e      [%Y-%m-%d|%Y-%m-%dT%  End date              │
+│                                  H:%M:%S|%Y-%m-%d      [default: None]       │
+│                                  %H:%M:%S]                                   │
+│    --interval            -i      INTEGER RANGE [x&gt;=1]  Interval in minutes   │
+│                                                        [default: 30]         │
+│    --output              -o      PATH                  Output file, default  │
+│                                                        is stdout             │
+│                                                        [default: None]       │
+│    --format                      [csv|json]            Output format         │
+│                                                        [default: csv]        │
+│    --type                        [level|current]       Type of prediction,   │
+│                                                        level or u,v          │
+│                                                        [default: level]      │
+│    --precision           -p      INTEGER RANGE [x&gt;=0]  Number of decimal     │
+│                                                        places. (csv only)    │
+│                                                        [default: 3]          │
+│    --install-completion                                Install completion    │
+│                                                        for the current       │
+│                                                        shell.                │
+│    --show-completion                                   Show completion for   │
+│                                                        the current shell, to │
+│                                                        copy it or customize  │
+│                                                        the installation.     │
+│    --help                                              Show this message and │
+│                                                        exit.                 │
+╰──────────────────────────────────────────────────────────────────────────────╯
+</code></pre>
+</div>
+</div>
+</section>
+<section id="python-library" class="level3">
+<h3 class="anchored" data-anchor-id="python-library">Python library</h3>
+<div id="c37535cc" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tidepredictor <span class="im">import</span> UtideAdapter, PredictionType, NetCDFConstituentRepository</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>DATA_DIR <span class="op">=</span> Path(<span class="st">"~/.local/share/tidepredictor"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> (DATA_DIR <span class="op">/</span> <span class="st">"level.nc"</span>).expanduser()</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> NetCDFConstituentRepository(path)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>predictor <span class="op">=</span> UtideAdapter(repo, <span class="bu">type</span><span class="op">=</span>PredictionType.level)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> predictor.predict(</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    lon<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    lat<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    start<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    end<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>constituent_repo</td>
-<td>ConstituentRepository</td>
-<td>Repository</td>
-<td><em>required</em></td>
+<th data-quarto-table-cell-role="th">time</th>
+<th data-quarto-table-cell-role="th">level</th>
 </tr>
 <tr class="even">
-<td>type</td>
-<td>PredictionType</td>
-<td>The type of prediction to make.</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="methods" class="level2">
-<h2 class="anchored" data-anchor-id="methods">Methods</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
+<th>datetime[ns]</th>
+<th>f64</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#tidepredictor.UtideAdapter.predict">predict</a></td>
-<td>Predict tide levels or currents using utide.</td>
-</tr>
-</tbody>
-</table>
-<section id="tidepredictor.UtideAdapter.predict" class="level3">
-<h3 class="anchored" data-anchor-id="tidepredictor.UtideAdapter.predict">predict</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>UtideAdapter.predict(lon, lat, start, end, interval<span class="op">=</span>timedelta(hours<span class="op">=</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Predict tide levels or currents using utide.</p>
-<section id="parameters-1" class="level4 doc-section doc-section-parameters">
-<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 12%">
-<col style="width: 14%">
-<col style="width: 44%">
-<col style="width: 28%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>lon</td>
-<td>float</td>
-<td>The longitude.</td>
-<td><em>required</em></td>
+<td>2021-01-01 00:00:00</td>
+<td>-0.312357</td>
 </tr>
 <tr class="even">
-<td>lat</td>
-<td>float</td>
-<td>The latitude.</td>
-<td><em>required</em></td>
+<td>2021-01-01 01:00:00</td>
+<td>-0.105695</td>
 </tr>
 <tr class="odd">
-<td>start</td>
-<td>datetime</td>
-<td>The start date.</td>
-<td><em>required</em></td>
+<td>2021-01-01 02:00:00</td>
+<td>0.14836</td>
 </tr>
 <tr class="even">
-<td>end</td>
-<td>datetime</td>
-<td>The end date.</td>
-<td><em>required</em></td>
+<td>2021-01-01 03:00:00</td>
+<td>0.383749</td>
 </tr>
 <tr class="odd">
-<td>interval</td>
-<td>timedelta</td>
-<td>The interval between predictions.</td>
-<td><code>timedelta(hours=1)</code></td>
+<td>2021-01-01 04:00:00</td>
+<td>0.53892</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="returns" class="level4 doc-section doc-section-returns">
-<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns</h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td>pl.DataFrame</td>
-<td>The predicted tide levels or currents.</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="notes" class="level4 doc-section doc-section-notes">
-<h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h4>
-<p>The workhorse of this functions the <code>reconstruct</code> function from <a href="https://github.com/wesleybowman/UTide"><code>UTide</code></a></p>
+</div>
+</div>
+</div>
 
 
-</section>
-</section>
 </section>
 </section>
 
@@ -744,7 +780,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>© 2025 DHI Group</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DHI/tidepredictor/edit/main/docs/api/UtideAdapter.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DHI/tidepredictor/edit/main/docs/getting-started.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
