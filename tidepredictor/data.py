@@ -136,14 +136,26 @@ class NetCDFConstituentRepository(ConstituentRepository):
     """
 
     def __init__(self, fp: Path) -> None:
+        """
+        Parameters
+        ----------
+        fp : Path
+            The path to the NetCDF file.
+        """
         self._reader = ConstituentReader(fp)
 
     def get_level_constituents(
         self, lon: float, lat: float
     ) -> dict[str, LevelConstituent]:
+        """
+        Get the level constituents for a given longitude and latitude.
+        """
         return self._reader.get_level_constituents(lat=lat, lon=lon)
 
     def get_current_constituents(
         self, lon: float, lat: float
     ) -> dict[str, CurrentConstituent]:
+        """
+        Get the current constituents for a given longitude and latitude.
+        """
         return self._reader.get_current_constituents(lat=lat, lon=lon)

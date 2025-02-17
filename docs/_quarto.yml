@@ -35,11 +35,12 @@ quartodoc:
     display_name: relative
 
   sections:
-    - title: Modules
+    - title: Classes
       desc: ""
       contents:
-        - data
-        - adapters
+      - "UtideAdapter"
+      - "PredictionType"
+      - "NetCDFConstituentRepository"
     
 format:
   html:
