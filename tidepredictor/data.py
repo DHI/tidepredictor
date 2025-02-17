@@ -149,6 +149,18 @@ class NetCDFConstituentRepository(ConstituentRepository):
     ) -> dict[str, LevelConstituent]:
         """
         Get the level constituents for a given longitude and latitude.
+
+        Parameters
+        ----------
+        lon : float
+            The longitude.
+        lat : float
+            The latitude.
+
+        Returns
+        -------
+        dict[str, LevelConstituent]
+            The level constituents.
         """
         return self._reader.get_level_constituents(lat=lat, lon=lon)
 
@@ -157,5 +169,17 @@ class NetCDFConstituentRepository(ConstituentRepository):
     ) -> dict[str, CurrentConstituent]:
         """
         Get the current constituents for a given longitude and latitude.
+
+        Parameters
+        ----------
+        lon : float
+            The longitude.
+        lat : float
+            The latitude.
+
+        Returns
+        -------
+        dict[str, CurrentConstituent]
+            The current constituents.
         """
         return self._reader.get_current_constituents(lat=lat, lon=lon)
