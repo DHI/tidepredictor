@@ -61,6 +61,8 @@ class ConstituentReader:
             The constituents.
         """
         with xr.open_dataset(self.file_path) as ds:
+            self._validate_data_domain(ds, lon, lat)
+
             df = ds.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
 
             constituents = {}
@@ -92,6 +94,7 @@ class ConstituentReader:
             The constituents.
         """
         with xr.open_dataset(self.file_path) as ds:
+            self._validate_data_domain(ds, lon, lat)
             df = ds.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
 
             constituents = {}
@@ -112,6 +115,16 @@ class ConstituentReader:
                 constituents[name] = constituent
 
             return constituents
+
+    @staticmethod
+    def _validate_data_domain(ds: xr.Dataset, lon: float, lat: float) -> None:
+        """
+        Validates the data domain.
+        """
+        if lon < ds.lon.min() or lon > ds.lon.max():
+            raise ValueError(f"Longitude {lon} is outside the data domain")
+        if lat < ds.lat.min() or lat > ds.lat.max():
+            raise ValueError(f"Latitude {lat} is outside the data domain")
 
 
 class ConstituentRepository(Protocol):
