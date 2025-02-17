@@ -47,7 +47,9 @@ def main(
     ] = PredictionType.level,
     precision: Annotated[
         int,
-        typer.Option("--precision", "-p", help="Number of decimal places.", min=0),
+        typer.Option(
+            "--precision", "-p", help="Number of decimal places. (csv only)", min=0
+        ),
     ] = 3,
 ) -> None:
     """
@@ -80,7 +82,7 @@ def main(
     if output is None:
         match format:
             case Format.json:
-                typer.echo(df.write_json(float_precision=precision))
+                typer.echo(df.write_json())
             case Format.csv:
                 typer.echo(
                     df.write_csv(datetime_format=DATE_FORMAT, float_precision=precision)
@@ -88,7 +90,7 @@ def main(
     else:
         format = Format(output.suffix[1:])
         if format == "json":
-            df.write_json(output, float_precision=precision)
+            df.write_json(output)
         elif format == "csv":
             df.write_csv(output, datetime_format=DATE_FORMAT, float_precision=precision)
 
