@@ -121,13 +121,11 @@ class ConstituentRepository(Protocol):
 
     def get_level_constituents(
         self, lon: float, lat: float
-    ) -> dict[str, LevelConstituent]:
-        pass
+    ) -> dict[str, LevelConstituent]: ...
 
     def get_current_constituents(
         self, lon: float, lat: float
-    ) -> dict[str, CurrentConstituent]:
-        pass
+    ) -> dict[str, CurrentConstituent]: ...
 
 
 class NetCDFConstituentRepository(ConstituentRepository):

@@ -33,7 +33,7 @@ def test_semidiurnal_tide() -> None:
     repo = FakeConstituentRepository()
 
     predictor = UtideAdapter(
-        consituent_repo=repo,
+        constituent_repo=repo,
         type=PredictionType.level,
     )
 
@@ -55,7 +55,7 @@ def test_utide_returns_dataframe_with_levels() -> None:
     repo = NetCDFConstituentRepository(Path("tests/data/level.nc"))
 
     predictor = UtideAdapter(
-        consituent_repo=repo,
+        constituent_repo=repo,
         type=PredictionType.level,
     )
 
@@ -75,7 +75,7 @@ def test_utide_returns_dataframe_with_levels() -> None:
 def test_utide_returns_dataframe_with_currents() -> None:
     repo = NetCDFConstituentRepository(Path("tests/data/currents.nc"))
     predictor = UtideAdapter(
-        consituent_repo=repo,
+        constituent_repo=repo,
         type=PredictionType.current,
     )
 
@@ -105,7 +105,7 @@ def test_utide_vs_mike_precalculated():
     lon = 0.0
     repo = NetCDFConstituentRepository(Path("tests/data/level.nc"))
     predictor = UtideAdapter(
-        consituent_repo=repo,
+        constituent_repo=repo,
         type=PredictionType.level,
     )
 
@@ -135,7 +135,7 @@ def test_utide_vs_mike_precalculated_currents():
     lon = 0.0
     repo = NetCDFConstituentRepository(Path("tests/data/currents.nc"))
     predictor = UtideAdapter(
-        consituent_repo=repo,
+        constituent_repo=repo,
         type=PredictionType.current,
     )
 

@@ -3,7 +3,7 @@ project:
 
 website:
   title: "Tidepredictor"
-  page-footer: "© 2024 DHI Group"
+  page-footer: "© 2025 DHI Group"
   repo-url: https://github.com/DHI/tidepredictor
   repo-actions: [edit]
   repo-subdir: docs
@@ -39,7 +39,6 @@ quartodoc:
       desc: ""
       contents:
       - "UtideAdapter"
-      - "PredictionType"
       - "NetCDFConstituentRepository"
     
 format:

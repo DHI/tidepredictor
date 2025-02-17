@@ -44,7 +44,7 @@ def _(FakeConstituentRepository):
     repo = FakeConstituentRepository()
 
     predictor = UtideAdapter(
-        consituent_repo=repo,
+        constituent_repo=repo,
         type=PredictionType.level,
     )
 

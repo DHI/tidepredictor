@@ -68,15 +68,12 @@ class UtideAdapter(TidePredictorAdapter):
     """
 
     def __init__(
-        self, consituent_repo: ConstituentRepository, type: PredictionType
+        self, constituent_repo: ConstituentRepository, type: PredictionType
     ) -> None:
-        self._consituent_repo = consituent_repo
+        self._consituent_repo = constituent_repo
         self._type = type
 
         # TODO validation
-
-    def __repr__(self) -> str:
-        return f"UtideAdapter(consituents={self._consituent_repo}, type={self._type})"
 
     def predict(
         self,
@@ -86,7 +83,30 @@ class UtideAdapter(TidePredictorAdapter):
         end: datetime,
         interval: timedelta = timedelta(hours=1),
     ) -> pl.DataFrame:
-        """Predict tide levels or currents using utide."""
+        """Predict tide levels or currents using utide.
+
+        Parameters
+        ----------
+        lon : float
+            The longitude.
+        lat : float
+            The latitude.
+        start : datetime
+            The start date.
+        end : datetime
+            The end date.
+        interval : timedelta
+            The interval between predictions.
+
+        Returns
+        -------
+        pl.DataFrame
+            The predicted tide levels or currents.
+
+        Notes
+        -----
+        The workhorse of this functions the `reconstruct` function from [`UTide`](https://github.com/wesleybowman/UTide)
+        """
 
         df = pl.DataFrame().with_columns(
             # TODO use ms instead of ns
@@ -118,22 +138,11 @@ class UtideAdapter(TidePredictorAdapter):
                 df = df.with_columns(
                     pl.Series("u", uv["u"]).alias("u"),
                     pl.Series("v", uv["v"]).alias("v"),
-                    # pl.zeros(pl.col("time").len()).alias("u"),
-                    # pl.zeros(pl.col("time").len()).alias("v"),
                 )
 
         return df
 
     def _coef(self, lon: float, lat: float) -> Coef:
-        """Get the coefficients for a given location for level.
-
-        Parameters
-        ----------
-        lon : float
-            The longitude of the location.
-        lat : float
-            The latitude of the location.
-        """
         template = Coef.from_toml(Path(__file__).parent / "coef.toml")
         coef = Coef(**asdict(template))
 

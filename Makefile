@@ -15,7 +15,7 @@ test:
 	uv run pytest --disable-warnings
 
 typecheck:
-	uv run mypy $(LIB)/ --config-file pyproject.toml
+	uv run mypy $(LIB)/
 
 coverage: 
 	pytest --cov-report html --cov=$(LIB) tests/

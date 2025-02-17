@@ -63,7 +63,7 @@ def main(
 
     repo = NetCDFConstituentRepository(path)
 
-    predictor = UtideAdapter(consituent_repo=repo, type=type)
+    predictor = UtideAdapter(constituent_repo=repo, type=type)
 
     prediction_start: datetime = start or midnight
     prediction_end: datetime = end or (prediction_start + timedelta(days=1))
