@@ -45,11 +45,15 @@ def main(
     type: Annotated[
         PredictionType, typer.Option(help="Type of prediction, level or u,v")
     ] = PredictionType.level,
+    precision: Annotated[
+        int,
+        typer.Option("--precision", "-p", help="Number of decimal places.", min=0),
+    ] = 3,
 ) -> None:
     """
     Predict the tides for a given location.
     """
-    # TODO is there a standard way to get this location?
+    # TODO is there a standard way to get this location? Consider platformdirs.
     DATA_DIR = Path("~/.local/share/tidepredictor")
 
     NAME = {PredictionType.current: "currents.nc", PredictionType.level: "level.nc"}
@@ -70,18 +74,23 @@ def main(
         interval=timedelta(minutes=interval),
     )
 
+    # use iso8601 format for datetime and make sure it uses UTC
+    DATE_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
+
     if output is None:
         match format:
             case Format.json:
-                typer.echo(df.write_json())
+                typer.echo(df.write_json(float_precision=precision))
             case Format.csv:
-                typer.echo(df.write_csv(datetime_format="%Y-%m-%d %H:%M:%S"))
+                typer.echo(
+                    df.write_csv(datetime_format=DATE_FORMAT, float_precision=precision)
+                )
     else:
         format = Format(output.suffix[1:])
         if format == "json":
-            df.write_json(output)
+            df.write_json(output, float_precision=precision)
         elif format == "csv":
-            df.write_csv(output, datetime_format="%Y-%m-%d %H:%M:%S")
+            df.write_csv(output, datetime_format=DATE_FORMAT, float_precision=precision)
 
 
 if __name__ == "__main__":
