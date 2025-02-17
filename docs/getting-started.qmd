@@ -2,7 +2,14 @@
 
 ## Installation
 
-TODO
+1. Install the tidepredictor package from the distributed wheel file.
+
+```bash
+pip install tidepredictor-*.whl
+```
+
+2. Copy constituent files (`.nc` files) to the `~/.local/share/tidepredictor` directory.
+
 
 ## Usage
 
