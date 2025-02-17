@@ -35,11 +35,13 @@ quartodoc:
     display_name: relative
 
   sections:
-    - title: Classes
+    - title: Tidepredictor
       desc: ""
       contents:
       - "UtideAdapter"
       - "NetCDFConstituentRepository"
+      - "get_default_constituent_path"
+      - "PredictionType"
     
 format:
   html:

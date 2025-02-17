@@ -30,16 +30,14 @@ All options are available as command line arguments.
 ### Python library
 
 ```{python}
-from pathlib import Path
+import tidepredictor as tp
 from datetime import datetime
-from tidepredictor import UtideAdapter, PredictionType, NetCDFConstituentRepository
 
-DATA_DIR = Path("~/.local/share/tidepredictor")
-path = (DATA_DIR / "level.nc").expanduser()
+path = tp.get_default_constituent_path(tp.PredictionType.level)
 
-repo = NetCDFConstituentRepository(path)
+repo = tp.NetCDFConstituentRepository(path)
 
-predictor = UtideAdapter(repo, type=PredictionType.level)
+predictor = tp.UtideAdapter(repo, type=tp.PredictionType.level)
 
 df = predictor.predict(
     lon=0.0,

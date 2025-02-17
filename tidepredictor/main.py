@@ -5,6 +5,7 @@ import typer
 from datetime import datetime, time, timedelta
 
 from tidepredictor import PredictionType, UtideAdapter, NetCDFConstituentRepository
+from tidepredictor import get_default_constituent_path
 
 app = typer.Typer()
 
@@ -55,11 +56,7 @@ def main(
     """
     Predict the tides for a given location.
     """
-    # TODO is there a standard way to get this location? Consider platformdirs.
-    DATA_DIR = Path("~/.local/share/tidepredictor")
-
-    NAME = {PredictionType.current: "currents.nc", PredictionType.level: "level.nc"}
-    path = (DATA_DIR / NAME[type]).expanduser()
+    path = get_default_constituent_path(type)
 
     repo = NetCDFConstituentRepository(path)
 
