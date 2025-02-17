@@ -35,12 +35,11 @@ quartodoc:
     display_name: relative
 
   sections:
-    - title: Classes
+    - title: Modules
       desc: ""
       contents:
-        - PredictionType
-        - UtideAdapter
-    
+        - data
+        - adapters
     
 format:
   html:

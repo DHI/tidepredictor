@@ -1,3 +1,7 @@
+"""
+Data handling.
+"""
+
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Protocol
@@ -111,6 +115,10 @@ class ConstituentReader:
 
 
 class ConstituentRepository(Protocol):
+    """
+    A repository of tidal constituents.
+    """
+
     def get_level_constituents(
         self, lon: float, lat: float
     ) -> dict[str, LevelConstituent]:
@@ -123,6 +131,10 @@ class ConstituentRepository(Protocol):
 
 
 class NetCDFConstituentRepository(ConstituentRepository):
+    """
+    A repository of tidal constituents stored in a NetCDF file.
+    """
+
     def __init__(self, fp: Path) -> None:
         self._reader = ConstituentReader(fp)
 
