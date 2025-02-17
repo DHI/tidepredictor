@@ -10,19 +10,19 @@ from tidepredictor.data import ConstituentRepository, LevelConstituent
 class FakeConstituentRepository(ConstituentRepository):
     def get_level_constituents(self, lon, lat):
         return {
-            "MM": LevelConstituent(amplitude=0.009100, phase=353.7),
-            "MF": LevelConstituent(amplitude=0.01800, phase=0.00010),
-            "Q1": LevelConstituent(amplitude=0.005000, phase=126.9),
-            "O1": LevelConstituent(amplitude=0.01610, phase=299.7),
-            "P1": LevelConstituent(amplitude=0.03100, phase=345.1),
-            "K1": LevelConstituent(amplitude=0.1064, phase=350.8),
-            "N2": LevelConstituent(amplitude=0.09610, phase=102.0),
-            "M2": LevelConstituent(amplitude=0.4350, phase=105.6),
-            "S2": LevelConstituent(amplitude=0.1543, phase=132.9),
-            "K2": LevelConstituent(amplitude=0.04190, phase=130.2),
-            "MN4": LevelConstituent(amplitude=0.002000, phase=270.0),
-            "M4": LevelConstituent(amplitude=0.005700, phase=315.0),
-            "MS4": LevelConstituent(amplitude=0.001000, phase=0.00060),
+            "MM": LevelConstituent("MM", amplitude=0.009100, phase=353.7),
+            "MF": LevelConstituent("MF", amplitude=0.01800, phase=0.00010),
+            "Q1": LevelConstituent("Q1", amplitude=0.005000, phase=126.9),
+            "O1": LevelConstituent("O1", amplitude=0.01610, phase=299.7),
+            "P1": LevelConstituent("P1", amplitude=0.03100, phase=345.1),
+            "K1": LevelConstituent("K1", amplitude=0.1064, phase=350.8),
+            "N2": LevelConstituent("N2", amplitude=0.09610, phase=102.0),
+            "M2": LevelConstituent("M2", amplitude=0.4350, phase=105.6),
+            "S2": LevelConstituent("S2", amplitude=0.1543, phase=132.9),
+            "K2": LevelConstituent("K2", amplitude=0.04190, phase=130.2),
+            "MN4": LevelConstituent("MN4", amplitude=0.002000, phase=270.0),
+            "M4": LevelConstituent("M4", amplitude=0.005700, phase=315.0),
+            "MS4": LevelConstituent("MS4", amplitude=0.001000, phase=0.00060),
         }
 
     def get_current_constituents(self, lon, lat):

@@ -11,6 +11,7 @@ class LevelConstituent:
     Represents a tidal constituent.
     """
 
+    name: str
     amplitude: float
     phase: float
 
@@ -21,6 +22,7 @@ class CurrentConstituent:
     Represents a tidal constituent.
     """
 
+    name: str
     phase: float
     major_axis: float
     minor_axis: float
@@ -54,23 +56,19 @@ class ConstituentReader:
         dict[str, Constituent]
             The constituents.
         """
-        df = (
-            xr.open_dataset(self.file_path)
-            .sel(lon=lon, lat=lat, method="nearest")
-            .to_dataframe()
-        )
+        with xr.open_dataset(self.file_path) as ds:
+            df = ds.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
 
-        amps = df["amplitude"]
-        phases = df["phase"]
+            constituents = {}
+            for name, amplitude, phase in zip(
+                df["amplitude"].index, df["amplitude"], df["phase"]
+            ):
+                constituent = LevelConstituent(
+                    name=name, amplitude=amplitude, phase=phase
+                )
+                constituents[name] = constituent
 
-        merged = {
-            key: {"amplitude": amp, "phase": phase}
-            for key, amp, phase in zip(amps.index, amps, phases)
-        }
-
-        res = {k: LevelConstituent(**v) for k, v in merged.items()}
-
-        return res
+            return constituents
 
     def get_current_constituents(
         self, *, lat: float, lon: float
@@ -86,34 +84,30 @@ class ConstituentReader:
 
         Returns
         -------
-        dict[str, CurrentConsituent]
+        dict[str, CurrentConstituent]
             The constituents.
         """
-        df = (
-            xr.open_dataset(self.file_path)
-            .sel(lon=lon, lat=lat, method="nearest")
-            .to_dataframe()
-        )
+        with xr.open_dataset(self.file_path) as ds:
+            df = ds.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
 
-        phases = df["phase"]
-        major_axis = df["major_axis"]
-        minor_axis = df["minor_axis"]
-        inclination = df["inclination"]
+            constituents = {}
+            for name, phase, major_axis, minor_axis, inclination in zip(
+                df["phase"].index,
+                df["phase"],
+                df["major_axis"],
+                df["minor_axis"],
+                df["inclination"],
+            ):
+                constituent = CurrentConstituent(
+                    name=name,
+                    phase=phase,
+                    major_axis=major_axis,
+                    minor_axis=minor_axis,
+                    inclination=inclination,
+                )
+                constituents[name] = constituent
 
-        merged = {
-            key: {
-                "phase": phase,
-                "major_axis": major,
-                "minor_axis": minor,
-                "inclination": incl,
-            }
-            for key, phase, major, minor, incl in zip(
-                phases.index, phases, major_axis, minor_axis, inclination
-            )
-        }
-
-        res = {k: CurrentConstituent(**v) for k, v in merged.items()}
-        return res
+            return constituents
 
 
 class ConstituentRepository(Protocol):
