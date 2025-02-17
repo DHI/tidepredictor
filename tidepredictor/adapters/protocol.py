@@ -17,7 +17,7 @@ class TidePredictorAdapter(Protocol):
     """Adapter for different tide predictor engines."""
 
     def __init__(
-        self, consituent_repo: ConstituentRepository, type: PredictionType
+        self, constituent_repo: ConstituentRepository, type: PredictionType
     ) -> None: ...
 
     def predict(

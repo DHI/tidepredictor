@@ -39,7 +39,7 @@ path = (DATA_DIR / "level.nc").expanduser()
 
 repo = NetCDFConstituentRepository(path)
 
-predictor = UtideAdapter(consituent_repo=repo, type=PredictionType.level)
+predictor = UtideAdapter(repo, type=PredictionType.level)
 
 df = predictor.predict(
     lon=0.0,

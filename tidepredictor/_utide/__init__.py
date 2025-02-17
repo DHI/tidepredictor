@@ -61,7 +61,7 @@ class UtideAdapter(TidePredictorAdapter):
 
     Parameters
     ----------
-    consituent_repo : ConstituentRepository
+    constituent_repo : ConstituentRepository
         Repository
     type : PredictionType
         The type of prediction to make.
@@ -70,7 +70,7 @@ class UtideAdapter(TidePredictorAdapter):
     def __init__(
         self, constituent_repo: ConstituentRepository, type: PredictionType
     ) -> None:
-        self._consituent_repo = constituent_repo
+        self._constituent_repo = constituent_repo
         self._type = type
 
         # TODO validation
@@ -148,13 +148,15 @@ class UtideAdapter(TidePredictorAdapter):
 
         match self._type:
             case PredictionType.level:
-                cons = self._consituent_repo.get_level_constituents(lon=lon, lat=lat)
+                cons = self._constituent_repo.get_level_constituents(lon=lon, lat=lat)
                 coef.A = np.array([v.amplitude for v in cons.values()])
                 coef.g = np.array([v.phase for v in cons.values()])
                 names = list(cons.keys())
 
             case PredictionType.current:
-                ccons = self._consituent_repo.get_current_constituents(lon=lon, lat=lat)
+                ccons = self._constituent_repo.get_current_constituents(
+                    lon=lon, lat=lat
+                )
                 coef.Lsmaj = np.array([v.major_axis for v in ccons.values()])
                 coef.Lsmin = np.array([v.minor_axis for v in ccons.values()])
                 coef.theta = np.array([v.inclination for v in ccons.values()])
