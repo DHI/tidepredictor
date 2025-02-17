@@ -11,35 +11,56 @@
     "href": "api/index.html",
     "title": "API Reference",
     "section": "",
-    "text": "data\nData handling.\n\n\nadapters\nAdapter for different tide predictor engines."
+    "text": "UtideAdapter\nAdapter for the utide tide predictor engine.\n\n\nPredictionType\n\n\n\nNetCDFConstituentRepository\nA repository of tidal constituents stored in a NetCDF file."
   },
   {
-    "objectID": "api/index.html#modules",
-    "href": "api/index.html#modules",
+    "objectID": "api/index.html#classes",
+    "href": "api/index.html#classes",
     "title": "API Reference",
     "section": "",
-    "text": "data\nData handling.\n\n\nadapters\nAdapter for different tide predictor engines."
+    "text": "UtideAdapter\nAdapter for the utide tide predictor engine.\n\n\nPredictionType\n\n\n\nNetCDFConstituentRepository\nA repository of tidal constituents stored in a NetCDF file."
   },
   {
-    "objectID": "api/adapters.html",
-    "href": "api/adapters.html",
-    "title": "adapters",
+    "objectID": "api/PredictionType.html",
+    "href": "api/PredictionType.html",
+    "title": "PredictionType",
     "section": "",
-    "text": "adapters\nadapters\nAdapter for different tide predictor engines."
+    "text": "PredictionType\nPredictionType()"
   },
   {
-    "objectID": "api/data.html",
-    "href": "api/data.html",
-    "title": "data",
+    "objectID": "api/NetCDFConstituentRepository.html",
+    "href": "api/NetCDFConstituentRepository.html",
+    "title": "NetCDFConstituentRepository",
     "section": "",
-    "text": "data\nData handling.\n\n\n\n\n\nName\nDescription\n\n\n\n\nConstituentReader\nReads constituents from a file.\n\n\nConstituentRepository\nA repository of tidal constituents.\n\n\nCurrentConstituent\nRepresents a tidal constituent.\n\n\nLevelConstituent\nRepresents a tidal constituent.\n\n\nNetCDFConstituentRepository\nA repository of tidal constituents stored in a NetCDF file.\n\n\n\n\n\ndata.ConstituentReader(self, file_path)\nReads constituents from a file.\n\n\n\n\n\nName\nDescription\n\n\n\n\nget_current_constituents\nReads constituents from a file and returns them as a dictionary.\n\n\nget_level_constituents\nReads constituents from a file and returns them as a dictionary.\n\n\n\n\n\ndata.ConstituentReader.get_current_constituents(lat, lon)\nReads constituents from a file and returns them as a dictionary.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, CurrentConstituent]\nThe constituents.\n\n\n\n\n\n\n\ndata.ConstituentReader.get_level_constituents(lat, lon)\nReads constituents from a file and returns them as a dictionary.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, Constituent]\nThe constituents.\n\n\n\n\n\n\n\n\n\ndata.ConstituentRepository()\nA repository of tidal constituents.\n\n\n\ndata.CurrentConstituent(self, name, phase, major_axis, minor_axis, inclination)\nRepresents a tidal constituent.\n\n\n\ndata.LevelConstituent(self, name, amplitude, phase)\nRepresents a tidal constituent.\n\n\n\ndata.NetCDFConstituentRepository(self, fp)\nA repository of tidal constituents stored in a NetCDF file."
+    "text": "NetCDFConstituentRepository(self, fp)\nA repository of tidal constituents stored in a NetCDF file.\n\n\n\n\n\nName\nDescription\n\n\n\n\nget_current_constituents\nGet the current constituents for a given longitude and latitude.\n\n\nget_level_constituents\nGet the level constituents for a given longitude and latitude.\n\n\n\n\n\nNetCDFConstituentRepository.get_current_constituents(lon, lat)\nGet the current constituents for a given longitude and latitude.\n\n\n\nNetCDFConstituentRepository.get_level_constituents(lon, lat)\nGet the level constituents for a given longitude and latitude."
   },
   {
-    "objectID": "api/data.html#classes",
-    "href": "api/data.html#classes",
-    "title": "data",
+    "objectID": "api/NetCDFConstituentRepository.html#methods",
+    "href": "api/NetCDFConstituentRepository.html#methods",
+    "title": "NetCDFConstituentRepository",
     "section": "",
-    "text": "Name\nDescription\n\n\n\n\nConstituentReader\nReads constituents from a file.\n\n\nConstituentRepository\nA repository of tidal constituents.\n\n\nCurrentConstituent\nRepresents a tidal constituent.\n\n\nLevelConstituent\nRepresents a tidal constituent.\n\n\nNetCDFConstituentRepository\nA repository of tidal constituents stored in a NetCDF file.\n\n\n\n\n\ndata.ConstituentReader(self, file_path)\nReads constituents from a file.\n\n\n\n\n\nName\nDescription\n\n\n\n\nget_current_constituents\nReads constituents from a file and returns them as a dictionary.\n\n\nget_level_constituents\nReads constituents from a file and returns them as a dictionary.\n\n\n\n\n\ndata.ConstituentReader.get_current_constituents(lat, lon)\nReads constituents from a file and returns them as a dictionary.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, CurrentConstituent]\nThe constituents.\n\n\n\n\n\n\n\ndata.ConstituentReader.get_level_constituents(lat, lon)\nReads constituents from a file and returns them as a dictionary.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, Constituent]\nThe constituents.\n\n\n\n\n\n\n\n\n\ndata.ConstituentRepository()\nA repository of tidal constituents.\n\n\n\ndata.CurrentConstituent(self, name, phase, major_axis, minor_axis, inclination)\nRepresents a tidal constituent.\n\n\n\ndata.LevelConstituent(self, name, amplitude, phase)\nRepresents a tidal constituent.\n\n\n\ndata.NetCDFConstituentRepository(self, fp)\nA repository of tidal constituents stored in a NetCDF file."
+    "text": "Name\nDescription\n\n\n\n\nget_current_constituents\nGet the current constituents for a given longitude and latitude.\n\n\nget_level_constituents\nGet the level constituents for a given longitude and latitude.\n\n\n\n\n\nNetCDFConstituentRepository.get_current_constituents(lon, lat)\nGet the current constituents for a given longitude and latitude.\n\n\n\nNetCDFConstituentRepository.get_level_constituents(lon, lat)\nGet the level constituents for a given longitude and latitude."
+  },
+  {
+    "objectID": "api/UtideAdapter.html",
+    "href": "api/UtideAdapter.html",
+    "title": "UtideAdapter",
+    "section": "",
+    "text": "UtideAdapter(self, consituent_repo, type)\nAdapter for the utide tide predictor engine.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nconsituent_repo\nConstituentRepository\nRepository\nrequired\n\n\ntype\nPredictionType\nThe type of prediction to make.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\npredict\nPredict tide levels or currents using utide.\n\n\n\n\n\nUtideAdapter.predict(lon, lat, start, end, interval=timedelta(hours=1))\nPredict tide levels or currents using utide."
+  },
+  {
+    "objectID": "api/UtideAdapter.html#parameters",
+    "href": "api/UtideAdapter.html#parameters",
+    "title": "UtideAdapter",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nconsituent_repo\nConstituentRepository\nRepository\nrequired\n\n\ntype\nPredictionType\nThe type of prediction to make.\nrequired"
+  },
+  {
+    "objectID": "api/UtideAdapter.html#methods",
+    "href": "api/UtideAdapter.html#methods",
+    "title": "UtideAdapter",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\npredict\nPredict tide levels or currents using utide.\n\n\n\n\n\nUtideAdapter.predict(lon, lat, start, end, interval=timedelta(hours=1))\nPredict tide levels or currents using utide."
   },
   {
     "objectID": "getting-started.html",

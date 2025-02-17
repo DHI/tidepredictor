@@ -213,7 +213,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>tidepredictor</code> can be used either as a command line tool or as a Python library.</p>
 <section id="command-line" class="level3">
 <h3 class="anchored" data-anchor-id="command-line">Command line</h3>
-<div id="7ab1b061" class="cell" data-execution_count="1">
+<div id="84ee76ec" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">-</span>x <span class="fl">15.0</span> <span class="op">-</span>y <span class="fl">58.0</span> <span class="op">-</span>s <span class="st">"2024-01-01"</span> <span class="op">-</span>e <span class="st">"2024-01-01 06:00:00"</span> <span class="op">-</span>i <span class="dv">30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>time,level
@@ -234,7 +234,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>All options are available as command line arguments.</p>
-<div id="558d5509" class="cell" data-execution_count="2">
+<div id="c17f41b5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                                                                
@@ -284,7 +284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="python-library" class="level3">
 <h3 class="anchored" data-anchor-id="python-library">Python library</h3>
-<div id="eb9fa4a7" class="cell" data-execution_count="3">
+<div id="dcaa058c" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tidepredictor <span class="im">import</span> UtideAdapter, PredictionType, NetCDFConstituentRepository</span>
