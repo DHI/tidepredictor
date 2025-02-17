@@ -21,6 +21,13 @@
     "text": "PredictionType\n\n\n\nUtideAdapter\nAdapter for the utide tide predictor engine."
   },
   {
+    "objectID": "api/PredictionType.html",
+    "href": "api/PredictionType.html",
+    "title": "PredictionType",
+    "section": "",
+    "text": "PredictionType\nPredictionType()"
+  },
+  {
     "objectID": "api/UtideAdapter.html",
     "href": "api/UtideAdapter.html",
     "title": "UtideAdapter",
@@ -42,13 +49,6 @@
     "text": "Name\nDescription\n\n\n\n\npredict\nPredict tide levels or currents using utide.\n\n\n\n\n\nUtideAdapter.predict(lon, lat, start, end, interval=timedelta(hours=1))\nPredict tide levels or currents using utide."
   },
   {
-    "objectID": "api/PredictionType.html",
-    "href": "api/PredictionType.html",
-    "title": "PredictionType",
-    "section": "",
-    "text": "PredictionType\nPredictionType()"
-  },
-  {
     "objectID": "getting-started.html",
     "href": "getting-started.html",
     "title": "Getting started",
@@ -67,6 +67,6 @@
     "href": "getting-started.html#usage",
     "title": "Getting started",
     "section": "Usage",
-    "text": "Usage\ntidepredictor can be used either as a command line tool or as a Python library.\n\nCommand line\n$ tidepredictor -x 15.0 -y 58.0 -s \"2024-01-01\" -e \"2024-01-01 06:00:00\" -i 30\n time,level\n2024-01-01 00:00:00,-0.23005383929341\n2024-01-01 00:30:00,-0.25469254130407887\n2024-01-01 01:00:00,-0.25508701731158095\n2024-01-01 01:30:00,-0.23188505378869703\n2024-01-01 02:00:00,-0.18749975913996147\n2024-01-01 02:30:00,-0.12583296056206333\n2024-01-01 03:00:00,-0.051895458442239854\n2024-01-01 03:30:00,0.028622562288443416\n2024-01-01 04:00:00,0.10978032932536673\n2024-01-01 04:30:00,0.18577536127300007\n2024-01-01 05:00:00,0.2512700237380429\n2024-01-01 05:30:00,0.30165067160350273\n2024-01-01 06:00:00,0.3332277132542259\n\n\nPython library\n\nfrom pathlib import Path\n\nDATA_DIR = Path(\"~/.local/share/tidepredictor\")\npath = (DATA_DIR / \"level.nc\").expanduser()\npath\n\nPosixPath('/home/runner/.local/share/tidepredictor/level.nc')\n\n\n\nfrom datetime import datetime\nfrom tidepredictor import UtideAdapter, PredictionType, NetCDFConstituentRepository\n\nrepo = NetCDFConstituentRepository(path)\n\npredictor = UtideAdapter(consituent_repo=repo, type=PredictionType.level)\n\npredictor\n\nUtideAdapter(consituents=&lt;tidepredictor.data.NetCDFConstituentRepository object at 0x7f6e64077450&gt;, type=PredictionType.level)\n\n\n\ndf = predictor.predict(\n    lon=0.0,\n    lat=0.0,\n    start=datetime(2021, 1, 1),\n    end=datetime(2021, 1, 2),\n)\ndf.head()\n\n\nshape: (5, 2)\n\n\n\ntime\nlevel\n\n\ndatetime[ns]\nf64\n\n\n\n\n2021-01-01 00:00:00\n-0.312357\n\n\n2021-01-01 01:00:00\n-0.105695\n\n\n2021-01-01 02:00:00\n0.14836\n\n\n2021-01-01 03:00:00\n0.383749\n\n\n2021-01-01 04:00:00\n0.53892"
+    "text": "Usage\ntidepredictor can be used either as a command line tool or as a Python library.\n\nCommand line\n$ tidepredictor -x 15.0 -y 58.0 -s \"2024-01-01\" -e \"2024-01-01 06:00:00\" -i 30\n time,level\n2024-01-01 00:00:00,-0.23005383929341\n2024-01-01 00:30:00,-0.25469254130407887\n2024-01-01 01:00:00,-0.25508701731158095\n2024-01-01 01:30:00,-0.23188505378869703\n2024-01-01 02:00:00,-0.18749975913996147\n2024-01-01 02:30:00,-0.12583296056206333\n2024-01-01 03:00:00,-0.051895458442239854\n2024-01-01 03:30:00,0.028622562288443416\n2024-01-01 04:00:00,0.10978032932536673\n2024-01-01 04:30:00,0.18577536127300007\n2024-01-01 05:00:00,0.2512700237380429\n2024-01-01 05:30:00,0.30165067160350273\n2024-01-01 06:00:00,0.3332277132542259\n\n\nPython library\n\nfrom pathlib import Path\n\nDATA_DIR = Path(\"~/.local/share/tidepredictor\")\npath = (DATA_DIR / \"level.nc\").expanduser()\npath\n\nPosixPath('/home/runner/.local/share/tidepredictor/level.nc')\n\n\n\nfrom datetime import datetime\nfrom tidepredictor import UtideAdapter, PredictionType, NetCDFConstituentRepository\n\nrepo = NetCDFConstituentRepository(path)\n\npredictor = UtideAdapter(consituent_repo=repo, type=PredictionType.level)\n\npredictor\n\nUtideAdapter(consituents=&lt;tidepredictor.data.NetCDFConstituentRepository object at 0x7f998a9ad810&gt;, type=PredictionType.level)\n\n\n\ndf = predictor.predict(\n    lon=0.0,\n    lat=0.0,\n    start=datetime(2021, 1, 1),\n    end=datetime(2021, 1, 2),\n)\ndf.head()\n\n\nshape: (5, 2)\n\n\n\ntime\nlevel\n\n\ndatetime[ns]\nf64\n\n\n\n\n2021-01-01 00:00:00\n-0.312357\n\n\n2021-01-01 01:00:00\n-0.105695\n\n\n2021-01-01 02:00:00\n0.14836\n\n\n2021-01-01 03:00:00\n0.383749\n\n\n2021-01-01 04:00:00\n0.53892"
   }
 ]
