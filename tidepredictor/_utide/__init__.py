@@ -1,11 +1,7 @@
 """Utide adapter module."""
 
-from pathlib import Path
 import numpy as np
 import pandas as pd
-import toml  # type: ignore
-from dataclasses import dataclass
-from typing import Any
 from datetime import datetime, timedelta
 
 from dataclasses import asdict
@@ -16,44 +12,12 @@ import polars as pl
 import warnings
 
 from tidepredictor.adapters.protocol import ConstituentRepository
+from .coef import Coef
 
 # Suppress warnings issued by utide
 warnings.filterwarnings("ignore", category=RuntimeWarning)
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 from utide import reconstruct, ut_constants  # noqa: E402
-
-
-@dataclass
-class Coef:
-    name: list[str]
-    mean: float  # level
-    umean: float  # current
-    vmean: float  # current
-    A: np.ndarray  # level
-    g: np.ndarray
-    Lsmaj: np.ndarray  # current
-    Lsmin: np.ndarray  # current
-    theta: np.ndarray  # current
-    aux: dict[str, Any]  # TODO exctract aux to a separate dataclass
-
-    def __post_init__(self) -> None:
-        assert len(self.A) == len(self.g) == len(self.name) == len(self.aux["frq"])
-
-    @staticmethod
-    def _convert_data(data: dict[str, Any]) -> dict[str, Any]:
-        data["A"] = np.array(data["A"])
-        data["g"] = np.array(data["g"])
-        data["aux"]["opt"]["prefilt"] = np.array(data["aux"]["opt"]["prefilt"])
-        data["aux"]["frq"] = np.array(data["aux"]["frq"])
-        data["aux"]["lind"] = np.array(data["aux"]["lind"])
-        return data
-
-    @staticmethod
-    def from_toml(file_path: Path) -> "Coef":
-        with open(file_path, "r") as file:
-            data = toml.load(file)
-        data = Coef._convert_data(data)
-        return Coef(**data)
 
 
 class UtideAdapter(TidePredictorAdapter):
@@ -143,8 +107,7 @@ class UtideAdapter(TidePredictorAdapter):
         return df
 
     def _coef(self, lon: float, lat: float) -> Coef:
-        template = Coef.from_toml(Path(__file__).parent / "coef.toml")
-        coef = Coef(**asdict(template))
+        coef = Coef.template()
 
         match self._type:
             case PredictionType.level:
