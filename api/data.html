@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>predictiontype – Tidepredictor</title>
+<title>data – Tidepredictor</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -164,9 +164,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tidepredictor.PredictionType" id="toc-tidepredictor.PredictionType" class="nav-link active" data-scroll-target="#tidepredictor.PredictionType">PredictionType</a></li>
+  <li><a href="#tidepredictor.data" id="toc-tidepredictor.data" class="nav-link active" data-scroll-target="#tidepredictor.data">data</a>
+  <ul class="collapse">
+  <li><a href="#classes" id="toc-classes" class="nav-link" data-scroll-target="#classes">Classes</a>
+  <ul class="collapse">
+  <li><a href="#tidepredictor.data.ConstituentReader" id="toc-tidepredictor.data.ConstituentReader" class="nav-link" data-scroll-target="#tidepredictor.data.ConstituentReader">ConstituentReader</a></li>
+  <li><a href="#tidepredictor.data.ConstituentRepository" id="toc-tidepredictor.data.ConstituentRepository" class="nav-link" data-scroll-target="#tidepredictor.data.ConstituentRepository">ConstituentRepository</a></li>
+  <li><a href="#tidepredictor.data.CurrentConstituent" id="toc-tidepredictor.data.CurrentConstituent" class="nav-link" data-scroll-target="#tidepredictor.data.CurrentConstituent">CurrentConstituent</a></li>
+  <li><a href="#tidepredictor.data.LevelConstituent" id="toc-tidepredictor.data.LevelConstituent" class="nav-link" data-scroll-target="#tidepredictor.data.LevelConstituent">LevelConstituent</a></li>
+  <li><a href="#tidepredictor.data.NetCDFConstituentRepository" id="toc-tidepredictor.data.NetCDFConstituentRepository" class="nav-link" data-scroll-target="#tidepredictor.data.NetCDFConstituentRepository">NetCDFConstituentRepository</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/DHI/tidepredictor/edit/main/docs/api/PredictionType.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/DHI/tidepredictor/edit/main/docs/api/data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
@@ -174,11 +184,193 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="tidepredictor.PredictionType" class="level1">
-<h1>PredictionType</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>PredictionType()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="tidepredictor.data" class="level1">
+<h1>data</h1>
+<p><code>data</code></p>
+<p>Data handling.</p>
+<section id="classes" class="level2">
+<h2 class="anchored" data-anchor-id="classes">Classes</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#tidepredictor.data.ConstituentReader">ConstituentReader</a></td>
+<td>Reads constituents from a file.</td>
+</tr>
+<tr class="even">
+<td><a href="#tidepredictor.data.ConstituentRepository">ConstituentRepository</a></td>
+<td>A repository of tidal constituents.</td>
+</tr>
+<tr class="odd">
+<td><a href="#tidepredictor.data.CurrentConstituent">CurrentConstituent</a></td>
+<td>Represents a tidal constituent.</td>
+</tr>
+<tr class="even">
+<td><a href="#tidepredictor.data.LevelConstituent">LevelConstituent</a></td>
+<td>Represents a tidal constituent.</td>
+</tr>
+<tr class="odd">
+<td><a href="#tidepredictor.data.NetCDFConstituentRepository">NetCDFConstituentRepository</a></td>
+<td>A repository of tidal constituents stored in a NetCDF file.</td>
+</tr>
+</tbody>
+</table>
+<section id="tidepredictor.data.ConstituentReader" class="level3">
+<h3 class="anchored" data-anchor-id="tidepredictor.data.ConstituentReader">ConstituentReader</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data.ConstituentReader(<span class="va">self</span>, file_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Reads constituents from a file.</p>
+<section id="methods" class="level4">
+<h4 class="anchored" data-anchor-id="methods">Methods</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#tidepredictor.data.ConstituentReader.get_current_constituents">get_current_constituents</a></td>
+<td>Reads constituents from a file and returns them as a dictionary.</td>
+</tr>
+<tr class="even">
+<td><a href="#tidepredictor.data.ConstituentReader.get_level_constituents">get_level_constituents</a></td>
+<td>Reads constituents from a file and returns them as a dictionary.</td>
+</tr>
+</tbody>
+</table>
+<section id="tidepredictor.data.ConstituentReader.get_current_constituents" class="level5">
+<h5 class="anchored" data-anchor-id="tidepredictor.data.ConstituentReader.get_current_constituents">get_current_constituents</h5>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data.ConstituentReader.get_current_constituents(lat, lon)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Reads constituents from a file and returns them as a dictionary.</p>
+<section id="parameters" class="level6 doc-section doc-section-parameters">
+<h6 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h6>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>lat</td>
+<td>float</td>
+<td>The latitude.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>lon</td>
+<td>float</td>
+<td>The longitude.</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns" class="level6 doc-section doc-section-returns">
+<h6 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns</h6>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>dict[str, CurrentConstituent]</td>
+<td>The constituents.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="tidepredictor.data.ConstituentReader.get_level_constituents" class="level5">
+<h5 class="anchored" data-anchor-id="tidepredictor.data.ConstituentReader.get_level_constituents">get_level_constituents</h5>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data.ConstituentReader.get_level_constituents(lat, lon)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Reads constituents from a file and returns them as a dictionary.</p>
+<section id="parameters-1" class="level6 doc-section doc-section-parameters">
+<h6 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h6>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>lat</td>
+<td>float</td>
+<td>The latitude.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td>lon</td>
+<td>float</td>
+<td>The longitude.</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns-1" class="level6 doc-section doc-section-returns">
+<h6 class="doc-section doc-section-returns anchored" data-anchor-id="returns-1">Returns</h6>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>dict[str, Constituent]</td>
+<td>The constituents.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+</section>
+<section id="tidepredictor.data.ConstituentRepository" class="level3">
+<h3 class="anchored" data-anchor-id="tidepredictor.data.ConstituentRepository">ConstituentRepository</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data.ConstituentRepository()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A repository of tidal constituents.</p>
+</section>
+<section id="tidepredictor.data.CurrentConstituent" class="level3">
+<h3 class="anchored" data-anchor-id="tidepredictor.data.CurrentConstituent">CurrentConstituent</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data.CurrentConstituent(<span class="va">self</span>, name, phase, major_axis, minor_axis, inclination)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Represents a tidal constituent.</p>
+</section>
+<section id="tidepredictor.data.LevelConstituent" class="level3">
+<h3 class="anchored" data-anchor-id="tidepredictor.data.LevelConstituent">LevelConstituent</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data.LevelConstituent(<span class="va">self</span>, name, amplitude, phase)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Represents a tidal constituent.</p>
+</section>
+<section id="tidepredictor.data.NetCDFConstituentRepository" class="level3">
+<h3 class="anchored" data-anchor-id="tidepredictor.data.NetCDFConstituentRepository">NetCDFConstituentRepository</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data.NetCDFConstituentRepository(<span class="va">self</span>, fp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A repository of tidal constituents stored in a NetCDF file.</p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -607,7 +799,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>© 2024 DHI Group</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DHI/tidepredictor/edit/main/docs/api/PredictionType.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/DHI/tidepredictor/edit/main/docs/api/data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
