@@ -47,3 +47,5 @@ format:
   html:
     theme: cosmo
     toc: true
+  ipynb:
+    toc: true

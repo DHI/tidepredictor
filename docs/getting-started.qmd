@@ -15,23 +15,11 @@ pip install tidepredictor-*.whl
 
 `tidepredictor` can be used either as a command line tool or as a Python library.
 
-### Command line
-
-```{python}
-!tidepredictor -x 0.0 -y 0.0 -s "2021-01-01" -e "2021-01-02" -i 30
-```
-
-All options are available as command line arguments.
-
-```{python}
-!tidepredictor --help
-```
-
 ### Python library
 
 ```{python}
 import tidepredictor as tp
-from datetime import datetime
+from datetime import datetime, timedelta
 
 path = tp.get_default_constituent_path(tp.PredictionType.level)
 
@@ -43,7 +31,40 @@ df = predictor.predict(
     lon=0.0,
     lat=0.0,
     start=datetime(2021, 1, 1),
-    end=datetime(2021, 1, 2),
+    end=datetime(2021, 1, 1, 12),
+    interval=timedelta(hours=1),
 )
-df.head()
+df
+```
+
+And similar for currents.
+
+```{python}
+
+path = tp.get_default_constituent_path(tp.PredictionType.current)
+
+repo = tp.NetCDFConstituentRepository(path)
+
+predictor = tp.UtideAdapter(repo, type=tp.PredictionType.current)
+
+df = predictor.predict(
+    lon=0.0,
+    lat=0.0,
+    start=datetime(2021, 1, 1),
+    end=datetime(2021, 1, 1, 12),
+    interval=timedelta(hours=1)
+)
+df
+```
+
+### Command line
+
+```{python}
+!tidepredictor -x 0.0 -y 0.0 -s "2021-01-01" -e "2021-01-01 02:00:00" -i 30
+```
+
+All options are available as command line arguments.
+
+```{python}
+!tidepredictor --help
 ```
