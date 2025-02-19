@@ -170,11 +170,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a></li>
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a>
   <ul class="collapse">
-  <li><a href="#command-line" id="toc-command-line" class="nav-link" data-scroll-target="#command-line">Command line</a></li>
   <li><a href="#python-library" id="toc-python-library" class="nav-link" data-scroll-target="#python-library">Python library</a></li>
+  <li><a href="#command-line" id="toc-command-line" class="nav-link" data-scroll-target="#command-line">Command line</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/DHI/tidepredictor/edit/main/docs/getting-started.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/DHI/tidepredictor/edit/main/docs/getting-started.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="getting-started.ipynb" download="getting-started.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -211,10 +211,200 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="usage" class="level2">
 <h2 class="anchored" data-anchor-id="usage">Usage</h2>
 <p><code>tidepredictor</code> can be used either as a command line tool or as a Python library.</p>
+<section id="python-library" class="level3">
+<h3 class="anchored" data-anchor-id="python-library">Python library</h3>
+<div id="885a0b54" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tidepredictor <span class="im">as</span> tp</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime, timedelta</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> tp.get_default_constituent_path(tp.PredictionType.level)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> tp.NetCDFConstituentRepository(path)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>predictor <span class="op">=</span> tp.UtideAdapter(repo, <span class="bu">type</span><span class="op">=</span>tp.PredictionType.level)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> predictor.predict(</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    lon<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    lat<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    start<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    end<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">12</span>),</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    interval<span class="op">=</span>timedelta(hours<span class="op">=</span><span class="dv">1</span>),</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (13, 2)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">time</th>
+<th data-quarto-table-cell-role="th">level</th>
+</tr>
+<tr class="even">
+<th>datetime[ns]</th>
+<th>f64</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2021-01-01 00:00:00</td>
+<td>-0.312357</td>
+</tr>
+<tr class="even">
+<td>2021-01-01 01:00:00</td>
+<td>-0.105695</td>
+</tr>
+<tr class="odd">
+<td>2021-01-01 02:00:00</td>
+<td>0.14836</td>
+</tr>
+<tr class="even">
+<td>2021-01-01 03:00:00</td>
+<td>0.383749</td>
+</tr>
+<tr class="odd">
+<td>2021-01-01 04:00:00</td>
+<td>0.53892</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>2021-01-01 08:00:00</td>
+<td>-0.08739</td>
+</tr>
+<tr class="even">
+<td>2021-01-01 09:00:00</td>
+<td>-0.395394</td>
+</tr>
+<tr class="odd">
+<td>2021-01-01 10:00:00</td>
+<td>-0.624534</td>
+</tr>
+<tr class="even">
+<td>2021-01-01 11:00:00</td>
+<td>-0.71729</td>
+</tr>
+<tr class="odd">
+<td>2021-01-01 12:00:00</td>
+<td>-0.652646</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>And similar for currents.</p>
+<div id="0ec0ad0d" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> tp.get_default_constituent_path(tp.PredictionType.current)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> tp.NetCDFConstituentRepository(path)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>predictor <span class="op">=</span> tp.UtideAdapter(repo, <span class="bu">type</span><span class="op">=</span>tp.PredictionType.current)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> predictor.predict(</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    lon<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    lat<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    start<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    end<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">12</span>),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    interval<span class="op">=</span>timedelta(hours<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (13, 3)</small>
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">time</th>
+<th data-quarto-table-cell-role="th">u</th>
+<th data-quarto-table-cell-role="th">v</th>
+</tr>
+<tr class="even">
+<th>datetime[ns]</th>
+<th>f64</th>
+<th>f64</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2021-01-01 00:00:00</td>
+<td>0.02144</td>
+<td>-0.003876</td>
+</tr>
+<tr class="even">
+<td>2021-01-01 01:00:00</td>
+<td>0.020066</td>
+<td>-0.000355</td>
+</tr>
+<tr class="odd">
+<td>2021-01-01 02:00:00</td>
+<td>0.013733</td>
+<td>0.003082</td>
+</tr>
+<tr class="even">
+<td>2021-01-01 03:00:00</td>
+<td>0.004057</td>
+<td>0.005698</td>
+</tr>
+<tr class="odd">
+<td>2021-01-01 04:00:00</td>
+<td>-0.006682</td>
+<td>0.006852</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>2021-01-01 08:00:00</td>
+<td>-0.018956</td>
+<td>-0.003575</td>
+</tr>
+<tr class="even">
+<td>2021-01-01 09:00:00</td>
+<td>-0.010327</td>
+<td>-0.006165</td>
+</tr>
+<tr class="odd">
+<td>2021-01-01 10:00:00</td>
+<td>0.000595</td>
+<td>-0.00695</td>
+</tr>
+<tr class="even">
+<td>2021-01-01 11:00:00</td>
+<td>0.010931</td>
+<td>-0.005796</td>
+</tr>
+<tr class="odd">
+<td>2021-01-01 12:00:00</td>
+<td>0.017948</td>
+<td>-0.003114</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
 <section id="command-line" class="level3">
 <h3 class="anchored" data-anchor-id="command-line">Command line</h3>
-<div id="b6392ceb" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">-</span>x <span class="fl">0.0</span> <span class="op">-</span>y <span class="fl">0.0</span> <span class="op">-</span>s <span class="st">"2021-01-01"</span> <span class="op">-</span>e <span class="st">"2021-01-02"</span> <span class="op">-</span>i <span class="dv">30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ccbbc8c9" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">-</span>x <span class="fl">0.0</span> <span class="op">-</span>y <span class="fl">0.0</span> <span class="op">-</span>s <span class="st">"2021-01-01"</span> <span class="op">-</span>e <span class="st">"2021-01-01 02:00:00"</span> <span class="op">-</span>i <span class="dv">30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>time,level
 2021-01-01T00:00:00Z,-0.312
@@ -222,56 +412,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 2021-01-01T01:00:00Z,-0.106
 2021-01-01T01:30:00Z,0.019
 2021-01-01T02:00:00Z,0.148
-2021-01-01T02:30:00Z,0.272
-2021-01-01T03:00:00Z,0.384
-2021-01-01T03:30:00Z,0.475
-2021-01-01T04:00:00Z,0.539
-2021-01-01T04:30:00Z,0.572
-2021-01-01T05:00:00Z,0.569
-2021-01-01T05:30:00Z,0.531
-2021-01-01T06:00:00Z,0.458
-2021-01-01T06:30:00Z,0.353
-2021-01-01T07:00:00Z,0.222
-2021-01-01T07:30:00Z,0.072
-2021-01-01T08:00:00Z,-0.087
-2021-01-01T08:30:00Z,-0.247
-2021-01-01T09:00:00Z,-0.395
-2021-01-01T09:30:00Z,-0.524
-2021-01-01T10:00:00Z,-0.625
-2021-01-01T10:30:00Z,-0.690
-2021-01-01T11:00:00Z,-0.717
-2021-01-01T11:30:00Z,-0.704
-2021-01-01T12:00:00Z,-0.653
-2021-01-01T12:30:00Z,-0.566
-2021-01-01T13:00:00Z,-0.450
-2021-01-01T13:30:00Z,-0.312
-2021-01-01T14:00:00Z,-0.160
-2021-01-01T14:30:00Z,-0.004
-2021-01-01T15:00:00Z,0.148
-2021-01-01T15:30:00Z,0.288
-2021-01-01T16:00:00Z,0.407
-2021-01-01T16:30:00Z,0.499
-2021-01-01T17:00:00Z,0.559
-2021-01-01T17:30:00Z,0.583
-2021-01-01T18:00:00Z,0.572
-2021-01-01T18:30:00Z,0.525
-2021-01-01T19:00:00Z,0.446
-2021-01-01T19:30:00Z,0.340
-2021-01-01T20:00:00Z,0.216
-2021-01-01T20:30:00Z,0.082
-2021-01-01T21:00:00Z,-0.053
-2021-01-01T21:30:00Z,-0.178
-2021-01-01T22:00:00Z,-0.284
-2021-01-01T22:30:00Z,-0.365
-2021-01-01T23:00:00Z,-0.414
-2021-01-01T23:30:00Z,-0.428
-2021-01-02T00:00:00Z,-0.407
 </code></pre>
 </div>
 </div>
 <p>All options are available as command line arguments.</p>
-<div id="6104940c" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e8be6cb0" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                                                                
  Usage: tidepredictor [OPTIONS]                                                 
@@ -315,72 +461,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 │                                                        exit.                 │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 </code></pre>
-</div>
-</div>
-</section>
-<section id="python-library" class="level3">
-<h3 class="anchored" data-anchor-id="python-library">Python library</h3>
-<div id="159f7180" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tidepredictor <span class="im">as</span> tp</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> tp.get_default_constituent_path(tp.PredictionType.level)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> tp.NetCDFConstituentRepository(path)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>predictor <span class="op">=</span> tp.UtideAdapter(repo, <span class="bu">type</span><span class="op">=</span>tp.PredictionType.level)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> predictor.predict(</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    lon<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    lat<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    start<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    end<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<div><style>
-.dataframe > thead > tr,
-.dataframe > tbody > tr {
-  text-align: right;
-  white-space: pre-wrap;
-}
-</style>
-<small>shape: (5, 2)</small>
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th">time</th>
-<th data-quarto-table-cell-role="th">level</th>
-</tr>
-<tr class="even">
-<th>datetime[ns]</th>
-<th>f64</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>2021-01-01 00:00:00</td>
-<td>-0.312357</td>
-</tr>
-<tr class="even">
-<td>2021-01-01 01:00:00</td>
-<td>-0.105695</td>
-</tr>
-<tr class="odd">
-<td>2021-01-01 02:00:00</td>
-<td>0.14836</td>
-</tr>
-<tr class="even">
-<td>2021-01-01 03:00:00</td>
-<td>0.383749</td>
-</tr>
-<tr class="odd">
-<td>2021-01-01 04:00:00</td>
-<td>0.53892</td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 </div>
 
