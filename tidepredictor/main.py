@@ -57,6 +57,10 @@ def main(
             "--precision", "-p", help="Number of decimal places. (csv only)", min=0
         ),
     ] = 3,
+    alpha: Annotated[
+        float,
+        typer.Option("--alpha", help="Alpha factor for current profile"),
+    ] = 1.0 / 7,
 ) -> None:
     """
     Predict the tides for a given location.
@@ -65,25 +69,29 @@ def main(
 
     repo = NetCDFConstituentRepository(path)
 
-    match type:
-        case PredictionType.level:
-            predictor: LevelPredictor | CurrentPredictor = LevelPredictor(
-                constituent_repo=repo
-            )
-        # TODO move this to a separate command (current has more options, alpha, depth, output levels)
-        case PredictionType.current:
-            predictor = CurrentPredictor(constituent_repo=repo)
-
     prediction_start: datetime = start or midnight
     prediction_end: datetime = end or (prediction_start + timedelta(days=1))
 
-    df = predictor.predict_depth_averaged(
-        lon=lon,
-        lat=lat,
-        start=prediction_start,
-        end=prediction_end,
-        interval=timedelta(minutes=interval),
-    )
+    match type:
+        case PredictionType.level:
+            predictor = LevelPredictor(constituent_repo=repo)
+            df = predictor.predict(
+                lon=lon,
+                lat=lat,
+                start=prediction_start,
+                end=prediction_end,
+                interval=timedelta(minutes=interval),
+            )
+        # TODO move this to a separate command (current has more options, alpha, depth, output levels)
+        case PredictionType.current:
+            cpredictor = CurrentPredictor(constituent_repo=repo, alpha=alpha)
+            df = cpredictor.predict_depth_averaged(
+                lon=lon,
+                lat=lat,
+                start=prediction_start,
+                end=prediction_end,
+                interval=timedelta(minutes=interval),
+            )
 
     # use iso8601 format for datetime and make sure it uses UTC
     DATE_FORMAT = "%Y-%m-%dT%H:%M:%SZ"

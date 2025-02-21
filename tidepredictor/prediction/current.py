@@ -18,7 +18,9 @@ from utide import reconstruct, ut_constants  # noqa: E402
 
 
 class CurrentPredictor:
-    def __init__(self, constituent_repo: ConstituentRepository, alpha=1.0 / 7) -> None:
+    def __init__(
+        self, constituent_repo: ConstituentRepository, alpha: float = 1.0 / 7
+    ) -> None:
         self._constituent_repo = constituent_repo
         self._alpha = alpha
 
@@ -38,9 +40,9 @@ class CurrentPredictor:
         total_water_depth = self._constituent_repo.get_bathymetry(lon, lat)
 
         if levels is None:
-            depths = np.linspace(-total_water_depth, 0, num=10)
+            depths = set(np.linspace(-total_water_depth, 0, num=10))
         else:
-            depths = levels
+            depths = levels  # type: ignore
 
         # TODO validate depths is in valid range
 
