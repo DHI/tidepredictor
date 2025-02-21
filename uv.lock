@@ -1,4 +1,5 @@
 version = 1
+revision = 1
 requires-python = ">=3.11"
 resolution-markers = [
     "python_full_version >= '3.12'",
@@ -2549,6 +2550,7 @@ dev = [
     { name = "ruff" },
 ]
 docs = [
+    { name = "nbformat" },
     { name = "quarto-cli" },
     { name = "quartodoc" },
 ]
@@ -2584,6 +2586,7 @@ dev = [
     { name = "ruff", specifier = ">=0.8.2" },
 ]
 docs = [
+    { name = "nbformat", specifier = ">=5.10.4" },
     { name = "quarto-cli", specifier = ">=1.6.40" },
     { name = "quartodoc", specifier = ">=0.9.1" },
 ]

@@ -25,7 +25,7 @@ path = tp.get_default_constituent_path(tp.PredictionType.level)
 
 repo = tp.NetCDFConstituentRepository(path)
 
-predictor = tp.UtideAdapter(repo, type=tp.PredictionType.level)
+predictor = tp.LevelPredictor(repo)
 
 df = predictor.predict(
     lon=0.0,
@@ -45,7 +45,7 @@ path = tp.get_default_constituent_path(tp.PredictionType.current)
 
 repo = tp.NetCDFConstituentRepository(path)
 
-predictor = tp.UtideAdapter(repo, type=tp.PredictionType.current)
+predictor = tp.CurrentPredictor(repo)
 
 df = predictor.predict(
     lon=0.0,

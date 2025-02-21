@@ -38,7 +38,8 @@ quartodoc:
     - title: Tidepredictor
       desc: ""
       contents:
-      - "UtideAdapter"
+      - "LevelPredictor"
+      - "CurrentPredictor"
       - "NetCDFConstituentRepository"
       - "get_default_constituent_path"
       - "PredictionType"
