@@ -2,7 +2,7 @@
 
 from enum import Enum
 from pathlib import Path
-from ._utide import LevelPredictor, CurrentPredictor
+from .prediction import LevelPredictor, CurrentPredictor
 from .data import NetCDFConstituentRepository
 
 
