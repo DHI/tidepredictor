@@ -48,6 +48,12 @@ def test_predict_current_profile() -> None:
     assert "u" in df.columns
     assert "v" in df.columns
 
+    cs = df.with_columns((pl.col("u").pow(2) + pl.col("v").pow(2)).sqrt().alias("cs"))
+
+    cs5 = cs.filter(depth=-5, time=datetime(2024, 1, 1))["cs"]
+    cs15 = cs.filter(depth=-15, time=datetime(2024, 1, 1))["cs"]
+    assert (cs5 > cs15).all()
+
 
 def test_utide_vs_mike_precalculated_currents():
     ds = mikeio.read("tests/data/tide_currents.dfs0")

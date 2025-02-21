@@ -18,8 +18,9 @@ from utide import reconstruct, ut_constants  # noqa: E402
 
 
 class CurrentPredictor:
-    def __init__(self, constituent_repo: ConstituentRepository) -> None:
+    def __init__(self, constituent_repo: ConstituentRepository, alpha=1.0 / 7) -> None:
         self._constituent_repo = constituent_repo
+        self._alpha = alpha
 
     def predict_profile(
         self,
@@ -32,21 +33,30 @@ class CurrentPredictor:
     ) -> pl.DataFrame:
         df = self.predict_depth_averaged(
             lon=lon, lat=lat, start=start, end=end, interval=interval
-        )
+        ).rename({"u": "uavg", "v": "vavg"})
 
         total_water_depth = self._constituent_repo.get_bathymetry(lon, lat)
 
         if levels is None:
-            # TODO read total water depth from Bathymetry
-            depths = np.linspace(0, total_water_depth, 10)
+            depths = np.linspace(-total_water_depth, 0, num=10)
         else:
             depths = levels
 
+        # TODO validate depths is in valid range
+
         df_expanded = df.join(pl.DataFrame({"depth": depths}), how="cross")
 
-        # calculate u,v as function of depth
+        z = total_water_depth
+        alpha = self._alpha
+        factor = (1.0 + alpha) * ((pl.col("depth") + z) / z).pow(alpha)
 
-        return df_expanded["time", "depth", "u", "v"]
+        dfr = df_expanded.with_columns(
+            (pl.col("uavg") * factor).alias("u"),
+            (pl.col("vavg") * factor).alias("v"),
+            pl.lit(total_water_depth).alias("total_water_depth"),
+        )
+
+        return dfr["time", "depth", "uavg", "u", "vavg", "v", "total_water_depth"]
 
     def predict_depth_averaged(
         self,
