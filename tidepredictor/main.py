@@ -4,7 +4,12 @@ from typing import Annotated, Optional
 import typer
 from datetime import datetime, time, timedelta
 
-from tidepredictor import PredictionType, UtideAdapter, NetCDFConstituentRepository
+from tidepredictor import (
+    PredictionType,
+    NetCDFConstituentRepository,
+    LevelPredictor,
+    CurrentPredictor,
+)
 from tidepredictor import get_default_constituent_path
 
 app = typer.Typer()
@@ -60,7 +65,14 @@ def main(
 
     repo = NetCDFConstituentRepository(path)
 
-    predictor = UtideAdapter(constituent_repo=repo, type=type)
+    match type:
+        case PredictionType.level:
+            predictor: LevelPredictor | CurrentPredictor = LevelPredictor(
+                constituent_repo=repo
+            )
+        # TODO move this to a separate command (current has more options, alpha, depth, output levels)
+        case PredictionType.current:
+            predictor = CurrentPredictor(constituent_repo=repo)
 
     prediction_start: datetime = start or midnight
     prediction_end: datetime = end or (prediction_start + timedelta(days=1))

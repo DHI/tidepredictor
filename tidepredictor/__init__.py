@@ -1,10 +1,14 @@
 """Tidepredictor package."""
 
+from enum import Enum
 from pathlib import Path
-from .adapters.protocol import PredictionType
-
-from ._utide import UtideAdapter
+from ._utide import LevelPredictor, CurrentPredictor
 from .data import NetCDFConstituentRepository
+
+
+class PredictionType(str, Enum):
+    level = "level"
+    current = "current"
 
 
 def get_default_constituent_path(prediction_type: PredictionType) -> Path:
@@ -29,7 +33,8 @@ def get_default_constituent_path(prediction_type: PredictionType) -> Path:
 
 
 __all__ = [
-    "UtideAdapter",
+    "LevelPredictor",
+    "CurrentPredictor",
     "PredictionType",
     "NetCDFConstituentRepository",
     "get_default_constituent_path",

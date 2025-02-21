@@ -3,7 +3,11 @@ from pathlib import Path
 
 import mikeio
 import polars as pl
-from tidepredictor import PredictionType, UtideAdapter, NetCDFConstituentRepository
+from tidepredictor import (
+    LevelPredictor,
+    CurrentPredictor,
+    NetCDFConstituentRepository,
+)
 from tidepredictor.data import ConstituentRepository, LevelConstituent
 
 
@@ -32,9 +36,8 @@ class FakeConstituentRepository(ConstituentRepository):
 def test_semidiurnal_tide() -> None:
     repo = FakeConstituentRepository()
 
-    predictor = UtideAdapter(
+    predictor = LevelPredictor(
         constituent_repo=repo,
-        type=PredictionType.level,
     )
 
     df = predictor.predict(
@@ -54,9 +57,8 @@ def test_semidiurnal_tide() -> None:
 def test_utide_returns_dataframe_with_levels() -> None:
     repo = NetCDFConstituentRepository(Path("tests/data/level.nc"))
 
-    predictor = UtideAdapter(
+    predictor = LevelPredictor(
         constituent_repo=repo,
-        type=PredictionType.level,
     )
 
     df = predictor.predict(
@@ -72,12 +74,9 @@ def test_utide_returns_dataframe_with_levels() -> None:
     assert df["level"].min() < 0
 
 
-def test_utide_returns_dataframe_with_currents() -> None:
+def test_utide_returns_dataframe_with_current_profile() -> None:
     repo = NetCDFConstituentRepository(Path("tests/data/currents.nc"))
-    predictor = UtideAdapter(
-        constituent_repo=repo,
-        type=PredictionType.current,
-    )
+    predictor = CurrentPredictor(constituent_repo=repo)
 
     df = predictor.predict(
         lat=0.0,
@@ -86,6 +85,7 @@ def test_utide_returns_dataframe_with_currents() -> None:
         end=datetime(2024, 1, 2),
         interval=timedelta(hours=1),
     )
+
     assert isinstance(df, pl.DataFrame)
     assert df["u"].max() > 0
     assert df["u"].min() < 0
@@ -104,9 +104,8 @@ def test_utide_vs_mike_precalculated():
     lat = 0.0
     lon = 0.0
     repo = NetCDFConstituentRepository(Path("tests/data/level.nc"))
-    predictor = UtideAdapter(
+    predictor = LevelPredictor(
         constituent_repo=repo,
-        type=PredictionType.level,
     )
 
     udf = predictor.predict(
@@ -134,9 +133,8 @@ def test_utide_vs_mike_precalculated_currents():
     lat = 0.0
     lon = 0.0
     repo = NetCDFConstituentRepository(Path("tests/data/currents.nc"))
-    predictor = UtideAdapter(
+    predictor = CurrentPredictor(
         constituent_repo=repo,
-        type=PredictionType.current,
     )
 
     udf = predictor.predict(
