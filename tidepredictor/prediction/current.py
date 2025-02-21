@@ -21,7 +21,34 @@ class CurrentPredictor:
     def __init__(self, constituent_repo: ConstituentRepository) -> None:
         self._constituent_repo = constituent_repo
 
-    def predict(
+    def predict_profile(
+        self,
+        lon: float,
+        lat: float,
+        start: datetime,
+        end: datetime,
+        interval: timedelta = timedelta(hours=1),
+        levels: set[float] | None = None,
+    ) -> pl.DataFrame:
+        df = self.predict_depth_averaged(
+            lon=lon, lat=lat, start=start, end=end, interval=interval
+        )
+
+        total_water_depth = self._constituent_repo.get_bathymetry(lon, lat)
+
+        if levels is None:
+            # TODO read total water depth from Bathymetry
+            depths = np.linspace(0, total_water_depth, 10)
+        else:
+            depths = levels
+
+        df_expanded = df.join(pl.DataFrame({"depth": depths}), how="cross")
+
+        # calculate u,v as function of depth
+
+        return df_expanded["time", "depth", "u", "v"]
+
+    def predict_depth_averaged(
         self,
         lon: float,
         lat: float,

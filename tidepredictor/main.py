@@ -77,7 +77,7 @@ def main(
     prediction_start: datetime = start or midnight
     prediction_end: datetime = end or (prediction_start + timedelta(days=1))
 
-    df = predictor.predict(
+    df = predictor.predict_depth_averaged(
         lon=lon,
         lat=lat,
         start=prediction_start,

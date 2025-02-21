@@ -9,11 +9,11 @@ from tidepredictor import (
 )
 
 
-def test_utide_returns_dataframe_with_current_profile() -> None:
+def test_utide_returns_dataframe_with_current() -> None:
     repo = NetCDFConstituentRepository(Path("tests/data/currents.nc"))
     predictor = CurrentPredictor(constituent_repo=repo)
 
-    df = predictor.predict(
+    df = predictor.predict_depth_averaged(
         lat=0.0,
         lon=0.0,
         start=datetime(2024, 1, 1),
@@ -26,6 +26,27 @@ def test_utide_returns_dataframe_with_current_profile() -> None:
     assert df["u"].min() < 0
     assert df["v"].max() > 0
     assert df["v"].min() < 0
+
+
+def test_predict_current_profile() -> None:
+    repo = NetCDFConstituentRepository(Path("tests/data/currents.nc"))
+    predictor = CurrentPredictor(constituent_repo=repo)
+
+    df = predictor.predict_profile(
+        lat=0.0,
+        lon=0.0,
+        start=datetime(2024, 1, 1),
+        end=datetime(2024, 1, 1, 2),
+        interval=timedelta(hours=1),
+        levels=[-5, -15],
+    )
+
+    assert isinstance(df, pl.DataFrame)
+    assert len(df) == 6  # 3 times * 2 levels
+    assert "time" in df.columns
+    assert "depth" in df.columns
+    assert "u" in df.columns
+    assert "v" in df.columns
 
 
 def test_utide_vs_mike_precalculated_currents():
@@ -43,7 +64,7 @@ def test_utide_vs_mike_precalculated_currents():
         constituent_repo=repo,
     )
 
-    udf = predictor.predict(
+    udf = predictor.predict_depth_averaged(
         lon=lon,
         lat=lat,
         start=ds.time[0].to_pydatetime(),
