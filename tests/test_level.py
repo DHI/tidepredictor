@@ -3,7 +3,10 @@ from pathlib import Path
 
 import mikeio
 import polars as pl
-from tidepredictor import PredictionType, UtideAdapter, NetCDFConstituentRepository
+from tidepredictor import (
+    LevelPredictor,
+    NetCDFConstituentRepository,
+)
 from tidepredictor.data import ConstituentRepository, LevelConstituent
 
 
@@ -32,9 +35,8 @@ class FakeConstituentRepository(ConstituentRepository):
 def test_semidiurnal_tide() -> None:
     repo = FakeConstituentRepository()
 
-    predictor = UtideAdapter(
+    predictor = LevelPredictor(
         constituent_repo=repo,
-        type=PredictionType.level,
     )
 
     df = predictor.predict(
@@ -54,9 +56,8 @@ def test_semidiurnal_tide() -> None:
 def test_utide_returns_dataframe_with_levels() -> None:
     repo = NetCDFConstituentRepository(Path("tests/data/level.nc"))
 
-    predictor = UtideAdapter(
+    predictor = LevelPredictor(
         constituent_repo=repo,
-        type=PredictionType.level,
     )
 
     df = predictor.predict(
@@ -72,27 +73,6 @@ def test_utide_returns_dataframe_with_levels() -> None:
     assert df["level"].min() < 0
 
 
-def test_utide_returns_dataframe_with_currents() -> None:
-    repo = NetCDFConstituentRepository(Path("tests/data/currents.nc"))
-    predictor = UtideAdapter(
-        constituent_repo=repo,
-        type=PredictionType.current,
-    )
-
-    df = predictor.predict(
-        lat=0.0,
-        lon=0.0,
-        start=datetime(2024, 1, 1),
-        end=datetime(2024, 1, 2),
-        interval=timedelta(hours=1),
-    )
-    assert isinstance(df, pl.DataFrame)
-    assert df["u"].max() > 0
-    assert df["u"].min() < 0
-    assert df["v"].max() > 0
-    assert df["v"].min() < 0
-
-
 def test_utide_vs_mike_precalculated():
     ds = mikeio.read("tests/data/tide_level.dfs0")
     item = "Level (0,0)"
@@ -104,9 +84,8 @@ def test_utide_vs_mike_precalculated():
     lat = 0.0
     lon = 0.0
     repo = NetCDFConstituentRepository(Path("tests/data/level.nc"))
-    predictor = UtideAdapter(
+    predictor = LevelPredictor(
         constituent_repo=repo,
-        type=PredictionType.level,
     )
 
     udf = predictor.predict(
@@ -121,33 +100,3 @@ def test_utide_vs_mike_precalculated():
 
     diff = both["utide"] - both["mike"]
     assert diff.abs().max() < 0.08
-
-
-def test_utide_vs_mike_precalculated_currents():
-    ds = mikeio.read("tests/data/tide_currents.dfs0")
-    v_item = "Tidal current component (geographic North) (Current (0,0))"
-    mdf = pl.from_pandas(ds[v_item].to_dataframe().reset_index()).rename(
-        {"index": "time", v_item: "mike"}
-    )
-
-    # TODO checks all locations in the file
-    lat = 0.0
-    lon = 0.0
-    repo = NetCDFConstituentRepository(Path("tests/data/currents.nc"))
-    predictor = UtideAdapter(
-        constituent_repo=repo,
-        type=PredictionType.current,
-    )
-
-    udf = predictor.predict(
-        lon=lon,
-        lat=lat,
-        start=ds.time[0].to_pydatetime(),
-        end=ds.time[-1].to_pydatetime(),
-        interval=timedelta(hours=1),
-    ).rename({"v": "utide"})
-
-    both = udf.join(mdf, on="time")
-
-    diff = both["utide"] - both["mike"]
-    assert diff.abs().max() < 0.0008

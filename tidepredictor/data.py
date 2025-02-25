@@ -140,6 +140,8 @@ class ConstituentRepository(Protocol):
         self, lon: float, lat: float
     ) -> dict[str, CurrentConstituent]: ...
 
+    def get_bathymetry(self, lon: float, lat: float) -> float: ...
+
 
 class NetCDFConstituentRepository(ConstituentRepository):
     """
@@ -153,7 +155,15 @@ class NetCDFConstituentRepository(ConstituentRepository):
         fp : Path
             The path to the NetCDF file.
         """
+        self._fp = fp
+        # TODO inline functions from reader
         self._reader = ConstituentReader(fp)
+
+    def get_bathymetry(self, lon: float, lat: float) -> float:
+        # TODO add bathymetry to .nc files
+        # with xr.open_dataset(self._fp) as ds:
+        #    ds.Bathymetry.sel(lon=lon, lat=lat, method="nearest")
+        return 100.0
 
     def get_level_constituents(
         self, lon: float, lat: float

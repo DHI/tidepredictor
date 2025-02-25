@@ -60,6 +60,7 @@ dev = [
 ]
 
 docs = [
+    "nbformat>=5.10.4",
     "quarto-cli>=1.6.40",
     "quartodoc>=0.9.1",
 ]
