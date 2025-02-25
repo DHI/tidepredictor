@@ -13,7 +13,7 @@
   [File_1]
       format = 0
       file_name='test_nc.dfs0'
-      number_of_points = 19
+      number_of_points = 18
 
       [Point_1]
         description = 'Esbjerg'
@@ -121,12 +121,6 @@
         description = 'Tortue'
         x=-17
         y= 16
-      EndSect  // 
-      
-      [Point_19]
-        description = 'Wick'
-        x=-3.0
-        y= 58.5
       EndSect  // 
   EndSect
 EndSect
