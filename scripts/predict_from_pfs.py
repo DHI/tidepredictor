@@ -6,8 +6,8 @@ import tidepredictor as tp
 
 
 def predict_from_pfs(specs: mikeio.PfsDocument) -> None:
-    start = datetime(specs.start_date[0], specs.start_date[1], specs.start_date[2])
-    end = datetime(specs.end_date[0], specs.end_date[1], specs.end_date[2])
+    start = datetime(*specs.start_date)
+    end = datetime(*specs.end_date)
     timestep = timedelta(hours=specs.timestep)
 
     outfilename = specs.File_1.file_name
@@ -17,14 +17,13 @@ def predict_from_pfs(specs: mikeio.PfsDocument) -> None:
     fp = tp.get_default_constituent_path(tp.PredictionType.level)
     repo = tp.NetCDFConstituentRepository(fp)
     predictor = tp.LevelPredictor(repo)
-    dfs = {}
-    for point in points:
-        dfs[point["description"]] = predictor.predict(
-            lon=point["x"], lat=point["y"], start=start, end=end, interval=timestep
-        )
-    long_df = pl.concat(
-        [df.with_columns(pl.lit(key).alias("description")) for key, df in dfs.items()]
-    )
+    dfs_list = [
+        predictor.predict(
+            lon=p["x"], lat=p["y"], start=start, end=end, interval=timestep
+        ).with_columns(pl.lit(p["description"]).alias("description"))
+        for p in points
+    ]
+    long_df = pl.concat(dfs_list)
 
     wide_df = long_df.pivot(values="level", index="time", on="description")
 
