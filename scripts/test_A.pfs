@@ -1,0 +1,133 @@
+[TidePredictor]
+
+  
+  constituent_file_name='..\GlobalTideElevation_DTU-TPXO8_2min_v1.dfs2'
+  prepack_file_name   ='C:\Data\Datasets\KMS\Data\prepack.dat'
+
+  start_date=2024,1,1
+  end_date  =2025,1,1
+  timestep  = 0.5
+
+  number_of_files = 1
+
+  [File_1]
+      format = 0
+      file_name='test_nc.dfs0'
+      number_of_points = 19
+
+      [Point_1]
+        description = 'Esbjerg'
+        x=7.8
+        y= 55.3
+      EndSect  // 
+      
+      [Point_2]
+        description = 'Wick'
+        x= -3.0
+        y= 58.5
+      EndSect  // 
+      
+      [Point_3]
+        description = 'Torshavn'
+        x= -5.9
+        y= 62.3
+      EndSect  // 
+      
+      [Point_4]
+        description = 'Svalbard'
+        x= 12
+        y= 77.3
+      EndSect  // 
+      
+      [Point_5]
+        description = 'Boston'
+        x=-69
+        y= 42.4
+      EndSect  // 
+      
+      [Point_6]
+        description = 'Miami'
+        x=-78
+        y= 27.5
+      EndSect  // 
+      
+      [Point_7]
+        description = 'Rio'
+        x=-43
+        y= -24
+      EndSect  // 
+      
+      [Point_8]
+        description = 'Punta Arenas'
+        x=-66
+        y= -58
+      EndSect  // 
+      
+      [Point_9] 
+        description = 'Peru'
+        x=-124
+        y= 36
+      EndSect  // 
+      
+      [Point_10]
+        description = 'San Fransisco'
+        x=-3.0
+        y= 58.5
+      EndSect  // 
+      
+      [Point_11]
+        description = 'Kodiak'
+        x=-164
+        y= 53
+      EndSect  // 
+      
+      [Point_12]
+        description = 'Tokushima'
+        x= 137
+        y= 32.9
+      EndSect  // 
+      
+      [Point_13]
+        description = 'Brisbane'
+        x=154
+        y= -24.8
+      EndSect  // 
+      
+      [Point_14]
+        description = 'Perth'
+        x=114
+        y= -31
+      EndSect  // 
+      
+      [Point_15]
+        description = 'Sri Lanka'
+        x=81
+        y= 4
+      EndSect  // 
+      
+      [Point_16]
+        description = 'Palma'
+        x=41.8
+        y= -11
+      EndSect  // 
+      
+      [Point_17]
+        description = 'Cabinda'
+        x=11.1
+        y= 6
+      EndSect  // 
+      
+      [Point_18]
+        description = 'Tortue'
+        x=-17
+        y= 16
+      EndSect  // 
+      
+      [Point_19]
+        description = 'Wick'
+        x=-3.0
+        y= 58.5
+      EndSect  // 
+  EndSect
+EndSect
+    
