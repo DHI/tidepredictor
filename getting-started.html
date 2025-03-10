@@ -103,6 +103,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="https://cdn.plot.ly/plotly-3.0.0.min.js" charset="utf-8"></script>
 
 
 </head>
@@ -131,6 +132,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li class="nav-item">
     <a class="nav-link active" href="./getting-started.html" aria-current="page"> 
 <span class="menu-text">Getting Started</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./profile.html"> 
+<span class="menu-text">Current profiles</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./api/index.html"> 
@@ -213,7 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>tidepredictor</code> can be used either as a command line tool or as a Python library.</p>
 <section id="python-library" class="level3">
 <h3 class="anchored" data-anchor-id="python-library">Python library</h3>
-<div id="9f7dc8ad" class="cell" data-execution_count="1">
+<div id="a944c083" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tidepredictor <span class="im">as</span> tp</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime, timedelta</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -302,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>And similar for depth averaged currents.</p>
-<div id="9f5e3ff4" class="cell" data-execution_count="2">
+<div id="cef1c603" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> tp.get_default_constituent_path(tp.PredictionType.current)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> tp.NetCDFConstituentRepository(path)</span>
@@ -401,12 +406,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>And current profiles.</p>
-<div id="8a640ffa" class="cell" data-execution_count="3">
+<div id="8e6f96fd" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> tp.get_default_constituent_path(tp.PredictionType.current)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> tp.NetCDFConstituentRepository(path)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>predictor <span class="op">=</span> tp.CurrentPredictor(repo)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>predictor <span class="op">=</span> tp.CurrentPredictor(repo, alpha<span class="op">=</span><span class="fl">1.0</span><span class="op">/</span><span class="dv">3</span>)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> predictor.predict_profile(</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    lon<span class="op">=-</span><span class="fl">2.75</span>,</span>
@@ -414,7 +419,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    start<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    end<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    interval<span class="op">=</span>timedelta(hours<span class="op">=</span><span class="dv">1</span>),</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    levels<span class="op">=</span>[<span class="op">-</span><span class="fl">1.0</span>, <span class="op">-</span><span class="fl">5.0</span>, <span class="op">-</span><span class="fl">15.0</span>]</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    levels<span class="op">=</span>[<span class="op">-</span><span class="fl">1.0</span>, <span class="op">-</span><span class="fl">10.0</span>, <span class="op">-</span><span class="fl">27.0</span>]</span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -452,45 +457,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2021-01-01 00:00:00</td>
 <td>-1.0</td>
 <td>-0.306778</td>
-<td>-0.34891</td>
+<td>-0.404441</td>
 <td>-0.04915</td>
-<td>-0.0559</td>
+<td>-0.064797</td>
 <td>30.0</td>
 </tr>
 <tr class="even">
 <td>2021-01-01 00:00:00</td>
-<td>-5.0</td>
+<td>-10.0</td>
 <td>-0.306778</td>
-<td>-0.34159</td>
+<td>-0.357327</td>
 <td>-0.04915</td>
-<td>-0.054727</td>
+<td>-0.057249</td>
 <td>30.0</td>
 </tr>
 <tr class="odd">
 <td>2021-01-01 00:00:00</td>
-<td>-15.0</td>
+<td>-27.0</td>
 <td>-0.306778</td>
-<td>-0.31755</td>
+<td>-0.189858</td>
 <td>-0.04915</td>
-<td>-0.050876</td>
+<td>-0.030418</td>
 <td>30.0</td>
 </tr>
 <tr class="even">
 <td>2021-01-01 01:00:00</td>
 <td>-1.0</td>
 <td>-0.266633</td>
-<td>-0.303251</td>
+<td>-0.351516</td>
 <td>-0.056529</td>
-<td>-0.064292</td>
+<td>-0.074525</td>
 <td>30.0</td>
 </tr>
 <tr class="odd">
 <td>2021-01-01 01:00:00</td>
-<td>-5.0</td>
+<td>-10.0</td>
 <td>-0.266633</td>
-<td>-0.296889</td>
+<td>-0.310567</td>
 <td>-0.056529</td>
-<td>-0.062944</td>
+<td>-0.065843</td>
 <td>30.0</td>
 </tr>
 <tr class="even">
@@ -504,47 +509,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td>2021-01-02 00:00:00</td>
-<td>-5.0</td>
+<td>-10.0</td>
 <td>-0.31052</td>
-<td>-0.345756</td>
+<td>-0.361686</td>
 <td>-0.039232</td>
-<td>-0.043684</td>
+<td>-0.045696</td>
 <td>30.0</td>
 </tr>
 <tr class="even">
 <td>2021-01-02 00:00:00</td>
-<td>-15.0</td>
+<td>-27.0</td>
 <td>-0.31052</td>
-<td>-0.321423</td>
+<td>-0.192174</td>
 <td>-0.039232</td>
-<td>-0.04061</td>
+<td>-0.02428</td>
 <td>30.0</td>
 </tr>
 <tr class="odd">
 <td>2021-01-02 01:00:00</td>
 <td>-1.0</td>
 <td>-0.313886</td>
-<td>-0.356994</td>
+<td>-0.413812</td>
 <td>-0.055287</td>
-<td>-0.06288</td>
+<td>-0.072888</td>
 <td>30.0</td>
 </tr>
 <tr class="even">
 <td>2021-01-02 01:00:00</td>
-<td>-5.0</td>
+<td>-10.0</td>
 <td>-0.313886</td>
-<td>-0.349504</td>
+<td>-0.365606</td>
 <td>-0.055287</td>
-<td>-0.061561</td>
+<td>-0.064397</td>
 <td>30.0</td>
 </tr>
 <tr class="odd">
 <td>2021-01-02 01:00:00</td>
-<td>-15.0</td>
+<td>-27.0</td>
 <td>-0.313886</td>
-<td>-0.324907</td>
+<td>-0.194257</td>
 <td>-0.055287</td>
-<td>-0.057229</td>
+<td>-0.034216</td>
 <td>30.0</td>
 </tr>
 </tbody>
@@ -552,11 +557,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<div id="5e52f6bb" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    ggplot(df, aes(<span class="st">"time"</span>,<span class="st">"u"</span>, color<span class="op">=</span><span class="st">"factor(depth)"</span>))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_line() <span class="op">+</span> geom_point()</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> labs(color<span class="op">=</span><span class="st">"Depth"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="getting-started_files/figure-html/cell-5-output-1.png" width="672" height="480" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="command-line" class="level3">
 <h3 class="anchored" data-anchor-id="command-line">Command line</h3>
-<div id="12bd2f85" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">-</span>x <span class="op">-</span><span class="fl">2.75</span> <span class="op">-</span>y <span class="fl">56.1</span> <span class="op">-</span>s <span class="st">"2021-01-01"</span> <span class="op">-</span>e <span class="st">"2021-01-01 02:00:00"</span> <span class="op">-</span>i <span class="dv">30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2f244257" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">-</span>x <span class="op">-</span><span class="fl">2.75</span> <span class="op">-</span>y <span class="fl">56.1</span> <span class="op">-</span>s <span class="st">"2021-01-01"</span> <span class="op">-</span>e <span class="st">"2021-01-01 02:00:00"</span> <span class="op">-</span>i <span class="dv">30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>time,level
 2021-01-01T00:00:00Z,-0.442
@@ -568,8 +590,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>All options are available as command line arguments.</p>
-<div id="1d1f731b" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="619071ef" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                                                                
  Usage: tidepredictor [OPTIONS]                                                 
