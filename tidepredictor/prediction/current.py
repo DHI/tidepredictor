@@ -53,7 +53,7 @@ class CurrentPredictor:
         total_water_depth = self._constituent_repo.get_bathymetry(lon, lat)
 
         if levels is None:
-            depths = set(np.linspace(-total_water_depth, 0, num=10))
+            depths = np.linspace(-total_water_depth, 0, num=10)
         else:
             depths = levels  # type: ignore
 

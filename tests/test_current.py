@@ -3,6 +3,7 @@ from pathlib import Path
 
 # import mikeio
 import polars as pl
+import pytest
 from tidepredictor import (
     CurrentPredictor,
     NetCDFConstituentRepository,
@@ -44,6 +45,8 @@ def test_predict_current_profile() -> None:
     assert isinstance(df, pl.DataFrame)
     assert len(df) == 6  # 3 times * 2 levels
     assert "time" in df.columns
+
+    # TODO consider inconsistency between level-depth
     assert "depth" in df.columns
     assert "u" in df.columns
     assert "v" in df.columns
@@ -53,6 +56,26 @@ def test_predict_current_profile() -> None:
     cs5 = cs.filter(depth=-5, time=datetime(2024, 1, 1))["cs"]
     cs15 = cs.filter(depth=-15, time=datetime(2024, 1, 1))["cs"]
     assert (cs5 > cs15).all()
+
+
+def test_predict_current_profile_default_levels() -> None:
+    repo = NetCDFConstituentRepository(Path("tests/data/currents.nc"))
+    predictor = CurrentPredictor(constituent_repo=repo)
+
+    df = predictor.predict_profile(
+        lat=56.1,
+        lon=-2.75,
+        start=datetime(2024, 1, 1),
+        end=datetime(2024, 1, 1, 2),
+        interval=timedelta(hours=1),
+    )
+
+    depths = df["depth"]
+    assert len(depths.unique()) == 10
+
+    # TODO what should be the lowest default level
+    assert depths.min() == pytest.approx(-30.0)
+    assert depths.max() == pytest.approx(0.0)
 
 
 # def test_utide_vs_mike_precalculated_currents():
