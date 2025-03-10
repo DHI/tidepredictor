@@ -213,7 +213,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>tidepredictor</code> can be used either as a command line tool or as a Python library.</p>
 <section id="python-library" class="level3">
 <h3 class="anchored" data-anchor-id="python-library">Python library</h3>
-<div id="b460df3d" class="cell" data-execution_count="1">
+<div id="9f7dc8ad" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tidepredictor <span class="im">as</span> tp</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime, timedelta</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -302,7 +302,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>And similar for depth averaged currents.</p>
-<div id="0747c6ba" class="cell" data-execution_count="2">
+<div id="9f5e3ff4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> tp.get_default_constituent_path(tp.PredictionType.current)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> tp.NetCDFConstituentRepository(path)</span>
@@ -401,7 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>And current profiles.</p>
-<div id="8c0de0c4" class="cell" data-execution_count="3">
+<div id="8a640ffa" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> tp.get_default_constituent_path(tp.PredictionType.current)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> tp.NetCDFConstituentRepository(path)</span>
@@ -555,7 +555,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="command-line" class="level3">
 <h3 class="anchored" data-anchor-id="command-line">Command line</h3>
-<div id="63c580b8" class="cell" data-execution_count="4">
+<div id="12bd2f85" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">-</span>x <span class="op">-</span><span class="fl">2.75</span> <span class="op">-</span>y <span class="fl">56.1</span> <span class="op">-</span>s <span class="st">"2021-01-01"</span> <span class="op">-</span>e <span class="st">"2021-01-01 02:00:00"</span> <span class="op">-</span>i <span class="dv">30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>time,level
@@ -568,7 +568,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>All options are available as command line arguments.</p>
-<div id="637b6c71" class="cell" data-execution_count="5">
+<div id="1d1f731b" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                                                                
