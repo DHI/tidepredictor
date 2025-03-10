@@ -1,0 +1,121 @@
+[
+  {
+    "objectID": "api/LevelPredictor.html",
+    "href": "api/LevelPredictor.html",
+    "title": "LevelPredictor",
+    "section": "",
+    "text": "LevelPredictor(self, constituent_repo)\nPredict tidal levels timeseries (surface elevation)\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nconstituent_repo\nConstituentRepository\nRepository\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\npredict\nPredict tide levels or currents using utide.\n\n\n\n\n\nLevelPredictor.predict(lon, lat, start, end, interval=timedelta(hours=1))\nPredict tide levels or currents using utide.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\nstart\ndatetime\nThe start date.\nrequired\n\n\nend\ndatetime\nThe end date.\nrequired\n\n\ninterval\ntimedelta\nThe interval between predictions.\ntimedelta(hours=1)\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npl.DataFrame\nThe predicted tide levels or currents.\n\n\n\n\n\n\nThe workhorse of this functions the reconstruct function from UTide"
+  },
+  {
+    "objectID": "api/LevelPredictor.html#parameters",
+    "href": "api/LevelPredictor.html#parameters",
+    "title": "LevelPredictor",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nconstituent_repo\nConstituentRepository\nRepository\nrequired"
+  },
+  {
+    "objectID": "api/LevelPredictor.html#methods",
+    "href": "api/LevelPredictor.html#methods",
+    "title": "LevelPredictor",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\npredict\nPredict tide levels or currents using utide.\n\n\n\n\n\nLevelPredictor.predict(lon, lat, start, end, interval=timedelta(hours=1))\nPredict tide levels or currents using utide.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\nstart\ndatetime\nThe start date.\nrequired\n\n\nend\ndatetime\nThe end date.\nrequired\n\n\ninterval\ntimedelta\nThe interval between predictions.\ntimedelta(hours=1)\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npl.DataFrame\nThe predicted tide levels or currents.\n\n\n\n\n\n\nThe workhorse of this functions the reconstruct function from UTide"
+  },
+  {
+    "objectID": "api/NetCDFConstituentRepository.html",
+    "href": "api/NetCDFConstituentRepository.html",
+    "title": "NetCDFConstituentRepository",
+    "section": "",
+    "text": "NetCDFConstituentRepository(self, fp)\nA repository of tidal constituents stored in a NetCDF file.\n\n\n\n\n\nName\nDescription\n\n\n\n\nget_current_constituents\nGet the current constituents for a given longitude and latitude.\n\n\nget_level_constituents\nGet the level constituents for a given longitude and latitude.\n\n\n\n\n\nNetCDFConstituentRepository.get_current_constituents(lon, lat)\nGet the current constituents for a given longitude and latitude.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, CurrentConstituent]\nThe current constituents.\n\n\n\n\n\n\n\nNetCDFConstituentRepository.get_level_constituents(lon, lat)\nGet the level constituents for a given longitude and latitude.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, LevelConstituent]\nThe level constituents."
+  },
+  {
+    "objectID": "api/NetCDFConstituentRepository.html#methods",
+    "href": "api/NetCDFConstituentRepository.html#methods",
+    "title": "NetCDFConstituentRepository",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nget_current_constituents\nGet the current constituents for a given longitude and latitude.\n\n\nget_level_constituents\nGet the level constituents for a given longitude and latitude.\n\n\n\n\n\nNetCDFConstituentRepository.get_current_constituents(lon, lat)\nGet the current constituents for a given longitude and latitude.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, CurrentConstituent]\nThe current constituents.\n\n\n\n\n\n\n\nNetCDFConstituentRepository.get_level_constituents(lon, lat)\nGet the level constituents for a given longitude and latitude.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict[str, LevelConstituent]\nThe level constituents."
+  },
+  {
+    "objectID": "api/get_default_constituent_path.html",
+    "href": "api/get_default_constituent_path.html",
+    "title": "get_default_constituent_path",
+    "section": "",
+    "text": "get_default_constituent_path(prediction_type)\nGet the default path to the constituent file.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nprediction_type\nPredictionType\nThe type of prediction.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nPath\nThe path to the constituent file."
+  },
+  {
+    "objectID": "api/get_default_constituent_path.html#parameters",
+    "href": "api/get_default_constituent_path.html#parameters",
+    "title": "get_default_constituent_path",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nprediction_type\nPredictionType\nThe type of prediction.\nrequired"
+  },
+  {
+    "objectID": "api/get_default_constituent_path.html#returns",
+    "href": "api/get_default_constituent_path.html#returns",
+    "title": "get_default_constituent_path",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nPath\nThe path to the constituent file."
+  },
+  {
+    "objectID": "getting-started.html",
+    "href": "getting-started.html",
+    "title": "Getting started",
+    "section": "",
+    "text": "Install the tidepredictor package from the distributed wheel file.\n\npip install tidepredictor-*.whl\n\nCopy constituent files (.nc files) to the ~/.local/share/tidepredictor directory."
+  },
+  {
+    "objectID": "getting-started.html#installation",
+    "href": "getting-started.html#installation",
+    "title": "Getting started",
+    "section": "",
+    "text": "Install the tidepredictor package from the distributed wheel file.\n\npip install tidepredictor-*.whl\n\nCopy constituent files (.nc files) to the ~/.local/share/tidepredictor directory."
+  },
+  {
+    "objectID": "getting-started.html#usage",
+    "href": "getting-started.html#usage",
+    "title": "Getting started",
+    "section": "Usage",
+    "text": "Usage\ntidepredictor can be used either as a command line tool or as a Python library.\n\nPython library\n\nimport tidepredictor as tp\nfrom datetime import datetime, timedelta\n\npath = tp.get_default_constituent_path(tp.PredictionType.level)\n\nrepo = tp.NetCDFConstituentRepository(path)\n\npredictor = tp.LevelPredictor(repo)\n\ndf = predictor.predict(\n    lon=0.0,\n    lat=0.0,\n    start=datetime(2021, 1, 1),\n    end=datetime(2021, 1, 1, 12),\n    interval=timedelta(hours=1),\n)\ndf\n\n\nshape: (13, 2)\n\n\n\ntime\nlevel\n\n\ndatetime[ns]\nf64\n\n\n\n\n2021-01-01 00:00:00\n-0.312357\n\n\n2021-01-01 01:00:00\n-0.105695\n\n\n2021-01-01 02:00:00\n0.14836\n\n\n2021-01-01 03:00:00\n0.383749\n\n\n2021-01-01 04:00:00\n0.53892\n\n\n…\n…\n\n\n2021-01-01 08:00:00\n-0.08739\n\n\n2021-01-01 09:00:00\n-0.395394\n\n\n2021-01-01 10:00:00\n-0.624534\n\n\n2021-01-01 11:00:00\n-0.71729\n\n\n2021-01-01 12:00:00\n-0.652646\n\n\n\n\n\n\nAnd similar for depth averaged currents.\n\npath = tp.get_default_constituent_path(tp.PredictionType.current)\n\nrepo = tp.NetCDFConstituentRepository(path)\n\npredictor = tp.CurrentPredictor(repo)\n\ndf = predictor.predict_depth_averaged(\n    lon=0.0,\n    lat=0.0,\n    start=datetime(2021, 1, 1),\n    end=datetime(2021, 1, 1, 12),\n    interval=timedelta(hours=1)\n)\ndf\n\n\nshape: (13, 3)\n\n\n\ntime\nu\nv\n\n\ndatetime[ns]\nf64\nf64\n\n\n\n\n2021-01-01 00:00:00\n0.02144\n-0.003876\n\n\n2021-01-01 01:00:00\n0.020066\n-0.000355\n\n\n2021-01-01 02:00:00\n0.013733\n0.003082\n\n\n2021-01-01 03:00:00\n0.004057\n0.005698\n\n\n2021-01-01 04:00:00\n-0.006682\n0.006852\n\n\n…\n…\n…\n\n\n2021-01-01 08:00:00\n-0.018956\n-0.003575\n\n\n2021-01-01 09:00:00\n-0.010327\n-0.006165\n\n\n2021-01-01 10:00:00\n0.000595\n-0.00695\n\n\n2021-01-01 11:00:00\n0.010931\n-0.005796\n\n\n2021-01-01 12:00:00\n0.017948\n-0.003114\n\n\n\n\n\n\nAnd current profiles.\n\npath = tp.get_default_constituent_path(tp.PredictionType.current)\n\nrepo = tp.NetCDFConstituentRepository(path)\n\npredictor = tp.CurrentPredictor(repo)\n\ndf = predictor.predict_profile(\n    lon=0.0,\n    lat=0.0,\n    start=datetime(2021, 1, 1),\n    end=datetime(2021, 1, 1, 12),\n    interval=timedelta(hours=1),\n    levels=[-1.0, -5.0]\n)\ndf\n\n\nshape: (26, 7)\n\n\n\ntime\ndepth\nuavg\nu\nvavg\nv\ntotal_water_depth\n\n\ndatetime[ns]\nf64\nf64\nf64\nf64\nf64\nf64\n\n\n\n\n2021-01-01 00:00:00\n-1.0\n0.02144\n0.024502\n-0.003876\n-0.004429\n4872.000977\n\n\n2021-01-01 00:00:00\n-5.0\n0.02144\n0.024499\n-0.003876\n-0.004429\n4872.000977\n\n\n2021-01-01 01:00:00\n-1.0\n0.020066\n0.022931\n-0.000355\n-0.000406\n4872.000977\n\n\n2021-01-01 01:00:00\n-5.0\n0.020066\n0.022929\n-0.000355\n-0.000406\n4872.000977\n\n\n2021-01-01 02:00:00\n-1.0\n0.013733\n0.015694\n0.003082\n0.003522\n4872.000977\n\n\n…\n…\n…\n…\n…\n…\n…\n\n\n2021-01-01 10:00:00\n-5.0\n0.000595\n0.00068\n-0.00695\n-0.007941\n4872.000977\n\n\n2021-01-01 11:00:00\n-1.0\n0.010931\n0.012492\n-0.005796\n-0.006624\n4872.000977\n\n\n2021-01-01 11:00:00\n-5.0\n0.010931\n0.01249\n-0.005796\n-0.006623\n4872.000977\n\n\n2021-01-01 12:00:00\n-1.0\n0.017948\n0.020511\n-0.003114\n-0.003559\n4872.000977\n\n\n2021-01-01 12:00:00\n-5.0\n0.017948\n0.020509\n-0.003114\n-0.003558\n4872.000977\n\n\n\n\n\n\n\n\nCommand line\n\n!tidepredictor -x 0.0 -y 0.0 -s \"2021-01-01\" -e \"2021-01-01 02:00:00\" -i 30\n\ntime,level\n2021-01-01T00:00:00Z,-0.312\n2021-01-01T00:30:00Z,-0.219\n2021-01-01T01:00:00Z,-0.106\n2021-01-01T01:30:00Z,0.019\n2021-01-01T02:00:00Z,0.148\n\n\n\nAll options are available as command line arguments.\n\n!tidepredictor --help\n\n                                                                                \n Usage: tidepredictor [OPTIONS]                                                 \n                                                                                \n Predict the tides for a given location.                                        \n                                                                                \n╭─ Options ────────────────────────────────────────────────────────────────────╮\n│ *  --lon                 -x      FLOAT RANGE           Longitude             │\n│                                  [-180&lt;=x&lt;=180]        [default: None]       │\n│                                                        [required]            │\n│ *  --lat                 -y      FLOAT RANGE           Latitude              │\n│                                  [-90&lt;=x&lt;=90]          [default: None]       │\n│                                                        [required]            │\n│    --start               -s      [%Y-%m-%d|%Y-%m-%dT%  Start date            │\n│                                  H:%M:%S|%Y-%m-%d      [default: None]       │\n│                                  %H:%M:%S]                                   │\n│    --end                 -e      [%Y-%m-%d|%Y-%m-%dT%  End date              │\n│                                  H:%M:%S|%Y-%m-%d      [default: None]       │\n│                                  %H:%M:%S]                                   │\n│    --interval            -i      INTEGER RANGE [x&gt;=1]  Interval in minutes   │\n│                                                        [default: 30]         │\n│    --output              -o      PATH                  Output file, default  │\n│                                                        is stdout             │\n│                                                        [default: None]       │\n│    --format                      [csv|json]            Output format         │\n│                                                        [default: csv]        │\n│    --type                        [level|current]       Type of prediction,   │\n│                                                        level or u,v          │\n│                                                        [default: level]      │\n│    --precision           -p      INTEGER RANGE [x&gt;=0]  Number of decimal     │\n│                                                        places. (csv only)    │\n│                                                        [default: 3]          │\n│    --alpha                       FLOAT                 Alpha factor for      │\n│                                                        current profile       │\n│                                                        [default:             │\n│                                                        0.14285714285714285]  │\n│    --install-completion                                Install completion    │\n│                                                        for the current       │\n│                                                        shell.                │\n│    --show-completion                                   Show completion for   │\n│                                                        the current shell, to │\n│                                                        copy it or customize  │\n│                                                        the installation.     │\n│    --help                                              Show this message and │\n│                                                        exit.                 │\n╰──────────────────────────────────────────────────────────────────────────────╯"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome to tidepredictor",
+    "section": "",
+    "text": "Welcome to tidepredictor\n\nSee more in Getting started\nA complete reference is available here"
+  },
+  {
+    "objectID": "api/index.html",
+    "href": "api/index.html",
+    "title": "API Reference",
+    "section": "",
+    "text": "LevelPredictor\nPredict tidal levels timeseries (surface elevation)\n\n\nCurrentPredictor\n\n\n\nNetCDFConstituentRepository\nA repository of tidal constituents stored in a NetCDF file.\n\n\nget_default_constituent_path\nGet the default path to the constituent file.\n\n\nPredictionType"
+  },
+  {
+    "objectID": "api/index.html#tidepredictor",
+    "href": "api/index.html#tidepredictor",
+    "title": "API Reference",
+    "section": "",
+    "text": "LevelPredictor\nPredict tidal levels timeseries (surface elevation)\n\n\nCurrentPredictor\n\n\n\nNetCDFConstituentRepository\nA repository of tidal constituents stored in a NetCDF file.\n\n\nget_default_constituent_path\nGet the default path to the constituent file.\n\n\nPredictionType"
+  },
+  {
+    "objectID": "api/PredictionType.html",
+    "href": "api/PredictionType.html",
+    "title": "PredictionType",
+    "section": "",
+    "text": "PredictionType\nPredictionType()"
+  },
+  {
+    "objectID": "api/CurrentPredictor.html",
+    "href": "api/CurrentPredictor.html",
+    "title": "CurrentPredictor",
+    "section": "",
+    "text": "CurrentPredictor(self, constituent_repo, alpha=1.0 / 7)\n\n\n\n\n\nName\nDescription\n\n\n\n\npredict_depth_averaged\nPredict tide levels or currents using utide.\n\n\n\n\n\nCurrentPredictor.predict_depth_averaged(\n    lon,\n    lat,\n    start,\n    end,\n    interval=timedelta(hours=1),\n)\nPredict tide levels or currents using utide.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\nstart\ndatetime\nThe start date.\nrequired\n\n\nend\ndatetime\nThe end date.\nrequired\n\n\ninterval\ntimedelta\nThe interval between predictions.\ntimedelta(hours=1)\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npl.DataFrame\nThe predicted tide levels or currents.\n\n\n\n\n\n\nThe workhorse of this functions the reconstruct function from UTide"
+  },
+  {
+    "objectID": "api/CurrentPredictor.html#methods",
+    "href": "api/CurrentPredictor.html#methods",
+    "title": "CurrentPredictor",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\npredict_depth_averaged\nPredict tide levels or currents using utide.\n\n\n\n\n\nCurrentPredictor.predict_depth_averaged(\n    lon,\n    lat,\n    start,\n    end,\n    interval=timedelta(hours=1),\n)\nPredict tide levels or currents using utide.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\nstart\ndatetime\nThe start date.\nrequired\n\n\nend\ndatetime\nThe end date.\nrequired\n\n\ninterval\ntimedelta\nThe interval between predictions.\ntimedelta(hours=1)\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npl.DataFrame\nThe predicted tide levels or currents.\n\n\n\n\n\n\nThe workhorse of this functions the reconstruct function from UTide"
+  }
+]
