@@ -79,6 +79,8 @@ df = predictor.predict_profile(
 df
 ```
 
+Line chart.
+
 ```{python}
 import plotly.express as px
 
