@@ -13,9 +13,9 @@ def test_success_basic():
             "-e",
             "2020-01-02",
             "--lon",
-            "0",
+            "-2.75",
             "--lat",
-            "0",
+            "56.1",
         ],
     )
     assert result.exit_code == 0
@@ -26,7 +26,7 @@ def test_success_json_output():
     runner = CliRunner()
     result = runner.invoke(
         app,
-        ["-x", 0.0, "-y", 0.0, "--format", "json"],
+        ["-x", -2.75, "-y", 56.1, "--format", "json"],
     )
     assert result.exit_code == 0
 
@@ -41,7 +41,7 @@ def test_success_json_file(tmp_path) -> None:
     runner = CliRunner()
     result = runner.invoke(
         app,
-        ["-x", 0.0, "-y", 0.0, "-o", str(path)],
+        ["-x", -2.75, "-y", 56.1, "-o", str(path)],
     )
     assert result.exit_code == 0
     assert path.exists()
@@ -63,9 +63,9 @@ def test_output_file(tmp_path) -> None:
             "-e",
             "2020-01-02",
             "--lon",
-            "0",
+            "-2.75",
             "--lat",
-            "0",
+            "56.1",
             "-o",
             str(path),
         ],
@@ -87,9 +87,9 @@ def test_invalid_output_file_format(tmp_path) -> None:
             "-e",
             "2020-01-02",
             "--lon",
-            "0",
+            "-2.75",
             "--lat",
-            "0",
+            "56.1",
             "-o",
             str(path),
         ],
