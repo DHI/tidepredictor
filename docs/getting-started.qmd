@@ -79,19 +79,11 @@ df = predictor.predict_profile(
 df
 ```
 
-Line chart.
-
-```{python}
-import plotly.express as px
-
-px.line(df, x="time", y="u",color="depth")
-```
-
 
 ### Command line
 
 ```{python}
-!tidepredictor -x 0.0 -y 0.0 -s "2021-01-01" -e "2021-01-01 02:00:00" -i 30
+!tidepredictor -x -2.75 -y 56.1 -s "2021-01-01" -e "2021-01-01 02:00:00" -i 30
 ```
 
 All options are available as command line arguments.
