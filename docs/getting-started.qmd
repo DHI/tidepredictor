@@ -28,8 +28,8 @@ repo = tp.NetCDFConstituentRepository(path)
 predictor = tp.LevelPredictor(repo)
 
 df = predictor.predict(
-    lon=0.0,
-    lat=0.0,
+    lon=-2.75,
+    lat=56.1,
     start=datetime(2021, 1, 1),
     end=datetime(2021, 1, 1, 12),
     interval=timedelta(hours=1),
@@ -48,8 +48,8 @@ repo = tp.NetCDFConstituentRepository(path)
 predictor = tp.CurrentPredictor(repo)
 
 df = predictor.predict_depth_averaged(
-    lon=0.0,
-    lat=0.0,
+    lon=-2.75,
+    lat=56.1,
     start=datetime(2021, 1, 1),
     end=datetime(2021, 1, 1, 12),
     interval=timedelta(hours=1)
@@ -69,16 +69,21 @@ repo = tp.NetCDFConstituentRepository(path)
 predictor = tp.CurrentPredictor(repo)
 
 df = predictor.predict_profile(
-    lon=0.0,
-    lat=0.0,
+    lon=-2.75,
+    lat=56.1,
     start=datetime(2021, 1, 1),
-    end=datetime(2021, 1, 1, 12),
+    end=datetime(2021, 1, 2, 1),
     interval=timedelta(hours=1),
-    levels=[-1.0, -5.0]
+    levels=[-1.0, -5.0, -15.0]
 )
 df
 ```
 
+```{python}
+import plotly.express as px
+
+px.line(df, x="time", y="u",color="depth")
+```
 
 
 ### Command line

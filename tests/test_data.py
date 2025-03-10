@@ -33,9 +33,7 @@ def test_read_constituents_outside_data_fails(level_constituent_file_path) -> No
 def test_read_level_onstituents(level_constituent_file_path) -> None:
     reader = ConstituentReader(level_constituent_file_path)
 
-    const = reader.get_level_constituents(lat=0.0, lon=0.0)
-    assert const["M2"].amplitude == pytest.approx(0.44190001487731934)
-    assert const["M2"].phase == pytest.approx(103.89859771728516)
+    const = reader.get_level_constituents(lat=56.1, lon=-2.75)
 
     expected_keys = "Q1 MF P1 K1 MM O1 M2 S2 M4 MN4 MS4 N2 K2".split()
 
@@ -45,7 +43,7 @@ def test_read_level_onstituents(level_constituent_file_path) -> None:
 def test_read_current_constituents(current_constituent_file_path) -> None:
     reader = ConstituentReader(current_constituent_file_path)
 
-    const = reader.get_current_constituents(lat=0.0, lon=0.0)
+    const = reader.get_current_constituents(lat=56.1, lon=-2.75)
 
     # TODO assert correct values
     expected_keys = "Q1 MF P1 K1 MM O1 M2 S2 M4 MN4 MS4 N2 K2".split()

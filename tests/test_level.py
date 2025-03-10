@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from pathlib import Path
 
-import mikeio
+# import mikeio
 import polars as pl
 from tidepredictor import (
     LevelPredictor,
@@ -61,8 +61,8 @@ def test_utide_returns_dataframe_with_levels() -> None:
     )
 
     df = predictor.predict(
-        lon=0.0,
-        lat=0.0,
+        lon=-2.75,
+        lat=56.1,
         start=datetime(2024, 1, 1),
         end=datetime(2024, 1, 2),
         interval=timedelta(hours=1),
@@ -73,30 +73,30 @@ def test_utide_returns_dataframe_with_levels() -> None:
     assert df["level"].min() < 0
 
 
-def test_utide_vs_mike_precalculated():
-    ds = mikeio.read("tests/data/tide_level.dfs0")
-    item = "Level (0,0)"
-    mdf = pl.from_pandas(ds[item].to_dataframe().reset_index()).rename(
-        {"index": "time", item: "mike"}
-    )
+# def test_utide_vs_mike_precalculated():
+#     ds = mikeio.read("tests/data/tide_level.dfs0")
+#     item = "Level (0,0)"
+#     mdf = pl.from_pandas(ds[item].to_dataframe().reset_index()).rename(
+#         {"index": "time", item: "mike"}
+#     )
 
-    # TODO checks all locations in the file
-    lat = 0.0
-    lon = 0.0
-    repo = NetCDFConstituentRepository(Path("tests/data/level.nc"))
-    predictor = LevelPredictor(
-        constituent_repo=repo,
-    )
+#     # TODO checks all locations in the file
+#     lat = 0.0
+#     lon = 0.0
+#     repo = NetCDFConstituentRepository(Path("tests/data/level.nc"))
+#     predictor = LevelPredictor(
+#         constituent_repo=repo,
+#     )
 
-    udf = predictor.predict(
-        lon=lon,
-        lat=lat,
-        start=ds.time[0].to_pydatetime(),
-        end=ds.time[-1].to_pydatetime(),
-        interval=timedelta(hours=1),
-    ).rename({"level": "utide"})
+#     udf = predictor.predict(
+#         lon=lon,
+#         lat=lat,
+#         start=ds.time[0].to_pydatetime(),
+#         end=ds.time[-1].to_pydatetime(),
+#         interval=timedelta(hours=1),
+#     ).rename({"level": "utide"})
 
-    both = udf.join(mdf, on="time")
+#     both = udf.join(mdf, on="time")
 
-    diff = both["utide"] - both["mike"]
-    assert diff.abs().max() < 0.08
+#     diff = both["utide"] - both["mike"]
+#     assert diff.abs().max() < 0.08

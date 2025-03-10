@@ -35,6 +35,9 @@ jobs:
           mkdir -p ~/.local/share/tidepredictor
           cp tests/data/*.nc ~/.local/share/tidepredictor/
     
+    - name: Install Quarto
+      uses: quarto-dev/quarto-actions/setup@v2
+      
     - name: Build documentation
       run: |
         make docs
