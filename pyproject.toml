@@ -63,6 +63,8 @@ docs = [
     "nbclient>=0.10.2",
     "nbformat>=5.10.4",
     "plotly>=6.0.0",
+    "plotnine>=0.14.5",
+    "pyarrow>=19.0.1",
     #"quarto-cli>=1.6.40",
     "quartodoc>=0.9.1",
 ]

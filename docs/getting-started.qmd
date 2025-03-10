@@ -66,7 +66,7 @@ path = tp.get_default_constituent_path(tp.PredictionType.current)
 
 repo = tp.NetCDFConstituentRepository(path)
 
-predictor = tp.CurrentPredictor(repo)
+predictor = tp.CurrentPredictor(repo, alpha=1.0/3)
 
 df = predictor.predict_profile(
     lon=-2.75,
@@ -74,9 +74,22 @@ df = predictor.predict_profile(
     start=datetime(2021, 1, 1),
     end=datetime(2021, 1, 2, 1),
     interval=timedelta(hours=1),
-    levels=[-1.0, -5.0, -15.0]
+    levels=[-1.0, -10.0, -27.0]
 )
 df
+```
+
+```{python}
+from plotnine import *
+
+(
+    ggplot(df, aes("time","u", color="factor(depth)"))
+    + geom_line() + geom_point()
+    + labs(color="Depth")
+
+)
+
+
 ```
 
 
