@@ -60,6 +60,7 @@ dev = [
 ]
 
 docs = [
+    "nbclient>=0.10.2",
     "nbformat>=5.10.4",
     "plotly>=6.0.0",
     #"quarto-cli>=1.6.40",
