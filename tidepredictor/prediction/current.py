@@ -19,6 +19,17 @@ from utide import reconstruct, ut_constants  # noqa: E402
 
 
 class CurrentPredictor:
+    """Predict tidal currents.
+
+    Parameters
+    ----------
+    constituent_repo:
+        Current constituent repository.
+    alpha:
+        Current profile power exponent.
+
+    """
+
     def __init__(
         self, constituent_repo: ConstituentRepository, alpha: float = 1.0 / 7
     ) -> None:
@@ -34,6 +45,7 @@ class CurrentPredictor:
         interval: timedelta = timedelta(hours=1),
         levels: Collection[float] | None = None,
     ) -> pl.DataFrame:
+        """Predict current profiles."""
         df = self.predict_depth_averaged(
             lon=lon, lat=lat, start=start, end=end, interval=interval
         ).rename({"u": "uavg", "v": "vavg"})
