@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,7 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-8647a4a42273f773479d27c00df3f9ed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -213,7 +213,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>tidepredictor</code> can be used either as a command line tool or as a Python library.</p>
 <section id="python-library" class="level3">
 <h3 class="anchored" data-anchor-id="python-library">Python library</h3>
-<div id="38240907" class="cell" data-execution_count="1">
+<div id="e91cb012" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tidepredictor <span class="im">as</span> tp</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime, timedelta</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -224,8 +224,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>predictor <span class="op">=</span> tp.LevelPredictor(repo)</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> predictor.predict(</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    lon<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    lat<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    lon<span class="op">=-</span><span class="fl">2.75</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    lat<span class="op">=</span><span class="fl">56.1</span>,</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    start<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    end<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">12</span>),</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    interval<span class="op">=</span>timedelta(hours<span class="op">=</span><span class="dv">1</span>),</span>
@@ -254,23 +254,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td>2021-01-01 00:00:00</td>
-<td>-0.312357</td>
+<td>-0.442367</td>
 </tr>
 <tr class="even">
 <td>2021-01-01 01:00:00</td>
-<td>-0.105695</td>
+<td>0.497577</td>
 </tr>
 <tr class="odd">
 <td>2021-01-01 02:00:00</td>
-<td>0.14836</td>
+<td>1.276745</td>
 </tr>
 <tr class="even">
 <td>2021-01-01 03:00:00</td>
-<td>0.383749</td>
+<td>1.72732</td>
 </tr>
 <tr class="odd">
 <td>2021-01-01 04:00:00</td>
-<td>0.53892</td>
+<td>1.745138</td>
 </tr>
 <tr class="even">
 <td>…</td>
@@ -278,23 +278,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td>2021-01-01 08:00:00</td>
-<td>-0.08739</td>
+<td>-1.28875</td>
 </tr>
 <tr class="even">
 <td>2021-01-01 09:00:00</td>
-<td>-0.395394</td>
+<td>-1.764365</td>
 </tr>
 <tr class="odd">
 <td>2021-01-01 10:00:00</td>
-<td>-0.624534</td>
+<td>-1.7304</td>
 </tr>
 <tr class="even">
 <td>2021-01-01 11:00:00</td>
-<td>-0.71729</td>
+<td>-1.206373</td>
 </tr>
 <tr class="odd">
 <td>2021-01-01 12:00:00</td>
-<td>-0.652646</td>
+<td>-0.351576</td>
 </tr>
 </tbody>
 </table>
@@ -302,7 +302,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>And similar for depth averaged currents.</p>
-<div id="94a40f73" class="cell" data-execution_count="2">
+<div id="6a2a74a2" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> tp.get_default_constituent_path(tp.PredictionType.current)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> tp.NetCDFConstituentRepository(path)</span>
@@ -310,8 +310,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>predictor <span class="op">=</span> tp.CurrentPredictor(repo)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> predictor.predict_depth_averaged(</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    lon<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    lat<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    lon<span class="op">=-</span><span class="fl">2.75</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    lat<span class="op">=</span><span class="fl">56.1</span>,</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    start<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    end<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">12</span>),</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    interval<span class="op">=</span>timedelta(hours<span class="op">=</span><span class="dv">1</span>)</span>
@@ -342,28 +342,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td>2021-01-01 00:00:00</td>
-<td>0.02144</td>
-<td>-0.003876</td>
+<td>-0.306778</td>
+<td>-0.04915</td>
 </tr>
 <tr class="even">
 <td>2021-01-01 01:00:00</td>
-<td>0.020066</td>
-<td>-0.000355</td>
+<td>-0.266633</td>
+<td>-0.056529</td>
 </tr>
 <tr class="odd">
 <td>2021-01-01 02:00:00</td>
-<td>0.013733</td>
-<td>0.003082</td>
+<td>-0.172855</td>
+<td>-0.052108</td>
 </tr>
 <tr class="even">
 <td>2021-01-01 03:00:00</td>
-<td>0.004057</td>
-<td>0.005698</td>
+<td>-0.043507</td>
+<td>-0.037106</td>
 </tr>
 <tr class="odd">
 <td>2021-01-01 04:00:00</td>
-<td>-0.006682</td>
-<td>0.006852</td>
+<td>0.09946</td>
+<td>-0.013727</td>
 </tr>
 <tr class="even">
 <td>…</td>
@@ -372,28 +372,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td>2021-01-01 08:00:00</td>
-<td>-0.018956</td>
-<td>-0.003575</td>
+<td>0.20092</td>
+<td>0.054071</td>
 </tr>
 <tr class="even">
 <td>2021-01-01 09:00:00</td>
-<td>-0.010327</td>
-<td>-0.006165</td>
+<td>0.051412</td>
+<td>0.03789</td>
 </tr>
 <tr class="odd">
 <td>2021-01-01 10:00:00</td>
-<td>0.000595</td>
-<td>-0.00695</td>
+<td>-0.106491</td>
+<td>0.011537</td>
 </tr>
 <tr class="even">
 <td>2021-01-01 11:00:00</td>
-<td>0.010931</td>
-<td>-0.005796</td>
+<td>-0.224378</td>
+<td>-0.016184</td>
 </tr>
 <tr class="odd">
 <td>2021-01-01 12:00:00</td>
-<td>0.017948</td>
-<td>-0.003114</td>
+<td>-0.273847</td>
+<td>-0.037307</td>
 </tr>
 </tbody>
 </table>
@@ -401,7 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>And current profiles.</p>
-<div id="d57f2775" class="cell" data-execution_count="3">
+<div id="313c7464" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> tp.get_default_constituent_path(tp.PredictionType.current)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> tp.NetCDFConstituentRepository(path)</span>
@@ -409,12 +409,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>predictor <span class="op">=</span> tp.CurrentPredictor(repo)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> predictor.predict_profile(</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    lon<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    lat<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    lon<span class="op">=-</span><span class="fl">2.75</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    lat<span class="op">=</span><span class="fl">56.1</span>,</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    start<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    end<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">12</span>),</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    end<span class="op">=</span>datetime(<span class="dv">2021</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    interval<span class="op">=</span>timedelta(hours<span class="op">=</span><span class="dv">1</span>),</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    levels<span class="op">=</span>[<span class="op">-</span><span class="fl">1.0</span>, <span class="op">-</span><span class="fl">5.0</span>]</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    levels<span class="op">=</span>[<span class="op">-</span><span class="fl">1.0</span>, <span class="op">-</span><span class="fl">5.0</span>, <span class="op">-</span><span class="fl">15.0</span>]</span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -425,7 +425,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   white-space: pre-wrap;
 }
 </style>
-<small>shape: (26, 7)</small>
+<small>shape: (78, 7)</small>
 <table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
@@ -451,47 +451,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>2021-01-01 00:00:00</td>
 <td>-1.0</td>
-<td>0.02144</td>
-<td>0.024502</td>
-<td>-0.003876</td>
-<td>-0.004429</td>
-<td>4872.000977</td>
+<td>-0.306778</td>
+<td>-0.34891</td>
+<td>-0.04915</td>
+<td>-0.0559</td>
+<td>30.0</td>
 </tr>
 <tr class="even">
 <td>2021-01-01 00:00:00</td>
 <td>-5.0</td>
-<td>0.02144</td>
-<td>0.024499</td>
-<td>-0.003876</td>
-<td>-0.004429</td>
-<td>4872.000977</td>
+<td>-0.306778</td>
+<td>-0.34159</td>
+<td>-0.04915</td>
+<td>-0.054727</td>
+<td>30.0</td>
 </tr>
 <tr class="odd">
-<td>2021-01-01 01:00:00</td>
-<td>-1.0</td>
-<td>0.020066</td>
-<td>0.022931</td>
-<td>-0.000355</td>
-<td>-0.000406</td>
-<td>4872.000977</td>
+<td>2021-01-01 00:00:00</td>
+<td>-15.0</td>
+<td>-0.306778</td>
+<td>-0.31755</td>
+<td>-0.04915</td>
+<td>-0.050876</td>
+<td>30.0</td>
 </tr>
 <tr class="even">
 <td>2021-01-01 01:00:00</td>
-<td>-5.0</td>
-<td>0.020066</td>
-<td>0.022929</td>
-<td>-0.000355</td>
-<td>-0.000406</td>
-<td>4872.000977</td>
+<td>-1.0</td>
+<td>-0.266633</td>
+<td>-0.303251</td>
+<td>-0.056529</td>
+<td>-0.064292</td>
+<td>30.0</td>
 </tr>
 <tr class="odd">
-<td>2021-01-01 02:00:00</td>
-<td>-1.0</td>
-<td>0.013733</td>
-<td>0.015694</td>
-<td>0.003082</td>
-<td>0.003522</td>
-<td>4872.000977</td>
+<td>2021-01-01 01:00:00</td>
+<td>-5.0</td>
+<td>-0.266633</td>
+<td>-0.296889</td>
+<td>-0.056529</td>
+<td>-0.062944</td>
+<td>30.0</td>
 </tr>
 <tr class="even">
 <td>…</td>
@@ -503,73 +503,318 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>…</td>
 </tr>
 <tr class="odd">
-<td>2021-01-01 10:00:00</td>
+<td>2021-01-02 00:00:00</td>
 <td>-5.0</td>
-<td>0.000595</td>
-<td>0.00068</td>
-<td>-0.00695</td>
-<td>-0.007941</td>
-<td>4872.000977</td>
+<td>-0.31052</td>
+<td>-0.345756</td>
+<td>-0.039232</td>
+<td>-0.043684</td>
+<td>30.0</td>
 </tr>
 <tr class="even">
-<td>2021-01-01 11:00:00</td>
-<td>-1.0</td>
-<td>0.010931</td>
-<td>0.012492</td>
-<td>-0.005796</td>
-<td>-0.006624</td>
-<td>4872.000977</td>
+<td>2021-01-02 00:00:00</td>
+<td>-15.0</td>
+<td>-0.31052</td>
+<td>-0.321423</td>
+<td>-0.039232</td>
+<td>-0.04061</td>
+<td>30.0</td>
 </tr>
 <tr class="odd">
-<td>2021-01-01 11:00:00</td>
-<td>-5.0</td>
-<td>0.010931</td>
-<td>0.01249</td>
-<td>-0.005796</td>
-<td>-0.006623</td>
-<td>4872.000977</td>
+<td>2021-01-02 01:00:00</td>
+<td>-1.0</td>
+<td>-0.313886</td>
+<td>-0.356994</td>
+<td>-0.055287</td>
+<td>-0.06288</td>
+<td>30.0</td>
 </tr>
 <tr class="even">
-<td>2021-01-01 12:00:00</td>
-<td>-1.0</td>
-<td>0.017948</td>
-<td>0.020511</td>
-<td>-0.003114</td>
-<td>-0.003559</td>
-<td>4872.000977</td>
+<td>2021-01-02 01:00:00</td>
+<td>-5.0</td>
+<td>-0.313886</td>
+<td>-0.349504</td>
+<td>-0.055287</td>
+<td>-0.061561</td>
+<td>30.0</td>
 </tr>
 <tr class="odd">
-<td>2021-01-01 12:00:00</td>
-<td>-5.0</td>
-<td>0.017948</td>
-<td>0.020509</td>
-<td>-0.003114</td>
-<td>-0.003558</td>
-<td>4872.000977</td>
+<td>2021-01-02 01:00:00</td>
+<td>-15.0</td>
+<td>-0.313886</td>
+<td>-0.324907</td>
+<td>-0.055287</td>
+<td>-0.057229</td>
+<td>30.0</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
+<p>Line chart.</p>
+<div id="15a932a2" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>px.line(df, x<span class="op">=</span><span class="st">"time"</span>, y<span class="op">=</span><span class="st">"u"</span>,color<span class="op">=</span><span class="st">"depth"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+        <script type="text/javascript">
+        window.PlotlyConfig = {MathJaxConfig: 'local'};
+        if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+        </script>
+        <script type="module">import "https://cdn.plot.ly/plotly-3.0.0.min"</script>
+        
+</div>
+<div class="cell-output cell-output-display">
+<div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.0.0.min.js"></script>                <div id="43d628ee-9c8b-4e15-9127-dd9a00376dd6" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("43d628ee-9c8b-4e15-9127-dd9a00376dd6")) {                    Plotly.newPlot(                        "43d628ee-9c8b-4e15-9127-dd9a00376dd6",                        [{"hovertemplate":"depth=-1.0\u003cbr\u003etime=%{x}\u003cbr\u003eu=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"-1.0","line":{"color":"#636efa","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"-1.0","orientation":"v","showlegend":true,"x":["2021-01-01T00:00:00.000000000","2021-01-01T01:00:00.000000000","2021-01-01T02:00:00.000000000","2021-01-01T03:00:00.000000000","2021-01-01T04:00:00.000000000","2021-01-01T05:00:00.000000000","2021-01-01T06:00:00.000000000","2021-01-01T07:00:00.000000000","2021-01-01T08:00:00.000000000","2021-01-01T09:00:00.000000000","2021-01-01T10:00:00.000000000","2021-01-01T11:00:00.000000000","2021-01-01T12:00:00.000000000","2021-01-01T13:00:00.000000000","2021-01-01T14:00:00.000000000","2021-01-01T15:00:00.000000000","2021-01-01T16:00:00.000000000","2021-01-01T17:00:00.000000000","2021-01-01T18:00:00.000000000","2021-01-01T19:00:00.000000000","2021-01-01T20:00:00.000000000","2021-01-01T21:00:00.000000000","2021-01-01T22:00:00.000000000","2021-01-01T23:00:00.000000000","2021-01-02T00:00:00.000000000","2021-01-02T01:00:00.000000000"],"xaxis":"x","y":{"dtype":"f8","bdata":"EbtAD4pU1r+vSO4Jd2jTv887a5H6Kcm\u002f1Yf2ybpVqb8Rt3D2XPW8P5\u002fg+M0ectA\u002fbrOYlk3V1T+q6ytMOFPVP8b\u002fI7fqP80\u002fB6KlzSzwrT\u002fD3r73awG\u002fv3hpE3MWVdC\u002fnXbN0Obu079siWmYzlDSv2KwaS7j68i\u002fPn7K\u002fwgerr8POy0KY+y4Pwn+8B5IK88\u002f++y2627Z1T8BScL+BrXWP7zfZTTNLNE\u002fFIrLFTsCuj99YgsapEq4v74eyM1XtdC\u002fhMS4f0Sa1r\u002fQUihS+9jWvw=="},"yaxis":"y","type":"scatter"},{"hovertemplate":"depth=-5.0\u003cbr\u003etime=%{x}\u003cbr\u003eu=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"-5.0","line":{"color":"#EF553B","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"-5.0","orientation":"v","showlegend":true,"x":["2021-01-01T00:00:00.000000000","2021-01-01T01:00:00.000000000","2021-01-01T02:00:00.000000000","2021-01-01T03:00:00.000000000","2021-01-01T04:00:00.000000000","2021-01-01T05:00:00.000000000","2021-01-01T06:00:00.000000000","2021-01-01T07:00:00.000000000","2021-01-01T08:00:00.000000000","2021-01-01T09:00:00.000000000","2021-01-01T10:00:00.000000000","2021-01-01T11:00:00.000000000","2021-01-01T12:00:00.000000000","2021-01-01T13:00:00.000000000","2021-01-01T14:00:00.000000000","2021-01-01T15:00:00.000000000","2021-01-01T16:00:00.000000000","2021-01-01T17:00:00.000000000","2021-01-01T18:00:00.000000000","2021-01-01T19:00:00.000000000","2021-01-01T20:00:00.000000000","2021-01-01T21:00:00.000000000","2021-01-01T22:00:00.000000000","2021-01-01T23:00:00.000000000","2021-01-02T00:00:00.000000000","2021-01-02T01:00:00.000000000"],"xaxis":"x","y":{"dtype":"f8","bdata":"EGjStpvc1b+Kd\u002fBxOgDTv6W8qwnUosi\u002f8I8nSKnNqL+P2ihU1Vm8P3gmYR\u002fLGdA\u002f8xIlmgpg1T\u002fAcAn2r+DUP4rSPqvSosw\u002fOEljHGJPrT8C\u002fE655Vq+v7LNPGS9+s+\u002fchTSMNiD07+tN5H8b+7RvyhxfCEKZsi\u002fSrdgAEh8rb81eoxOh2a4P352RQ7hg84\u002fK7WMwBVk1T\u002fUhrtuEjvWP1SdfeWO0NA\u002fDcU0HIt2uT\u002foW3sSLci3v0JMOhWbW9C\u002fQL1JqN8g1r8i2ZunRV7Wvw=="},"yaxis":"y","type":"scatter"},{"hovertemplate":"depth=-15.0\u003cbr\u003etime=%{x}\u003cbr\u003eu=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"-15.0","line":{"color":"#00cc96","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"-15.0","orientation":"v","showlegend":true,"x":["2021-01-01T00:00:00.000000000","2021-01-01T01:00:00.000000000","2021-01-01T02:00:00.000000000","2021-01-01T03:00:00.000000000","2021-01-01T04:00:00.000000000","2021-01-01T05:00:00.000000000","2021-01-01T06:00:00.000000000","2021-01-01T07:00:00.000000000","2021-01-01T08:00:00.000000000","2021-01-01T09:00:00.000000000","2021-01-01T10:00:00.000000000","2021-01-01T11:00:00.000000000","2021-01-01T12:00:00.000000000","2021-01-01T13:00:00.000000000","2021-01-01T14:00:00.000000000","2021-01-01T15:00:00.000000000","2021-01-01T16:00:00.000000000","2021-01-01T17:00:00.000000000","2021-01-01T18:00:00.000000000","2021-01-01T19:00:00.000000000","2021-01-01T20:00:00.000000000","2021-01-01T21:00:00.000000000","2021-01-01T22:00:00.000000000","2021-01-01T23:00:00.000000000","2021-01-02T00:00:00.000000000","2021-01-02T01:00:00.000000000"],"xaxis":"x","y":{"dtype":"f8","bdata":"gTLlxL1S1L\u002fZF0g\u002f56nRv60cu5X65sa\u002fRf2II8wOp7\u002fssI9SDlu6P8zam6Vv780\u002ftd254vDe0z9V8z+wjGjTPzsXt6nonso\u002fPRulNlM\u002fqz+uGgs5Azi8vyPkEfeWus2\u002frYDowkEk0r9N7sZ5YavQvwZU5dx3rsa\u002fmA+5NRBpq7+BNcE67K62P\u002fuZczccXsw\u002fAo2ZL7Pi0z9P3K6ajqrUP\u002fIagrg9Q88\u002f7ba6V8urtz9I1Afqthu2v1s43S7Mac6\u002fDg490zOS1L9VgAunR8vUvw=="},"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"time"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"u"}},"legend":{"title":{"text":"depth"},"tracegroupgap":0}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('43d628ee-9c8b-4e15-9127-dd9a00376dd6');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div>
+</div>
+</div>
 </section>
 <section id="command-line" class="level3">
 <h3 class="anchored" data-anchor-id="command-line">Command line</h3>
-<div id="8c4b47f9" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">-</span>x <span class="fl">0.0</span> <span class="op">-</span>y <span class="fl">0.0</span> <span class="op">-</span>s <span class="st">"2021-01-01"</span> <span class="op">-</span>e <span class="st">"2021-01-01 02:00:00"</span> <span class="op">-</span>i <span class="dv">30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cb6296d9" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">-</span>x <span class="fl">0.0</span> <span class="op">-</span>y <span class="fl">0.0</span> <span class="op">-</span>s <span class="st">"2021-01-01"</span> <span class="op">-</span>e <span class="st">"2021-01-01 02:00:00"</span> <span class="op">-</span>i <span class="dv">30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>time,level
-2021-01-01T00:00:00Z,-0.312
-2021-01-01T00:30:00Z,-0.219
-2021-01-01T01:00:00Z,-0.106
-2021-01-01T01:30:00Z,0.019
-2021-01-01T02:00:00Z,0.148
-</code></pre>
+<pre><code>╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /home/runner/work/tidepredictor/tidepredictor/tidepredictor/main.py:78 in    │
+│ main                                                                         │
+│                                                                              │
+│    75 │   match type:                                                        │
+│    76 │   │   case PredictionType.level:                                     │
+│    77 │   │   │   predictor = LevelPredictor(constituent_repo=repo)          │
+│ ❱  78 │   │   │   df = predictor.predict(                                    │
+│    79 │   │   │   │   lon=lon,                                               │
+│    80 │   │   │   │   lat=lat,                                               │
+│    81 │   │   │   │   start=prediction_start,                                │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │            alpha = 0.14285714285714285                                   │ │
+│ │              end = datetime.datetime(2021, 1, 1, 2, 0)                   │ │
+│ │           format = &lt;Format.csv: 'csv'&gt;                                   │ │
+│ │         interval = 30                                                    │ │
+│ │              lat = 0.0                                                   │ │
+│ │              lon = 0.0                                                   │ │
+│ │           output = None                                                  │ │
+│ │             path = PosixPath('/home/runner/.local/share/tidepredictor/l… │ │
+│ │        precision = 3                                                     │ │
+│ │   prediction_end = datetime.datetime(2021, 1, 1, 2, 0)                   │ │
+│ │ prediction_start = datetime.datetime(2021, 1, 1, 0, 0)                   │ │
+│ │        predictor = &lt;tidepredictor.prediction.level.LevelPredictor object │ │
+│ │                    at 0x7fc70ceb0a50&gt;                                    │ │
+│ │             repo = &lt;tidepredictor.data.NetCDFConstituentRepository       │ │
+│ │                    object at 0x7fc70a32b490&gt;                             │ │
+│ │            start = datetime.datetime(2021, 1, 1, 0, 0)                   │ │
+│ │             type = &lt;PredictionType.level: 'level'&gt;                       │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/runner/work/tidepredictor/tidepredictor/tidepredictor/prediction/level │
+│ .py:73 in predict                                                            │
+│                                                                              │
+│    70 │   │   )                                                              │
+│    71 │   │   # TODO do we need this?                                        │
+│    72 │   │   t = pd.date_range(start=start, end=end, freq=interval)         │
+│ ❱  73 │   │   coef = self._coef(                                             │
+│    74 │   │   │   lon=lon,                                                   │
+│    75 │   │   │   lat=lat,                                                   │
+│    76 │   │   )                                                              │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │       df = shape: (5, 1)                                                 │ │
+│ │            ┌─────────────────────┐                                       │ │
+│ │            │ time                │                                       │ │
+│ │            │ ---                 │                                       │ │
+│ │            │ datetime[ns]        │                                       │ │
+│ │            ╞═════════════════════╡                                       │ │
+│ │            │ 2021-01-01 00:00:00 │                                       │ │
+│ │            │ 2021-01-01 00:30:00 │                                       │ │
+│ │            │ 2021-01-01 01:00:00 │                                       │ │
+│ │            │ 2021-01-01 01:30:00 │                                       │ │
+│ │            │ 2021-01-01 02:00:00 │                                       │ │
+│ │            └─────────────────────┘                                       │ │
+│ │      end = datetime.datetime(2021, 1, 1, 2, 0)                           │ │
+│ │ interval = datetime.timedelta(seconds=1800)                              │ │
+│ │      lat = 0.0                                                           │ │
+│ │      lon = 0.0                                                           │ │
+│ │     self = &lt;tidepredictor.prediction.level.LevelPredictor object at      │ │
+│ │            0x7fc70ceb0a50&gt;                                               │ │
+│ │    start = datetime.datetime(2021, 1, 1, 0, 0)                           │ │
+│ │        t = DatetimeIndex(['2021-01-01 00:00:00', '2021-01-01 00:30:00',  │ │
+│ │            │   │   │      '2021-01-01 01:00:00', '2021-01-01 01:30:00',  │ │
+│ │            │   │   │      '2021-01-01 02:00:00'],                        │ │
+│ │            │   │   │     dtype='datetime64[ns]', freq='30min')           │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/runner/work/tidepredictor/tidepredictor/tidepredictor/prediction/level │
+│ .py:87 in _coef                                                              │
+│                                                                              │
+│    84 │   def _coef(self, lon: float, lat: float) -&gt; Coef:                   │
+│    85 │   │   coef = Coef.template()                                         │
+│    86 │   │                                                                  │
+│ ❱  87 │   │   cons = self._constituent_repo.get_level_constituents(lon=lon,  │
+│    88 │   │   coef.A = np.array([v.amplitude for v in cons.values()])        │
+│    89 │   │   coef.g = np.array([v.phase for v in cons.values()])            │
+│    90 │   │   names = list(cons.keys())                                      │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │ coef = Coef(                                                             │ │
+│ │        │   name=[                                                        │ │
+│ │        │   │   'K1',                                                     │ │
+│ │        │   │   'K2',                                                     │ │
+│ │        │   │   'M2',                                                     │ │
+│ │        │   │   'M4',                                                     │ │
+│ │        │   │   'MF',                                                     │ │
+│ │        │   │   'MM',                                                     │ │
+│ │        │   │   'MN4',                                                    │ │
+│ │        │   │   'MS4',                                                    │ │
+│ │        │   │   'N2'                                                      │ │
+│ │        │   ],                                                            │ │
+│ │        │   mean=0.0,                                                     │ │
+│ │        │   umean=0.0,                                                    │ │
+│ │        │   vmean=0.0,                                                    │ │
+│ │        │   A=array([1.00227454, 0.02250278, 0.01775812, 0.01605451,      │ │
+│ │        0.01220086,                                                       │ │
+│ │        │      0.00751468, 0.00708371, 0.00577484, 0.00313313]),          │ │
+│ │        │   g=array([139.03197411, 144.78007052, 117.14151752,            │ │
+│ │        104.1430418 ,                                                     │ │
+│ │        │      216.82454621,   4.40876086, 240.44658427,  50.66603851,    │ │
+│ │        │      144.04531879]),                                            │ │
+│ │        │   Lsmaj=array([], dtype=float64),                               │ │
+│ │        │   Lsmin=array([], dtype=float64),                               │ │
+│ │        │   theta=array([], dtype=float64),                               │ │
+│ │        │   aux={                                                         │ │
+│ │        │   │   'reftime': 737429.1458333333,                             │ │
+│ │        │   │   'frq': array([0.0805114 , 0.04178075, 0.3220456 ,         │ │
+│ │        0.20280355, 0.1207671 ,                                           │ │
+│ │        │      0.28331495, 0.1610228 , 0.2415342 , 0.20844741]),          │ │
+│ │        │   │   'lind': array([ 47,  20, 124,  95,  68, 119,  81, 105,    │ │
+│ │        98]),                                                             │ │
+│ │        │   │   'lat': 42.0,                                              │ │
+│ │        │   │   'opt': {                                                  │ │
+│ │        │   │   │   'twodim': False,                                      │ │
+│ │        │   │   │   'nodiagn': True,                                      │ │
+│ │        │   │   │   'nodsatlint': 0,                                      │ │
+│ │        │   │   │   'nodsatnone': True,                                   │ │
+│ │        │   │   │   'gwchlint': False,                                    │ │
+│ │        │   │   │   'gwchnone': False,                                    │ │
+│ │        │   │   │   'notrend': True,                                      │ │
+│ │        │   │   │   'prefilt': array([], dtype=float64)                   │ │
+│ │        │   │   }                                                         │ │
+│ │        │   }                                                             │ │
+│ │        )                                                                 │ │
+│ │  lat = 0.0                                                               │ │
+│ │  lon = 0.0                                                               │ │
+│ │ self = &lt;tidepredictor.prediction.level.LevelPredictor object at          │ │
+│ │        0x7fc70ceb0a50&gt;                                                   │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/runner/work/tidepredictor/tidepredictor/tidepredictor/data.py:185 in   │
+│ get_level_constituents                                                       │
+│                                                                              │
+│   182 │   │   dict[str, LevelConstituent]                                    │
+│   183 │   │   │   The level constituents.                                    │
+│   184 │   │   """                                                            │
+│ ❱ 185 │   │   return self._reader.get_level_constituents(lat=lat, lon=lon)   │
+│   186 │                                                                      │
+│   187 │   def get_current_constituents(                                      │
+│   188 │   │   self, lon: float, lat: float                                   │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │  lat = 0.0                                                               │ │
+│ │  lon = 0.0                                                               │ │
+│ │ self = &lt;tidepredictor.data.NetCDFConstituentRepository object at         │ │
+│ │        0x7fc70a32b490&gt;                                                   │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/runner/work/tidepredictor/tidepredictor/tidepredictor/data.py:64 in    │
+│ get_level_constituents                                                       │
+│                                                                              │
+│    61 │   │   │   The constituents.                                          │
+│    62 │   │   """                                                            │
+│    63 │   │   with xr.open_dataset(self.file_path) as ds:                    │
+│ ❱  64 │   │   │   self._validate_data_domain(ds, lon, lat)                   │
+│    65 │   │   │                                                              │
+│    66 │   │   │   df = ds.sel(lon=lon, lat=lat, method="nearest").to_datafra │
+│    67                                                                        │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │   ds = &lt;xarray.Dataset&gt; Size: 195kB                                      │ │
+│ │        Dimensions:     (lon: 60, lat: 30, cons: 13)                      │ │
+│ │        Coordinates:                                                      │ │
+│ │          * lon         (lon) float64 480B -3.467 -3.433 -3.4 ... -1.567  │ │
+│ │        -1.533 -1.5                                                       │ │
+│ │          * lat         (lat) float64 240B 55.5 55.53 55.57 55.6 ... 56.4 │ │
+│ │        56.43 56.47                                                       │ │
+│ │          * cons        (cons) &lt;U3 156B 'MM' 'MF' 'Q1' 'O1' ... 'K2'      │ │
+│ │        'MN4' 'M4' 'MS4'                                                  │ │
+│ │        Data variables:                                                   │ │
+│ │        │   amplitude   (cons, lat, lon) float32 94kB ...                 │ │
+│ │        │   phase       (cons, lat, lon) float32 94kB ...                 │ │
+│ │        │   bathymetry  (lon, lat) float32 7kB ...                        │ │
+│ │  lat = 0.0                                                               │ │
+│ │  lon = 0.0                                                               │ │
+│ │ self = &lt;tidepredictor.data.ConstituentReader object at 0x7fc70a32be10&gt;   │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+│                                                                              │
+│ /home/runner/work/tidepredictor/tidepredictor/tidepredictor/data.py:125 in   │
+│ _validate_data_domain                                                        │
+│                                                                              │
+│   122 │   │   Validates the data domain.                                     │
+│   123 │   │   """                                                            │
+│   124 │   │   if lon &lt; ds.lon.min() or lon &gt; ds.lon.max():                   │
+│ ❱ 125 │   │   │   raise ValueError(f"Longitude {lon} is outside the data dom │
+│   126 │   │   if lat &lt; ds.lat.min() or lat &gt; ds.lat.max():                   │
+│   127 │   │   │   raise ValueError(f"Latitude {lat} is outside the data doma │
+│   128                                                                        │
+│                                                                              │
+│ ╭───────────────────────────────── locals ─────────────────────────────────╮ │
+│ │  ds = &lt;xarray.Dataset&gt; Size: 195kB                                       │ │
+│ │       Dimensions:     (lon: 60, lat: 30, cons: 13)                       │ │
+│ │       Coordinates:                                                       │ │
+│ │         * lon         (lon) float64 480B -3.467 -3.433 -3.4 ... -1.567   │ │
+│ │       -1.533 -1.5                                                        │ │
+│ │         * lat         (lat) float64 240B 55.5 55.53 55.57 55.6 ... 56.4  │ │
+│ │       56.43 56.47                                                        │ │
+│ │         * cons        (cons) &lt;U3 156B 'MM' 'MF' 'Q1' 'O1' ... 'K2' 'MN4' │ │
+│ │       'M4' 'MS4'                                                         │ │
+│ │       Data variables:                                                    │ │
+│ │       │   amplitude   (cons, lat, lon) float32 94kB ...                  │ │
+│ │       │   phase       (cons, lat, lon) float32 94kB ...                  │ │
+│ │       │   bathymetry  (lon, lat) float32 7kB ...                         │ │
+│ │ lat = 0.0                                                                │ │
+│ │ lon = 0.0                                                                │ │
+│ ╰──────────────────────────────────────────────────────────────────────────╯ │
+╰──────────────────────────────────────────────────────────────────────────────╯
+ValueError: Longitude 0.0 is outside the data domain</code></pre>
 </div>
 </div>
 <p>All options are available as command line arguments.</p>
-<div id="92404bf3" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="0af005f8" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tidepredictor <span class="op">--</span><span class="bu">help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                                                                
  Usage: tidepredictor [OPTIONS]                                                 
