@@ -38,7 +38,7 @@ def test_predict_current_profile() -> None:
         start=datetime(2024, 1, 1),
         end=datetime(2024, 1, 1, 2),
         interval=timedelta(hours=1),
-        levels=[-5, -15],
+        levels=[-5.0, -15],
     )
 
     assert isinstance(df, pl.DataFrame)

@@ -37,7 +37,7 @@ df = predictor.predict(
 df
 ```
 
-And similar for currents.
+And similar for depth averaged currents.
 
 ```{python}
 
@@ -47,7 +47,7 @@ repo = tp.NetCDFConstituentRepository(path)
 
 predictor = tp.CurrentPredictor(repo)
 
-df = predictor.predict(
+df = predictor.predict_depth_averaged(
     lon=0.0,
     lat=0.0,
     start=datetime(2021, 1, 1),
@@ -56,6 +56,30 @@ df = predictor.predict(
 )
 df
 ```
+
+
+And current profiles.
+
+```{python}
+
+path = tp.get_default_constituent_path(tp.PredictionType.current)
+
+repo = tp.NetCDFConstituentRepository(path)
+
+predictor = tp.CurrentPredictor(repo)
+
+df = predictor.predict_profile(
+    lon=0.0,
+    lat=0.0,
+    start=datetime(2021, 1, 1),
+    end=datetime(2021, 1, 1, 12),
+    interval=timedelta(hours=1),
+    levels=[-1.0, -5.0]
+)
+df
+```
+
+
 
 ### Command line
 

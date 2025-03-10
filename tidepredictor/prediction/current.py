@@ -1,3 +1,4 @@
+from typing import Collection
 import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
@@ -31,7 +32,7 @@ class CurrentPredictor:
         start: datetime,
         end: datetime,
         interval: timedelta = timedelta(hours=1),
-        levels: set[float] | None = None,
+        levels: Collection[float] | None = None,
     ) -> pl.DataFrame:
         df = self.predict_depth_averaged(
             lon=lon, lat=lat, start=start, end=end, interval=interval
