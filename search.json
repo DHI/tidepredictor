@@ -88,14 +88,14 @@
     "href": "api/index.html",
     "title": "API Reference",
     "section": "",
-    "text": "LevelPredictor\nPredict tidal levels timeseries (surface elevation)\n\n\nCurrentPredictor\n\n\n\nNetCDFConstituentRepository\nA repository of tidal constituents stored in a NetCDF file.\n\n\nget_default_constituent_path\nGet the default path to the constituent file.\n\n\nPredictionType"
+    "text": "LevelPredictor\nPredict tidal levels timeseries (surface elevation)\n\n\nCurrentPredictor\nPredict tidal currents.\n\n\nNetCDFConstituentRepository\nA repository of tidal constituents stored in a NetCDF file.\n\n\nget_default_constituent_path\nGet the default path to the constituent file.\n\n\nPredictionType"
   },
   {
     "objectID": "api/index.html#tidepredictor",
     "href": "api/index.html#tidepredictor",
     "title": "API Reference",
     "section": "",
-    "text": "LevelPredictor\nPredict tidal levels timeseries (surface elevation)\n\n\nCurrentPredictor\n\n\n\nNetCDFConstituentRepository\nA repository of tidal constituents stored in a NetCDF file.\n\n\nget_default_constituent_path\nGet the default path to the constituent file.\n\n\nPredictionType"
+    "text": "LevelPredictor\nPredict tidal levels timeseries (surface elevation)\n\n\nCurrentPredictor\nPredict tidal currents.\n\n\nNetCDFConstituentRepository\nA repository of tidal constituents stored in a NetCDF file.\n\n\nget_default_constituent_path\nGet the default path to the constituent file.\n\n\nPredictionType"
   },
   {
     "objectID": "api/PredictionType.html",
@@ -109,13 +109,20 @@
     "href": "api/CurrentPredictor.html",
     "title": "CurrentPredictor",
     "section": "",
-    "text": "CurrentPredictor(self, constituent_repo, alpha=1.0 / 7)\n\n\n\n\n\nName\nDescription\n\n\n\n\npredict_depth_averaged\nPredict tide levels or currents using utide.\n\n\n\n\n\nCurrentPredictor.predict_depth_averaged(\n    lon,\n    lat,\n    start,\n    end,\n    interval=timedelta(hours=1),\n)\nPredict tide levels or currents using utide.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\nstart\ndatetime\nThe start date.\nrequired\n\n\nend\ndatetime\nThe end date.\nrequired\n\n\ninterval\ntimedelta\nThe interval between predictions.\ntimedelta(hours=1)\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npl.DataFrame\nThe predicted tide levels or currents.\n\n\n\n\n\n\nThe workhorse of this functions the reconstruct function from UTide"
+    "text": "CurrentPredictor(self, constituent_repo, alpha=1.0 / 7)\nPredict tidal currents.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nconstituent_repo\nConstituentRepository\nCurrent constituent repository.\nrequired\n\n\nalpha\nfloat\nCurrent profile power exponent.\n1.0 / 7\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\npredict_depth_averaged\nPredict tide levels or currents using utide.\n\n\npredict_profile\nPredict current profiles.\n\n\n\n\n\nCurrentPredictor.predict_depth_averaged(\n    lon,\n    lat,\n    start,\n    end,\n    interval=timedelta(hours=1),\n)\nPredict tide levels or currents using utide.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\nstart\ndatetime\nThe start date.\nrequired\n\n\nend\ndatetime\nThe end date.\nrequired\n\n\ninterval\ntimedelta\nThe interval between predictions.\ntimedelta(hours=1)\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npl.DataFrame\nThe predicted tide levels or currents.\n\n\n\n\n\n\nThe workhorse of this functions the reconstruct function from UTide\n\n\n\n\nCurrentPredictor.predict_profile(\n    lon,\n    lat,\n    start,\n    end,\n    interval=timedelta(hours=1),\n    levels=None,\n)\nPredict current profiles."
+  },
+  {
+    "objectID": "api/CurrentPredictor.html#parameters",
+    "href": "api/CurrentPredictor.html#parameters",
+    "title": "CurrentPredictor",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nconstituent_repo\nConstituentRepository\nCurrent constituent repository.\nrequired\n\n\nalpha\nfloat\nCurrent profile power exponent.\n1.0 / 7"
   },
   {
     "objectID": "api/CurrentPredictor.html#methods",
     "href": "api/CurrentPredictor.html#methods",
     "title": "CurrentPredictor",
     "section": "",
-    "text": "Name\nDescription\n\n\n\n\npredict_depth_averaged\nPredict tide levels or currents using utide.\n\n\n\n\n\nCurrentPredictor.predict_depth_averaged(\n    lon,\n    lat,\n    start,\n    end,\n    interval=timedelta(hours=1),\n)\nPredict tide levels or currents using utide.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\nstart\ndatetime\nThe start date.\nrequired\n\n\nend\ndatetime\nThe end date.\nrequired\n\n\ninterval\ntimedelta\nThe interval between predictions.\ntimedelta(hours=1)\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npl.DataFrame\nThe predicted tide levels or currents.\n\n\n\n\n\n\nThe workhorse of this functions the reconstruct function from UTide"
+    "text": "Name\nDescription\n\n\n\n\npredict_depth_averaged\nPredict tide levels or currents using utide.\n\n\npredict_profile\nPredict current profiles.\n\n\n\n\n\nCurrentPredictor.predict_depth_averaged(\n    lon,\n    lat,\n    start,\n    end,\n    interval=timedelta(hours=1),\n)\nPredict tide levels or currents using utide.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlon\nfloat\nThe longitude.\nrequired\n\n\nlat\nfloat\nThe latitude.\nrequired\n\n\nstart\ndatetime\nThe start date.\nrequired\n\n\nend\ndatetime\nThe end date.\nrequired\n\n\ninterval\ntimedelta\nThe interval between predictions.\ntimedelta(hours=1)\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npl.DataFrame\nThe predicted tide levels or currents.\n\n\n\n\n\n\nThe workhorse of this functions the reconstruct function from UTide\n\n\n\n\nCurrentPredictor.predict_profile(\n    lon,\n    lat,\n    start,\n    end,\n    interval=timedelta(hours=1),\n    levels=None,\n)\nPredict current profiles."
   }
 ]
