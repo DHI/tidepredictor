@@ -8,6 +8,8 @@
 
 Predict the tides for a given location.
 
+Contact: [Ole Svenstrup Petersen](mailto:osp@dhigroup.com)
+
 **Usage**:
 
 ```console
