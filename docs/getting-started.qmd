@@ -2,10 +2,12 @@
 
 ## Installation
 
-1. Install the tidepredictor package from the distributed wheel file.
 
+1. Install the tidepredictor package from the distributed wheel file. Available on <https://github.com/DHI/tidepredictor/releases>.
+
+E.g. for version 0.1.0:
 ```bash
-pip install tidepredictor-*.whl
+pip install https://github.com/DHI/tidepredictor/releases/download/v0.1.0/tidepredictor-0.1.0-py3-none-any.whl
 ```
 
 2. Copy constituent files (`.nc` files) to the `~/.local/share/tidepredictor` directory.
