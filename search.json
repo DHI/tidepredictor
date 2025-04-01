@@ -60,14 +60,14 @@
     "href": "getting-started.html",
     "title": "Getting started",
     "section": "",
-    "text": "Install the tidepredictor package from the distributed wheel file.\n\npip install tidepredictor-*.whl\n\nCopy constituent files (.nc files) to the ~/.local/share/tidepredictor directory."
+    "text": "Install the tidepredictor package from the distributed wheel file. Available on https://github.com/DHI/tidepredictor/releases.\n\nE.g. for version 0.1.0:\npip install https://github.com/DHI/tidepredictor/releases/download/v0.1.0/tidepredictor-0.1.0-py3-none-any.whl\n\nCopy constituent files (.nc files) to the ~/.local/share/tidepredictor directory."
   },
   {
     "objectID": "getting-started.html#installation",
     "href": "getting-started.html#installation",
     "title": "Getting started",
     "section": "",
-    "text": "Install the tidepredictor package from the distributed wheel file.\n\npip install tidepredictor-*.whl\n\nCopy constituent files (.nc files) to the ~/.local/share/tidepredictor directory."
+    "text": "Install the tidepredictor package from the distributed wheel file. Available on https://github.com/DHI/tidepredictor/releases.\n\nE.g. for version 0.1.0:\npip install https://github.com/DHI/tidepredictor/releases/download/v0.1.0/tidepredictor-0.1.0-py3-none-any.whl\n\nCopy constituent files (.nc files) to the ~/.local/share/tidepredictor directory."
   },
   {
     "objectID": "getting-started.html#usage",
