@@ -8,6 +8,43 @@ from typing import Protocol
 
 import xarray as xr
 
+FES2014_CONSTITUENTS = [
+    "2n2.nc",
+    "eps2.nc",
+    "j1.nc",
+    "k1.nc",
+    "k2.nc",
+    "l2.nc",
+    "la2.nc",
+    "m2.nc",
+    "m3.nc",
+    "m4.nc",
+    "m6.nc",
+    "m8.nc",
+    "mf.nc",
+    "mks2.nc",
+    "mm.nc",
+    "mn4.nc",
+    "ms4.nc",
+    "msf.nc",
+    # "msqm.nc", excluded for now
+    # "mtm.nc",
+    "mu2.nc",
+    "n2.nc",
+    "n4.nc",
+    "nu2.nc",
+    "o1.nc",
+    "p1.nc",
+    "q1.nc",
+    "r2.nc",
+    "s1.nc",
+    "s2.nc",
+    "s4.nc",
+    "sa.nc",
+    "ssa.nc",
+    "t2.nc",
+]
+
 
 @dataclass
 class LevelConstituent:
@@ -60,21 +97,43 @@ class ConstituentReader:
         dict[str, Constituent]
             The constituents.
         """
-        with xr.open_dataset(self.file_path) as ds:
-            self._validate_data_domain(ds, lon, lat)
-
-            df = ds.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
-
+        if ".nc" not in self.file_path.suffixes:
             constituents = {}
-            for name, amplitude, phase in zip(
-                df["amplitude"].index, df["amplitude"], df["phase"]
-            ):
-                constituent = LevelConstituent(
-                    name=name, amplitude=amplitude, phase=phase
-                )
-                constituents[name] = constituent
+            lon, lat = _convert_FES2014_coords(lon, lat)
+            for cons in FES2014_CONSTITUENTS:
+                file_path = self.file_path / cons
+                name = cons.split(".")[0].upper()
 
-            return constituents
+                if name == "LA2":  # Special case for LA2
+                    name = "LDA2"
+
+                with xr.open_dataset(file_path) as ds:
+                    self._validate_data_domain(ds, lon, lat)
+
+                    df = ds.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
+
+                    for amplitude, phase in zip(df["amplitude"], df["phase"]):
+                        constituent = LevelConstituent(
+                            name=name, amplitude=amplitude, phase=phase
+                        )
+                        constituents[name] = constituent
+
+        else:
+            with xr.open_dataset(self.file_path) as ds:
+                self._validate_data_domain(ds, lon, lat)
+
+                df = ds.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
+
+                constituents = {}
+                for name, amplitude, phase in zip(
+                    df["amplitude"].index, df["amplitude"], df["phase"]
+                ):
+                    constituent = LevelConstituent(
+                        name=name, amplitude=amplitude, phase=phase
+                    )
+                    constituents[name] = constituent
+
+        return constituents
 
     def get_current_constituents(
         self, *, lat: float, lon: float
@@ -203,3 +262,31 @@ class NetCDFConstituentRepository(ConstituentRepository):
             The current constituents.
         """
         return self._reader.get_current_constituents(lat=lat, lon=lon)
+
+
+def _convert_FES2014_coords(lon: float, lat: float) -> tuple[float, float]:
+    """
+    Function to convert coordinates to FES2014 format.
+
+    Parameters
+    ----------
+    lat : float
+        latitude in degrees (-90 to 90)
+    lon : float
+        longitude in degrees (-180 to 180)
+
+    Returns
+    -------
+    tuple[float, float]
+        Latitude and Longitude in corrected format for FES2014
+    """
+    if lat < -90 or lat > 90:
+        raise ValueError("Latitude must be between -90 and 90 degrees.")
+    if lon < -180 or lon > 180:
+        raise ValueError("Longitude must be between -180 and 180 degrees.")
+
+    # Conversion to FES2014 format
+    if lon < 0:
+        lon += 360
+
+    return lon, lat

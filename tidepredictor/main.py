@@ -47,6 +47,7 @@ def main(
             "--output", "-o", help="Output file, default is stdout", writable=True
         ),
     ] = None,
+    model: Annotated[str, typer.Option("--model", "-m", help="Model name")] = "FES2014",
     format: Annotated[Format, typer.Option(help="Output format")] = Format.csv,
     type: Annotated[
         PredictionType, typer.Option(help="Type of prediction, level or u,v")
@@ -65,7 +66,7 @@ def main(
     """
     Predict the tides for a given location.
     """
-    path = get_default_constituent_path(type)
+    path = get_default_constituent_path(type, model)
 
     repo = NetCDFConstituentRepository(path)
 

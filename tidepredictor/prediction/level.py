@@ -92,10 +92,10 @@ class LevelPredictor:
         unames = ut_constants["const"]["name"]
         ufreqs = ut_constants["const"]["freq"]
 
-        freq_map = {n: float(f) for n, f in zip(unames, ufreqs)}
+        freq_map = {n.upper(): float(f) for n, f in zip(unames, ufreqs)}
 
         coef.name = names
-        freqs = np.array([freq_map[name] for name in names])
+        freqs = np.array([freq_map[name.upper()] for name in names])
 
         coef.aux["frq"] = freqs
         coef.aux["lind"] = np.array([unames.tolist().index(n) for n in names])
