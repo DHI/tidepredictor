@@ -97,6 +97,8 @@ class ConstituentReader:
         dict[str, Constituent]
             The constituents.
         """
+
+        # Check if the file is a NetCDF file or a directory
         if ".nc" not in self.file_path.suffixes:
             constituents = {}
             lon, lat = _convert_FES2014_coords(lon, lat)
@@ -113,6 +115,7 @@ class ConstituentReader:
                     df = ds.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
 
                     for amplitude, phase in zip(df["amplitude"], df["phase"]):
+                        amplitude /= 100  # Convert from cm to m
                         constituent = LevelConstituent(
                             name=name, amplitude=amplitude, phase=phase
                         )
