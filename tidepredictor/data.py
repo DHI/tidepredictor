@@ -8,6 +8,52 @@ from typing import Protocol
 
 import xarray as xr
 
+import warnings
+import numpy as np
+
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore", category=RuntimeWarning)
+    warnings.filterwarnings("ignore", category=UserWarning)
+    import utide
+
+
+def _add_constituent(name, freq_rad_per_sec):
+    """
+    Aux function to add a complete constituent to UTide with all required fields"""
+
+    const = utide.ut_constants
+
+    # Current number of constituents
+    n_existing = len(const["const"]["name"])
+
+    # Add to all arrays with appropriate default values
+    const["const"]["name"] = np.append(const["const"]["name"], name)
+    const["const"]["freq"] = np.append(const["const"]["freq"], freq_rad_per_sec)
+
+    # Extend all other arrays to match
+    for key, value in const["const"].items():
+        if key not in ["name", "freq"] and isinstance(value, np.ndarray):
+            if value.ndim == 1 and len(value) == n_existing:
+                # 1D array - append appropriate default
+                if "f" in key.lower() or key == "v0u":
+                    default_val = 1.0  # nodal factors default to 1
+                else:
+                    default_val = 0.0  # most other things default to 0
+                const["const"][key] = np.append(value, default_val)
+            elif value.ndim == 2 and value.shape[0] == n_existing:
+                # 2D array - append row of zeros
+                zeros_row = np.zeros((1, value.shape[1]), dtype=value.dtype)
+                const["const"][key] = np.vstack([value, zeros_row])
+    return const
+
+
+# Add MSQM
+freq_cycles_per_year = 51.472
+seconds_per_year = 365.25 * 24 * 3600
+freq_rad_per_sec = freq_cycles_per_year * 2 * np.pi / seconds_per_year
+
+ut_constants = _add_constituent("MSQM", freq_rad_per_sec)
+
 FES2014_CONSTITUENTS = [
     "2n2.nc",
     "eps2.nc",
@@ -27,8 +73,8 @@ FES2014_CONSTITUENTS = [
     "mn4.nc",
     "ms4.nc",
     "msf.nc",
-    # "msqm.nc", excluded for now
-    # "mtm.nc",
+    "msqm.nc",
+    # "mtm.nc", # Not included in UTide
     "mu2.nc",
     "n2.nc",
     "n4.nc",
@@ -155,28 +201,65 @@ class ConstituentReader:
         dict[str, CurrentConstituent]
             The constituents.
         """
-        with xr.open_dataset(self.file_path) as ds:
-            self._validate_data_domain(ds, lon, lat)
-            df = ds.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
-
+        # Check if the file is a NetCDF file or a directory
+        if ".nc" not in self.file_path.suffixes:
             constituents = {}
-            for name, phase, major_axis, minor_axis, inclination in zip(
-                df["phase"].index,
-                df["phase"],
-                df["major_axis"],
-                df["minor_axis"],
-                df["inclination"],
-            ):
-                constituent = CurrentConstituent(
-                    name=name,
-                    phase=phase,
-                    major_axis=major_axis,
-                    minor_axis=minor_axis,
-                    inclination=inclination,
-                )
-                constituents[name] = constituent
+            lon, lat = _convert_FES2014_coords(lon, lat)
+            for cons in FES2014_CONSTITUENTS:
+                file_path_u = self.file_path / "eastward_velocity" / cons
+                file_path_v = self.file_path / "northward_velocity" / cons
 
-            return constituents
+                name = cons.split(".")[0].upper()
+
+                if name == "LA2":  # Special case for LA2
+                    name = "LDA2"
+
+                with xr.open_dataset(file_path_u) as ds_u:
+                    self._validate_data_domain(ds_u, lon, lat)
+
+                    df_u = ds_u.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
+                with xr.open_dataset(file_path_v) as ds_v:
+                    self._validate_data_domain(ds_v, lon, lat)
+
+                    df_v = ds_v.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
+
+                for major_axis, phase, minor_axis, inclination in zip(
+                    df_u["Ua"], df_v["Vg"], df_v["Va"], df_u["Ug"]
+                ):
+                    major_axis /= 100  # Convert from cm/s to m/s
+                    minor_axis /= 100  # Convert from cm/s to m/s
+
+                    constituent = CurrentConstituent(
+                        name=name,
+                        phase=phase,
+                        major_axis=major_axis,
+                        minor_axis=minor_axis,
+                        inclination=inclination,
+                    )
+                    constituents[name] = constituent
+
+        else:
+            with xr.open_dataset(self.file_path) as ds:
+                self._validate_data_domain(ds, lon, lat)
+                df = ds.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
+
+                for name, phase, major_axis, minor_axis, inclination in zip(
+                    df["phase"].index,
+                    df["phase"],
+                    df["major_axis"],
+                    df["minor_axis"],
+                    df["inclination"],
+                ):
+                    constituent = CurrentConstituent(
+                        name=name,
+                        phase=phase,
+                        major_axis=major_axis,
+                        minor_axis=minor_axis,
+                        inclination=inclination,
+                    )
+                    constituents[name] = constituent
+
+        return constituents
 
     @staticmethod
     def _validate_data_domain(ds: xr.Dataset, lon: float, lat: float) -> None:

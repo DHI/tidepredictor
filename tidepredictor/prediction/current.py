@@ -12,10 +12,12 @@ import warnings
 
 from .coef import Coef
 
-# Suppress warnings issued by utide
-warnings.filterwarnings("ignore", category=RuntimeWarning)
-warnings.filterwarnings("ignore", category=DeprecationWarning)
-from utide import reconstruct, ut_constants  # noqa: E402
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore", category=RuntimeWarning)
+    warnings.filterwarnings("ignore", category=UserWarning)
+    from utide import reconstruct, ut_constants
+
+from ..data import ut_constants
 
 
 class CurrentPredictor:

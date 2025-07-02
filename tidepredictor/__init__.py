@@ -41,7 +41,7 @@ def get_default_constituent_path(
     elif model_name == "FES2014":
         DATA_DIR = Path("~/.local/share/tidepredictor/FES2014")
         FOLD_NAME = {
-            PredictionType.current: "currents",
+            PredictionType.current: "current",
             PredictionType.level: "level",
         }
 
