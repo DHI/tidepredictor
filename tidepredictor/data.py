@@ -201,9 +201,10 @@ class ConstituentReader:
         dict[str, CurrentConstituent]
             The constituents.
         """
+        constituents = {}
+
         # Check if the file is a NetCDF file or a directory
         if ".nc" not in self.file_path.suffixes:
-            constituents = {}
             lon, lat = _convert_FES2014_coords(lon, lat)
             for cons in FES2014_CONSTITUENTS:
                 file_path_u = self.file_path / "eastward_velocity" / cons

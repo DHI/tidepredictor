@@ -3,7 +3,7 @@ from typer.testing import CliRunner
 from tidepredictor.main import app
 
 
-def test_success_basic_FES2014():
+def test_success_basic_FES2014_level():
     runner = CliRunner()
     result = runner.invoke(
         app,
@@ -24,7 +24,30 @@ def test_success_basic_FES2014():
     assert result.stdout.startswith("time,level\n")
 
 
-def test_success_basic_DTU10():
+def test_success_basic_FES2014_current():
+    runner = CliRunner()
+    result = runner.invoke(
+        app,
+        [
+            "-s",
+            "2020-01-01",
+            "-e",
+            "2020-01-02",
+            "--lon",
+            "-2.75",
+            "--lat",
+            "56.1",
+            "-m",
+            "FES2014",
+            "--type",
+            "current",
+        ],
+    )
+    assert result.exit_code == 0
+    assert result.stdout.startswith("time,u,v\n")
+
+
+def test_success_basic_DTU10_level():
     runner = CliRunner()
     result = runner.invoke(
         app,
@@ -43,6 +66,29 @@ def test_success_basic_DTU10():
     )
     assert result.exit_code == 0
     assert result.stdout.startswith("time,level\n")
+
+
+def test_success_basic_DTU10_current():
+    runner = CliRunner()
+    result = runner.invoke(
+        app,
+        [
+            "-s",
+            "2020-01-01",
+            "-e",
+            "2020-01-02",
+            "--lon",
+            "-2.75",
+            "--lat",
+            "56.1",
+            "-m",
+            "DTU10",
+            "--type",
+            "current",
+        ],
+    )
+    assert result.exit_code == 0
+    assert result.stdout.startswith("time,u,v\n")
 
 
 def test_success_json_output():
