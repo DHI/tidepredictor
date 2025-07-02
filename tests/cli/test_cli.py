@@ -3,7 +3,7 @@ from typer.testing import CliRunner
 from tidepredictor.main import app
 
 
-def test_success_basic():
+def test_success_basic_FES2014():
     runner = CliRunner()
     result = runner.invoke(
         app,
@@ -16,6 +16,29 @@ def test_success_basic():
             "-2.75",
             "--lat",
             "56.1",
+            "-m",
+            "FES2014",
+        ],
+    )
+    assert result.exit_code == 0
+    assert result.stdout.startswith("time,level\n")
+
+
+def test_success_basic_DTU10():
+    runner = CliRunner()
+    result = runner.invoke(
+        app,
+        [
+            "-s",
+            "2020-01-01",
+            "-e",
+            "2020-01-02",
+            "--lon",
+            "-2.75",
+            "--lat",
+            "56.1",
+            "-m",
+            "DTU10",
         ],
     )
     assert result.exit_code == 0
