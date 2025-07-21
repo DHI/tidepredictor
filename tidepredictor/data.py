@@ -19,7 +19,8 @@ with warnings.catch_warnings():
 
 def _add_constituent(name, freq_rad_per_sec):
     """
-    Aux function to add a complete constituent to UTide with all required fields"""
+    Aux function to add a complete constituent to UTide with all required fields
+    """
 
     const = utide.ut_constants
 
@@ -224,12 +225,15 @@ class ConstituentReader:
 
                     df_v = ds_v.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
 
-                for major_axis, phase, minor_axis, inclination in zip(
-                    df_u["Ua"], df_v["Vg"], df_v["Va"], df_u["Ug"]
+                major_axis_list, minor_axis_list, inclination_list, phase_list = ap2ep(
+                    df_u["Ua"].values / 100,
+                    df_u["Ug"].values,
+                    df_v["Va"].values / 100,
+                    df_v["Vg"].values,
+                )
+                for major_axis, minor_axis, inclination, phase in zip(
+                    major_axis_list, minor_axis_list, inclination_list, phase_list
                 ):
-                    major_axis /= 100  # Convert from cm/s to m/s
-                    minor_axis /= 100  # Convert from cm/s to m/s
-
                     constituent = CurrentConstituent(
                         name=name,
                         phase=phase,
@@ -377,3 +381,68 @@ def _convert_FES2014_coords(lon: float, lat: float) -> tuple[float, float]:
         lon += 360
 
     return lon, lat
+
+
+def ap2ep(Au, PHIu, Av, PHIv):
+    """
+    Convert tidal amplitude and phase lag (ap-) parameters into tidal ellipse (ep-) parameters.
+    Inspired from 'https://www.mathworks.com/matlabcentral/fileexchange/347-tidal_ellipse'
+
+    Parameters
+    -----------
+    Au : array_like
+        Amplitudes of eastward (u) component
+    PHIu : array_like
+        Phase lags of u component (degrees)
+    Av : array_like
+        Amplitudes of northward (v) component
+    PHIv : array_like
+        Phase lags of v component (degrees)
+    plot_demo : tuple of indices (optional)
+        Indices into the arrays to plot a demo ellipse.
+
+    Returns
+    --------
+    major_ax : ndarray
+        Semi-major axis (max speed)
+    minor_ax : ndarray
+        Semi-minor axis (min speed)
+    inc : ndarray
+        Inclination (degrees)
+    phase : ndarray
+        Phase angle (degrees)
+    """
+    # Convert phase lags from degrees to radians
+    PHIu_rad = np.radians(PHIu)
+    PHIv_rad = np.radians(PHIv)
+
+    # Complex representations of u and v components
+    u = Au * np.exp(-1j * PHIu_rad)
+    v = Av * np.exp(-1j * PHIv_rad)
+
+    # Decompose into circular components
+    wp = (u + 1j * v) / 2  # anticlockwise
+    wm = np.conj(u - 1j * v) / 2  # clockwise
+
+    # Amplitudes and angles
+    Wp = np.abs(wp)
+    Wm = np.abs(wm)
+    THETAp = np.angle(wp)
+    THETAm = np.angle(wm)
+
+    # Ellipse parameters
+    major_ax = Wp + Wm
+    minor_ax = Wp - Wm
+    phase = (THETAm - THETAp) / 2
+    inc = (THETAm + THETAp) / 2
+
+    # Convert radians to degrees
+    phase = np.degrees(phase) % 360
+    inc = np.degrees(inc) % 360
+
+    # Adjust to northern semi-major axis (Foreman convention)
+    k = (inc // 180).astype(int)
+    inc -= k * 180
+    phase = (phase + k * 180) % 360
+
+    return major_ax, minor_ax, inc, phase
