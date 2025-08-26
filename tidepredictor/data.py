@@ -17,7 +17,7 @@ with warnings.catch_warnings():
     import utide
 
 
-def _add_constituent(name, freq_rad_per_sec):
+def _add_constituent(name: str, freq_rad_per_sec: str) -> dict:
     """
     Aux function to add a complete constituent to UTide with all required fields
     """
@@ -383,7 +383,9 @@ def _convert_FES2014_coords(lon: float, lat: float) -> tuple[float, float]:
     return lon, lat
 
 
-def ap2ep(Au, PHIu, Av, PHIv):
+def ap2ep(
+    Au: np.ndarray, PHIu: np.ndarray, Av: np.ndarray, PHIv: np.ndarray
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """
     Convert tidal amplitude and phase lag (ap-) parameters into tidal ellipse (ep-) parameters.
     Inspired from 'https://www.mathworks.com/matlabcentral/fileexchange/347-tidal_ellipse'
