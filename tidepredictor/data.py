@@ -17,7 +17,7 @@ with warnings.catch_warnings():
     import utide
 
 
-def _add_constituent(name: str, freq_rad_per_sec: str) -> dict:
+def _add_constituent(name: str, freq_rad_per_sec: float) -> dict:
     """
     Aux function to add a complete constituent to UTide with all required fields
     """
