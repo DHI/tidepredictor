@@ -54,7 +54,7 @@ def test_semidiurnal_tide() -> None:
 
 
 def test_utide_returns_dataframe_with_levels() -> None:
-    repo = NetCDFConstituentRepository(Path("tests/data/level.nc"))
+    repo = NetCDFConstituentRepository(Path("tests/data/level.nc"), model_name="DTU10")
 
     predictor = LevelPredictor(
         constituent_repo=repo,

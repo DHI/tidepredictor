@@ -11,7 +11,9 @@ from tidepredictor import (
 
 
 def test_utide_returns_dataframe_with_current() -> None:
-    repo = NetCDFConstituentRepository(Path("tests/data/currents.nc"))
+    repo = NetCDFConstituentRepository(
+        Path("tests/data/currents.nc"), model_name="DTU10"
+    )
     predictor = CurrentPredictor(constituent_repo=repo)
 
     df = predictor.predict_depth_averaged(
@@ -30,7 +32,9 @@ def test_utide_returns_dataframe_with_current() -> None:
 
 
 def test_predict_current_profile() -> None:
-    repo = NetCDFConstituentRepository(Path("tests/data/currents.nc"))
+    repo = NetCDFConstituentRepository(
+        Path("tests/data/currents.nc"), model_name="DTU10"
+    )
     predictor = CurrentPredictor(constituent_repo=repo)
 
     df = predictor.predict_profile(
@@ -59,7 +63,9 @@ def test_predict_current_profile() -> None:
 
 
 def test_predict_current_profile_default_levels() -> None:
-    repo = NetCDFConstituentRepository(Path("tests/data/currents.nc"))
+    repo = NetCDFConstituentRepository(
+        Path("tests/data/currents.nc"), model_name="DTU10"
+    )
     predictor = CurrentPredictor(constituent_repo=repo)
 
     df = predictor.predict_profile(

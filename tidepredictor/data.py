@@ -56,40 +56,40 @@ freq_rad_per_sec = freq_cycles_per_year * 2 * np.pi / seconds_per_year
 ut_constants = _add_constituent("MSQM", freq_rad_per_sec)
 
 FES2014_CONSTITUENTS = [
-    "2n2.nc",
-    "eps2.nc",
-    "j1.nc",
-    "k1.nc",
-    "k2.nc",
-    "l2.nc",
-    "la2.nc",
-    "m2.nc",
-    "m3.nc",
-    "m4.nc",
-    "m6.nc",
-    "m8.nc",
-    "mf.nc",
-    "mks2.nc",
-    "mm.nc",
-    "mn4.nc",
-    "ms4.nc",
-    "msf.nc",
-    "msqm.nc",
+    "2n2",
+    "eps2",
+    "j1",
+    "k1",
+    "k2",
+    "l2",
+    "la2",
+    "m2",
+    "m3",
+    "m4",
+    "m6",
+    "m8",
+    "mf",
+    "mks2",
+    "mm",
+    "mn4",
+    "ms4",
+    "msf",
+    "msqm",
     # "mtm.nc", # Not included in UTide
-    "mu2.nc",
-    "n2.nc",
-    "n4.nc",
-    "nu2.nc",
-    "o1.nc",
-    "p1.nc",
-    "q1.nc",
-    "r2.nc",
-    "s1.nc",
-    "s2.nc",
-    "s4.nc",
-    "sa.nc",
-    "ssa.nc",
-    "t2.nc",
+    "mu2",
+    "n2",
+    "n4",
+    "nu2",
+    "o1",
+    "p1",
+    "q1",
+    "r2",
+    "s1",
+    "s2",
+    "s4",
+    "sa",
+    "ssa",
+    "t2",
 ]
 
 
@@ -117,9 +117,9 @@ class CurrentConstituent:
     inclination: float
 
 
-class ConstituentReader:
+class ConstituentReaderDTU10:
     """
-    Reads constituents from a file.
+    Reads constituents from a DTU10 file.
     """
 
     def __init__(self, file_path: Path):
@@ -144,40 +144,116 @@ class ConstituentReader:
         dict[str, Constituent]
             The constituents.
         """
+        with xr.open_dataset(self.file_path) as ds:
+            self._validate_data_domain(ds, lon, lat)
 
-        # Check if the file is a NetCDF file or a directory
-        if ".nc" not in self.file_path.suffixes:
+            df = ds.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
+
             constituents = {}
-            lon, lat = _convert_FES2014_coords(lon, lat)
-            for cons in FES2014_CONSTITUENTS:
-                file_path = self.file_path / cons
-                name = cons.split(".")[0].upper()
+            for name, amplitude, phase in zip(
+                df["amplitude"].index, df["amplitude"], df["phase"]
+            ):
+                constituent = LevelConstituent(
+                    name=name, amplitude=amplitude, phase=phase
+                )
+                constituents[name] = constituent
 
-                if name == "LA2":  # Special case for LA2
-                    name = "LDA2"
+        return constituents
 
-                with xr.open_dataset(file_path) as ds:
-                    self._validate_data_domain(ds, lon, lat)
+    def get_current_constituents(
+        self, *, lat: float, lon: float
+    ) -> dict[str, CurrentConstituent]:
+        """Reads constituents from a file and returns them as a dictionary.
 
-                    df = ds.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
+        Parameters
+        ----------
+        lat : float
+            The latitude.
+        lon : float
+            The longitude.
 
-                    for amplitude, phase in zip(df["amplitude"], df["phase"]):
-                        amplitude /= 100  # Convert from cm to m
-                        constituent = LevelConstituent(
-                            name=name, amplitude=amplitude, phase=phase
-                        )
-                        constituents[name] = constituent
+        Returns
+        -------
+        dict[str, CurrentConstituent]
+            The constituents.
+        """
+        with xr.open_dataset(self.file_path) as ds:
+            self._validate_data_domain(ds, lon, lat)
+            df = ds.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
 
-        else:
-            with xr.open_dataset(self.file_path) as ds:
+            constituents = {}
+            for name, phase, major_axis, minor_axis, inclination in zip(
+                df["phase"].index,
+                df["phase"],
+                df["major_axis"],
+                df["minor_axis"],
+                df["inclination"],
+            ):
+                constituent = CurrentConstituent(
+                    name=name,
+                    phase=phase,
+                    major_axis=major_axis,
+                    minor_axis=minor_axis,
+                    inclination=inclination,
+                )
+                constituents[name] = constituent
+
+        return constituents
+
+    @staticmethod
+    def _validate_data_domain(ds: xr.Dataset, lon: float, lat: float) -> None:
+        """
+        Validates the data domain.
+        """
+        if lon < ds.lon.min() or lon > ds.lon.max():
+            raise ValueError(f"Longitude {lon} is outside the data domain")
+        if lat < ds.lat.min() or lat > ds.lat.max():
+            raise ValueError(f"Latitude {lat} is outside the data domain")
+
+
+class ConstituentReaderFES:
+    """
+    Reads constituents from FES files.
+    """
+
+    def __init__(self, file_path: Path):
+        self.file_path = file_path
+        assert self.file_path.exists()
+
+    def get_level_constituents(
+        self, *, lat: float, lon: float
+    ) -> dict[str, LevelConstituent]:
+        """
+        Reads constituents from a file and returns them as a dictionary.
+
+        Parameters
+        ----------
+        lat : float
+            The latitude.
+        lon : float
+            The longitude.
+
+        Returns
+        -------
+        dict[str, Constituent]
+            The constituents.
+        """
+        constituents = {}
+        lon, lat = _convert_FES2014_coords(lon, lat)
+        for cons in FES2014_CONSTITUENTS:
+            file_path = self.file_path / f"{cons}.nc"
+            name = cons.upper()
+
+            if name == "LA2":  # Special case for LA2
+                name = "LDA2"
+
+            with xr.open_dataset(file_path) as ds:
                 self._validate_data_domain(ds, lon, lat)
 
                 df = ds.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
 
-                constituents = {}
-                for name, amplitude, phase in zip(
-                    df["amplitude"].index, df["amplitude"], df["phase"]
-                ):
+                for amplitude, phase in zip(df["amplitude"], df["phase"]):
+                    amplitude /= 100  # Convert from cm to m
                     constituent = LevelConstituent(
                         name=name, amplitude=amplitude, phase=phase
                     )
@@ -203,67 +279,44 @@ class ConstituentReader:
             The constituents.
         """
         constituents = {}
+        lon, lat = _convert_FES2014_coords(lon, lat)
+        for cons in FES2014_CONSTITUENTS:
+            file_path_u = self.file_path / "eastward_velocity" / f"{cons}.nc"
+            file_path_v = self.file_path / "northward_velocity" / f"{cons}.nc"
 
-        # Check if the file is a NetCDF file or a directory
-        if ".nc" not in self.file_path.suffixes:
-            lon, lat = _convert_FES2014_coords(lon, lat)
-            for cons in FES2014_CONSTITUENTS:
-                file_path_u = self.file_path / "eastward_velocity" / cons
-                file_path_v = self.file_path / "northward_velocity" / cons
+            name = cons.upper()
 
-                name = cons.split(".")[0].upper()
+            if name == "LA2":  # Special case for LA2
+                name = "LDA2"
 
-                if name == "LA2":  # Special case for LA2
-                    name = "LDA2"
+            with xr.open_dataset(file_path_u) as ds_u:
+                self._validate_data_domain(ds_u, lon, lat)
 
-                with xr.open_dataset(file_path_u) as ds_u:
-                    self._validate_data_domain(ds_u, lon, lat)
+                df_u = ds_u.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
+            with xr.open_dataset(file_path_v) as ds_v:
+                self._validate_data_domain(ds_v, lon, lat)
 
-                    df_u = ds_u.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
-                with xr.open_dataset(file_path_v) as ds_v:
-                    self._validate_data_domain(ds_v, lon, lat)
+                df_v = ds_v.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
 
-                    df_v = ds_v.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
-
-                major_axis_list, minor_axis_list, inclination_list, phase_list = ap2ep(
+            major_axis_list, minor_axis_list, inclination_list, phase_list = (
+                amp_to_elliptic(
                     df_u["Ua"].values / 100,
                     df_u["Ug"].values,
                     df_v["Va"].values / 100,
                     df_v["Vg"].values,
                 )
-                for major_axis, minor_axis, inclination, phase in zip(
-                    major_axis_list, minor_axis_list, inclination_list, phase_list
-                ):
-                    constituent = CurrentConstituent(
-                        name=name,
-                        phase=phase,
-                        major_axis=major_axis,
-                        minor_axis=minor_axis,
-                        inclination=inclination,
-                    )
-                    constituents[name] = constituent
-
-        else:
-            with xr.open_dataset(self.file_path) as ds:
-                self._validate_data_domain(ds, lon, lat)
-                df = ds.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
-
-                for name, phase, major_axis, minor_axis, inclination in zip(
-                    df["phase"].index,
-                    df["phase"],
-                    df["major_axis"],
-                    df["minor_axis"],
-                    df["inclination"],
-                ):
-                    constituent = CurrentConstituent(
-                        name=name,
-                        phase=phase,
-                        major_axis=major_axis,
-                        minor_axis=minor_axis,
-                        inclination=inclination,
-                    )
-                    constituents[name] = constituent
-
+            )
+            for major_axis, minor_axis, inclination, phase in zip(
+                major_axis_list, minor_axis_list, inclination_list, phase_list
+            ):
+                constituent = CurrentConstituent(
+                    name=name,
+                    phase=phase,
+                    major_axis=major_axis,
+                    minor_axis=minor_axis,
+                    inclination=inclination,
+                )
+                constituents[name] = constituent
         return constituents
 
     @staticmethod
@@ -298,16 +351,21 @@ class NetCDFConstituentRepository(ConstituentRepository):
     A repository of tidal constituents stored in a NetCDF file.
     """
 
-    def __init__(self, fp: Path) -> None:
+    def __init__(self, fp: Path, model_name: str = "FES2014") -> None:
         """
         Parameters
         ----------
         fp : Path
             The path to the NetCDF file.
+        model : str
+            The model name, e.g., "FES2014" or "DTU10
         """
         self._fp = fp
         # TODO inline functions from reader
-        self._reader = ConstituentReader(fp)
+        if model_name.upper() == "FES2014":
+            self._reader = ConstituentReaderFES(fp)
+        elif model_name.upper() == "DTU10":
+            self._reader = ConstituentReaderDTU10(fp)
 
     def get_bathymetry(self, lon: float, lat: float) -> float:
         with xr.open_dataset(self._fp) as ds:
@@ -371,10 +429,6 @@ def _convert_FES2014_coords(lon: float, lat: float) -> tuple[float, float]:
     tuple[float, float]
         Latitude and Longitude in corrected format for FES2014
     """
-    if lat < -90 or lat > 90:
-        raise ValueError("Latitude must be between -90 and 90 degrees.")
-    if lon < -180 or lon > 180:
-        raise ValueError("Longitude must be between -180 and 180 degrees.")
 
     # Conversion to FES2014 format
     if lon < 0:
@@ -383,8 +437,11 @@ def _convert_FES2014_coords(lon: float, lat: float) -> tuple[float, float]:
     return lon, lat
 
 
-def ap2ep(
-    Au: np.ndarray, PHIu: np.ndarray, Av: np.ndarray, PHIv: np.ndarray
+def amp_to_elliptic(
+    amp_u: np.ndarray,
+    phi_u: np.ndarray,
+    amp_v: np.ndarray,
+    phi_v: np.ndarray,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """
     Convert tidal amplitude and phase lag (ap-) parameters into tidal ellipse (ep-) parameters.
@@ -392,16 +449,14 @@ def ap2ep(
 
     Parameters
     -----------
-    Au : array_like
+    amp_u : array_like
         Amplitudes of eastward (u) component
-    PHIu : array_like
+    phi_u : array_like
         Phase lags of u component (degrees)
-    Av : array_like
+    amp_v : array_like
         Amplitudes of northward (v) component
-    PHIv : array_like
+    phi_v : array_like
         Phase lags of v component (degrees)
-    plot_demo : tuple of indices (optional)
-        Indices into the arrays to plot a demo ellipse.
 
     Returns
     --------
@@ -415,12 +470,12 @@ def ap2ep(
         Phase angle (degrees)
     """
     # Convert phase lags from degrees to radians
-    PHIu_rad = np.radians(PHIu)
-    PHIv_rad = np.radians(PHIv)
+    phi_u_rad = np.radians(phi_u)
+    phi_v_rad = np.radians(phi_v)
 
     # Complex representations of u and v components
-    u = Au * np.exp(-1j * PHIu_rad)
-    v = Av * np.exp(-1j * PHIv_rad)
+    u = amp_u * np.exp(-1j * phi_u_rad)
+    v = amp_v * np.exp(-1j * phi_v_rad)
 
     # Decompose into circular components
     wp = (u + 1j * v) / 2  # anticlockwise

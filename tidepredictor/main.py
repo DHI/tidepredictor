@@ -68,7 +68,7 @@ def main(
     """
     path = get_default_constituent_path(type, model)
 
-    repo = NetCDFConstituentRepository(path)
+    repo = NetCDFConstituentRepository(path, model)
 
     prediction_start: datetime = start or midnight
     prediction_end: datetime = end or (prediction_start + timedelta(days=1))
