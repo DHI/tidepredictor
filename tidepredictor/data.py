@@ -4,7 +4,7 @@ Data handling.
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Protocol
+from typing import Protocol, Optional
 
 import xarray as xr
 
@@ -370,7 +370,7 @@ class NetCDFConstituentRepository(ConstituentRepository):
 
     _reader: ConstituentReaderProtocol
 
-    def __init__(self, fp: Path, *, model_name: str = None) -> None:
+    def __init__(self, fp: Path, *, model_name: Optional[str] = None) -> None:
         """
         Parameters
         ----------
