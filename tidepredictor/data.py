@@ -15,6 +15,7 @@ with warnings.catch_warnings():
     warnings.filterwarnings("ignore", category=RuntimeWarning)
     warnings.filterwarnings("ignore", category=UserWarning)
     import utide
+    from utide.ellipse_params import ut_cs2cep
 
 
 def _add_constituent(name: str, freq_rad_per_sec: float) -> dict:
@@ -24,15 +25,17 @@ def _add_constituent(name: str, freq_rad_per_sec: float) -> dict:
 
     const = utide.ut_constants
 
+    new_const = const.copy()
+
     # Current number of constituents
-    n_existing = len(const["const"]["name"])
+    n_existing = len(new_const["const"]["name"])
 
     # Add to all arrays with appropriate default values
-    const["const"]["name"] = np.append(const["const"]["name"], name)
-    const["const"]["freq"] = np.append(const["const"]["freq"], freq_rad_per_sec)
+    new_const["const"]["name"] = np.append(new_const["const"]["name"], name)
+    new_const["const"]["freq"] = np.append(new_const["const"]["freq"], freq_rad_per_sec)
 
     # Extend all other arrays to match
-    for key, value in const["const"].items():
+    for key, value in new_const["const"].items():
         if key not in ["name", "freq"] and isinstance(value, np.ndarray):
             if value.ndim == 1 and len(value) == n_existing:
                 # 1D array - append appropriate default
@@ -40,11 +43,11 @@ def _add_constituent(name: str, freq_rad_per_sec: float) -> dict:
                     default_val = 1.0  # nodal factors default to 1
                 else:
                     default_val = 0.0  # most other things default to 0
-                const["const"][key] = np.append(value, default_val)
+                new_const["const"][key] = np.append(value, default_val)
             elif value.ndim == 2 and value.shape[0] == n_existing:
                 # 2D array - append row of zeros
                 zeros_row = np.zeros((1, value.shape[1]), dtype=value.dtype)
-                const["const"][key] = np.vstack([value, zeros_row])
+                new_const["const"][key] = np.vstack([value, zeros_row])
     return const
 
 
@@ -75,7 +78,7 @@ FES2014_CONSTITUENTS = [
     "ms4",
     "msf",
     "msqm",
-    # "mtm.nc", # Not included in UTide
+    # "mtm", # Not included in UTide
     "mu2",
     "n2",
     "n4",
@@ -115,6 +118,15 @@ class CurrentConstituent:
     major_axis: float
     minor_axis: float
     inclination: float
+
+
+class ConstituentReaderProtocol(Protocol):
+    def get_level_constituents(
+        self, *, lat: float, lon: float
+    ) -> dict[str, LevelConstituent]: ...
+    def get_current_constituents(
+        self, *, lat: float, lon: float
+    ) -> dict[str, CurrentConstituent]: ...
 
 
 class ConstituentReaderDTU10:
@@ -293,30 +305,35 @@ class ConstituentReaderFES:
                 self._validate_data_domain(ds_u, lon, lat)
 
                 df_u = ds_u.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
+
+                Ua = df_u["Ua"].unique()[0] / 100  # conversion from cm/s to m/s
+                Ug = df_u["Ug"].unique()[0]
             with xr.open_dataset(file_path_v) as ds_v:
                 self._validate_data_domain(ds_v, lon, lat)
 
                 df_v = ds_v.sel(lon=lon, lat=lat, method="nearest").to_dataframe()
+                Va = df_v["Va"].unique()[0] / 100  # conversion from cm/s to m/s
+                Vg = df_v["Vg"].unique()[0]
 
-            major_axis_list, minor_axis_list, inclination_list, phase_list = (
-                amp_to_elliptic(
-                    df_u["Ua"].values / 100,
-                    df_u["Ug"].values,
-                    df_v["Va"].values / 100,
-                    df_v["Vg"].values,
-                )
+            Ug_rad = np.deg2rad(Ug)
+            Vg_rad = np.deg2rad(Vg)
+
+            # Convert amplitude and phase into cosine and sine coefficients
+            Xu = Ua * np.cos(Ug_rad)
+            Yu = Ua * np.sin(Ug_rad)
+            Xv = Va * np.cos(Vg_rad)
+            Yv = Va * np.sin(Vg_rad)
+
+            major_axis, minor_axis, inclination, phase = ut_cs2cep(Xu, Yu, Xv, Yv)
+
+            constituent = CurrentConstituent(
+                name=name,
+                phase=phase,
+                major_axis=major_axis,
+                minor_axis=minor_axis,
+                inclination=inclination,
             )
-            for major_axis, minor_axis, inclination, phase in zip(
-                major_axis_list, minor_axis_list, inclination_list, phase_list
-            ):
-                constituent = CurrentConstituent(
-                    name=name,
-                    phase=phase,
-                    major_axis=major_axis,
-                    minor_axis=minor_axis,
-                    inclination=inclination,
-                )
-                constituents[name] = constituent
+            constituents[name] = constituent
         return constituents
 
     @staticmethod
@@ -351,7 +368,9 @@ class NetCDFConstituentRepository(ConstituentRepository):
     A repository of tidal constituents stored in a NetCDF file.
     """
 
-    def __init__(self, fp: Path, model_name: str = "FES2014") -> None:
+    _reader: ConstituentReaderProtocol
+
+    def __init__(self, fp: Path, *, model_name: str = None) -> None:
         """
         Parameters
         ----------
@@ -361,11 +380,20 @@ class NetCDFConstituentRepository(ConstituentRepository):
             The model name, e.g., "FES2014" or "DTU10
         """
         self._fp = fp
-        # TODO inline functions from reader
-        if model_name.upper() == "FES2014":
-            self._reader = ConstituentReaderFES(fp)
-        elif model_name.upper() == "DTU10":
-            self._reader = ConstituentReaderDTU10(fp)
+        if model_name is not None:
+            # TODO inline functions from reader
+            if model_name.upper() == "FES2014":
+                self._reader = ConstituentReaderFES(fp)
+            elif model_name.upper() == "DTU10":
+                self._reader = ConstituentReaderDTU10(fp)
+            else:
+                raise ValueError(
+                    f"Unsupported model name: {model_name}. Available models: 'DTU10' and 'FES2014'"
+                )
+        else:
+            raise ValueError(
+                "Specify a model! Available models: 'DTU10' and 'FES2014' ."
+            )
 
     def get_bathymetry(self, lon: float, lat: float) -> float:
         with xr.open_dataset(self._fp) as ds:
@@ -431,75 +459,4 @@ def _convert_FES2014_coords(lon: float, lat: float) -> tuple[float, float]:
     """
 
     # Conversion to FES2014 format
-    if lon < 0:
-        lon += 360
-
-    return lon, lat
-
-
-def amp_to_elliptic(
-    amp_u: np.ndarray,
-    phi_u: np.ndarray,
-    amp_v: np.ndarray,
-    phi_v: np.ndarray,
-) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-    """
-    Convert tidal amplitude and phase lag (ap-) parameters into tidal ellipse (ep-) parameters.
-    Inspired from 'https://www.mathworks.com/matlabcentral/fileexchange/347-tidal_ellipse'
-
-    Parameters
-    -----------
-    amp_u : array_like
-        Amplitudes of eastward (u) component
-    phi_u : array_like
-        Phase lags of u component (degrees)
-    amp_v : array_like
-        Amplitudes of northward (v) component
-    phi_v : array_like
-        Phase lags of v component (degrees)
-
-    Returns
-    --------
-    major_ax : ndarray
-        Semi-major axis (max speed)
-    minor_ax : ndarray
-        Semi-minor axis (min speed)
-    inc : ndarray
-        Inclination (degrees)
-    phase : ndarray
-        Phase angle (degrees)
-    """
-    # Convert phase lags from degrees to radians
-    phi_u_rad = np.radians(phi_u)
-    phi_v_rad = np.radians(phi_v)
-
-    # Complex representations of u and v components
-    u = amp_u * np.exp(-1j * phi_u_rad)
-    v = amp_v * np.exp(-1j * phi_v_rad)
-
-    # Decompose into circular components
-    wp = (u + 1j * v) / 2  # anticlockwise
-    wm = np.conj(u - 1j * v) / 2  # clockwise
-
-    # Amplitudes and angles
-    Wp = np.abs(wp)
-    Wm = np.abs(wm)
-    THETAp = np.angle(wp)
-    THETAm = np.angle(wm)
-
-    # Ellipse parameters
-    major_ax = Wp + Wm
-    minor_ax = Wp - Wm
-    phase = (THETAm - THETAp) / 2
-    inc = (THETAm + THETAp) / 2
-
-    # Convert radians to degrees
-    phase = np.degrees(phase) % 360
-    inc = np.degrees(inc) % 360
-
-    # Adjust to northern semi-major axis (Foreman convention)
-    k = (inc // 180).astype(int)
-    inc -= k * 180
-    phase = (phase + k * 180) % 360
-
-    return major_ax, minor_ax, inc, phase
+    return (lon + 360 if lon < 0 else lon, lat)

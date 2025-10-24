@@ -50,14 +50,15 @@ def main(
     model: Annotated[str, typer.Option("--model", "-m", help="Model name")] = "FES2014",
     format: Annotated[Format, typer.Option(help="Output format")] = Format.csv,
     type: Annotated[
-        PredictionType, typer.Option(help="Type of prediction, level or u,v")
+        PredictionType,
+        typer.Option(help="Type of prediction, 'level' or 'current' (u,v)"),
     ] = PredictionType.level,
     precision: Annotated[
         int,
         typer.Option(
             "--precision", "-p", help="Number of decimal places. (csv only)", min=0
         ),
-    ] = 3,
+    ] = 4,
     alpha: Annotated[
         float,
         typer.Option("--alpha", help="Alpha factor for current profile"),
@@ -68,7 +69,7 @@ def main(
     """
     path = get_default_constituent_path(type, model)
 
-    repo = NetCDFConstituentRepository(path, model)
+    repo = NetCDFConstituentRepository(path, model_name=model)
 
     prediction_start: datetime = start or midnight
     prediction_end: datetime = end or (prediction_start + timedelta(days=1))
