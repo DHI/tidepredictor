@@ -32,8 +32,10 @@ jobs:
     
     - name: Copy constituents to standard data dir
       run: |
-          mkdir -p ~/.local/share/tidepredictor
-          cp tests/data/*.nc ~/.local/share/tidepredictor/
+          mkdir -p ~/.local/share/tidepredictor/DTU10
+          cp tests/data/DTU10/*.nc ~/.local/share/tidepredictor/DTU10
+          mkdir -p ~/.local/share/tidepredictor/FES2014
+          cp -r tests/data/FES2014/* ~/.local/share/tidepredictor/FES2014
     
     - name: Install Quarto
       uses: quarto-dev/quarto-actions/setup@v2
