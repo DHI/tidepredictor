@@ -79,6 +79,12 @@ docs/_build/
 # PyBuilder
 target/
 
+# tests
+/tests/*
+
+# Github Actions
+/.github/workflows/full_test.yml
+
 # Jupyter Notebook
 .ipynb_checkpoints
 /notebooks/dev/
