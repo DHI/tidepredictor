@@ -52,6 +52,7 @@ pip install https://github.com/DHI/tidepredictor/releases/download/v0.1.0/tidepr
 ### Python library
 
 ```{python}
+#| eval: false
 import tidepredictor as tp
 from datetime import datetime, timedelta
 
@@ -68,13 +69,12 @@ df = predictor.predict(
     end=datetime(2021, 1, 1, 12),
     interval=timedelta(hours=1),
 )
-df
 ```
 
 And similar for depth averaged currents.
 
 ```{python}
-
+#| eval: false
 path = tp.get_default_constituent_path(tp.PredictionType.current,model_name="DTU10")
 
 repo = tp.NetCDFConstituentRepository(path,model_name="DTU10")
@@ -88,14 +88,13 @@ df = predictor.predict_depth_averaged(
     end=datetime(2021, 1, 1, 12),
     interval=timedelta(hours=1)
 )
-df
 ```
 
 
 And current profiles.
 
 ```{python}
-
+#| eval: false
 path = tp.get_default_constituent_path(tp.PredictionType.current,model_name="DTU10")
 
 repo = tp.NetCDFConstituentRepository(path,model_name="DTU10")
@@ -110,10 +109,10 @@ df = predictor.predict_profile(
     interval=timedelta(hours=1),
     levels=[-1.0, -10.0, -27.0]
 )
-df
 ```
 
 ```{python}
+#| eval: false
 from plotnine import *
 
 (
@@ -126,10 +125,12 @@ from plotnine import *
 
 ```
 
+![](images/output_4.png)
 
 ### Command line
 
 ```{python}
+#| eval: false
 !tidepredictor -x -2.75 -y 56.1 -s "2021-01-01" -e "2021-01-01 02:00:00" -i 30
 ```
 
