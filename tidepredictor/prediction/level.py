@@ -11,10 +11,11 @@ from .coef import Coef
 
 import warnings
 
-# Suppress warnings issued by utide
-warnings.filterwarnings("ignore", category=RuntimeWarning)
-warnings.filterwarnings("ignore", category=DeprecationWarning)
-from utide import reconstruct, ut_constants  # noqa: E402
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore", category=RuntimeWarning)
+    warnings.filterwarnings("ignore", category=UserWarning)
+    from utide import reconstruct
+from ..data import ut_constants
 
 
 class LevelPredictor:
@@ -92,10 +93,10 @@ class LevelPredictor:
         unames = ut_constants["const"]["name"]
         ufreqs = ut_constants["const"]["freq"]
 
-        freq_map = {n: float(f) for n, f in zip(unames, ufreqs)}
+        freq_map = {n.upper(): float(f) for n, f in zip(unames, ufreqs)}
 
         coef.name = names
-        freqs = np.array([freq_map[name] for name in names])
+        freqs = np.array([freq_map[name.upper()] for name in names])
 
         coef.aux["frq"] = freqs
         coef.aux["lind"] = np.array([unames.tolist().index(n) for n in names])

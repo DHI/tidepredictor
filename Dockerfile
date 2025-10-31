@@ -19,6 +19,7 @@ RUN uv tool install .
 
 
 # Test data, replace with proper constituents
-RUN mkdir -p ~/.local/share/tidepredictor; cp ~/tests/data/*.nc ~/.local/share/tidepredictor
+RUN mkdir -p ~/.local/share/tidepredictor/DTU10; cp ~/tests/data/DTU10/*.nc ~/.local/share/tidepredictor/DTU10
+RUN mkdir -p ~/.local/share/tidepredictor/FES2014; cp -r ~/tests/data/FES2014/* ~/.local/share/tidepredictor/FES2014
 
 CMD ["bash"]
