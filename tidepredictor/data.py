@@ -129,9 +129,9 @@ class ConstituentReaderProtocol(Protocol):
     ) -> dict[str, CurrentConstituent]: ...
 
 
-class ConstituentReaderDTU10:
+class ConstituentReaderDTU14:
     """
-    Reads constituents from a DTU10 file.
+    Reads constituents from a DTU14 file.
     """
 
     def __init__(self, file_path: Path):
@@ -377,22 +377,22 @@ class NetCDFConstituentRepository(ConstituentRepository):
         fp : Path
             The path to the NetCDF file.
         model : str
-            The model name, e.g., "FES2014" or "DTU10
+            The model name, e.g., "FES2014" or "DTU14
         """
         self._fp = fp
         if model_name is not None:
             # TODO inline functions from reader
             if model_name.upper() == "FES2014":
                 self._reader = ConstituentReaderFES(fp)
-            elif model_name.upper() == "DTU10":
-                self._reader = ConstituentReaderDTU10(fp)
+            elif model_name.upper() == "DTU14":
+                self._reader = ConstituentReaderDTU14(fp)
             else:
                 raise ValueError(
-                    f"Unsupported model name: {model_name}. Available models: 'DTU10' and 'FES2014'"
+                    f"Unsupported model name: {model_name}. Available models: 'DTU14' and 'FES2014'"
                 )
         else:
             raise ValueError(
-                "Specify a model! Available models: 'DTU10' and 'FES2014' ."
+                "Specify a model! Available models: 'DTU14' and 'FES2014' ."
             )
 
     def get_bathymetry(self, lon: float, lat: float) -> float:

@@ -13,7 +13,7 @@ class PredictionType(str, Enum):
 
 def get_default_constituent_path(
     prediction_type: PredictionType,
-    model_name: str = "DTU10",
+    model_name: str = "DTU14",
 ) -> Path:
     """
     Get the default path to the constituent file.
@@ -28,13 +28,13 @@ def get_default_constituent_path(
     Path
         The path to the constituent file.
     """
-    if model_name not in ["DTU10", "FES2014"]:
+    if model_name not in ["DTU14", "FES2014"]:
         raise ValueError(
-            f"Unsupported model name: {model_name}. Supported models are: DTU10, FES2014."
+            f"Unsupported model name: {model_name}. Supported models are: DTU14, FES2014."
         )
 
-    if model_name == "DTU10":
-        DATA_DIR = Path("~/.local/share/tidepredictor/DTU10")
+    if model_name == "DTU14":
+        DATA_DIR = Path("~/.local/share/tidepredictor/DTU14")
         NAME = {PredictionType.current: "currents.nc", PredictionType.level: "level.nc"}
         path = (DATA_DIR / NAME[prediction_type]).expanduser()
 

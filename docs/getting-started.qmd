@@ -10,11 +10,11 @@ E.g. for version 0.1.0:
 pip install https://github.com/DHI/tidepredictor/releases/download/v0.1.0/tidepredictor-0.1.0-py3-none-any.whl
 ```
 
-2. Copy constituent files (`.nc` files) for both `DTU10` and `FES2014` models to the local machine with the following directory tree:
+2. Copy constituent files (`.nc` files) for both `DTU14` and `FES2014` models to the local machine with the following directory tree:
 
     ```text
     ~/.local/share/tidepredictor/
-    ├── DTU10/
+    ├── DTU14/
     │   ├── current.nc
     │   └── level.nc
     └── FES2014/
@@ -47,7 +47,7 @@ pip install https://github.com/DHI/tidepredictor/releases/download/v0.1.0/tidepr
 
 ## Usage
 
-`tidepredictor` can be used both as a command-line application and as a Python library. The package currently supports two tidal models: `DTU10` and `FES2014`. The desired model can be selected using the `model_name` keyword argument, with `FES2014` set as the default option.
+`tidepredictor` can be used both as a command-line application and as a Python library. The package currently supports two tidal models: `DTU14` and `FES2014`. The desired model can be selected using the `model_name` keyword argument, with `FES2014` set as the default option.
 
 ### Python library
 
@@ -55,9 +55,9 @@ pip install https://github.com/DHI/tidepredictor/releases/download/v0.1.0/tidepr
 import tidepredictor as tp
 from datetime import datetime, timedelta
 
-path = tp.get_default_constituent_path(tp.PredictionType.level, model_name="DTU10")
+path = tp.get_default_constituent_path(tp.PredictionType.level, model_name="DTU14")
 
-repo = tp.NetCDFConstituentRepository(path, model_name="DTU10")
+repo = tp.NetCDFConstituentRepository(path, model_name="DTU14")
 
 predictor = tp.LevelPredictor(repo)
 
@@ -92,9 +92,9 @@ df = predictor.predict_depth_averaged(
 And current profiles.
 
 ```{python}
-path = tp.get_default_constituent_path(tp.PredictionType.current,model_name="DTU10")
+path = tp.get_default_constituent_path(tp.PredictionType.current,model_name="DTU14")
 
-repo = tp.NetCDFConstituentRepository(path,model_name="DTU10")
+repo = tp.NetCDFConstituentRepository(path,model_name="DTU14")
 
 predictor = tp.CurrentPredictor(repo, alpha=1.0/3)
 

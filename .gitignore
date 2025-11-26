@@ -84,6 +84,7 @@ target/
 
 # Github Actions
 /.github/workflows/full_test.yml
+/.github/workflows/docs.yml
 
 # Jupyter Notebook
 .ipynb_checkpoints
