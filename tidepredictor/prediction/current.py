@@ -44,6 +44,7 @@ class CurrentPredictor:
         lat: float,
         start: datetime,
         end: datetime,
+        water_depth: float | None = None,
         interval: timedelta = timedelta(hours=1),
         levels: Collection[float] | None = None,
     ) -> pl.DataFrame:
@@ -52,7 +53,10 @@ class CurrentPredictor:
             lon=lon, lat=lat, start=start, end=end, interval=interval
         ).rename({"u": "uavg", "v": "vavg"})
 
-        total_water_depth = self._constituent_repo.get_bathymetry(lon, lat)
+        if water_depth is None:
+            total_water_depth = self._constituent_repo.get_bathymetry(lon, lat)
+        else:
+            total_water_depth = water_depth
 
         if levels is None:
             depths = np.linspace(-total_water_depth, 0, num=10)

@@ -10,7 +10,7 @@ exclude = ["notebooks", "tests", "images"]
 
 [project]
 name = "tidepredictor"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
     "numpy>=2.2.1",
     "netcdf4>=1.7.2",

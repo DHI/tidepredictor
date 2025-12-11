@@ -380,6 +380,7 @@ class NetCDFConstituentRepository(ConstituentRepository):
             The model name, e.g., "FES2014" or "DTU14
         """
         self._fp = fp
+        self.model_name = model_name
         if model_name is not None:
             # TODO inline functions from reader
             if model_name.upper() == "FES2014":
@@ -396,9 +397,14 @@ class NetCDFConstituentRepository(ConstituentRepository):
             )
 
     def get_bathymetry(self, lon: float, lat: float) -> float:
-        with xr.open_dataset(self._fp) as ds:
-            bathy = -ds.bathymetry.sel(lon=lon, lat=lat, method="nearest").item()
-        return bathy
+        if self.model_name == "FES2014":
+            raise NotImplementedError(
+                "The FES2014 constituent files do not include any bathymetry data! Please specify water detpth instead."
+            )
+        else:
+            with xr.open_dataset(self._fp) as ds:
+                bathy = -ds.bathymetry.sel(lon=lon, lat=lat, method="nearest").item()
+            return bathy
 
     def get_level_constituents(
         self, lon: float, lat: float
