@@ -17,7 +17,7 @@ with warnings.catch_warnings():
     warnings.filterwarnings("ignore", category=UserWarning)
     from utide import reconstruct, ut_constants
 
-from ..data import ut_constants
+from ..data import ut_constants, uv2spddir
 
 
 class CurrentPredictor:
@@ -53,6 +53,17 @@ class CurrentPredictor:
             lon=lon, lat=lat, start=start, end=end, interval=interval
         ).rename({"u": "uavg", "v": "vavg"})
 
+        u_vals = df["uavg"].to_numpy()
+        v_vals = df["vavg"].to_numpy()
+        # Caculate speed and direction
+        cs, cd = uv2spddir(u_vals, v_vals)
+
+        # Assign speed and direction
+        df = df.with_columns(
+            pl.Series("CS_avg [m/s]", cs),
+            pl.Series(r"CD_avg [\Deg.N-to]", cd),
+        )
+
         if water_depth is None:
             total_water_depth = self._constituent_repo.get_bathymetry(lon, lat)
         else:
@@ -64,20 +75,30 @@ class CurrentPredictor:
             depths = levels  # type: ignore
 
         # TODO validate depths is in valid range
-
-        df_expanded = df.join(pl.DataFrame({"depth": depths}), how="cross")
-
+        for depth in depths:
+            if abs(depth) > total_water_depth:
+                depths.remove(depth)
+                warnings.warn(
+                    f"Depth: {depth} is not available! Total water depth: {total_water_depth} m"
+                )
         z = total_water_depth
         alpha = self._alpha
-        factor = (1.0 + alpha) * ((pl.col("depth") + z) / z).pow(alpha)
 
-        dfr = df_expanded.with_columns(
-            (pl.col("uavg") * factor).alias("u"),
-            (pl.col("vavg") * factor).alias("v"),
-            pl.lit(total_water_depth).alias("total_water_depth"),
-        )
+        for depth in depths:
+            factor = (1.0 + alpha) * ((depth + z) / z) ** (alpha)
 
-        return dfr["time", "depth", "uavg", "u", "vavg", "v", "total_water_depth"]
+            # Calculate speed and direction for each layer
+            u_vals = df["uavg"].to_numpy() * factor
+            v_vals = df["vavg"].to_numpy() * factor
+            cs, cd = uv2spddir(u_vals, v_vals)
+
+            # Assign calculated speed and direction of each layer
+            df = df.with_columns(
+                pl.Series(f"CS_({depth}) [m/s]", cs),
+                pl.Series(rf"CD_({depth}) [\Deg.N-to]", cd),
+            )
+
+        return df.drop(["uavg", "vavg"])
 
     def predict_depth_averaged(
         self,
