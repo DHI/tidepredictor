@@ -4,7 +4,7 @@ Data handling.
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Protocol, Optional
+from typing import Protocol
 
 import xarray as xr
 
@@ -363,49 +363,27 @@ class ConstituentRepository(Protocol):
     def get_bathymetry(self, lon: float, lat: float) -> float: ...
 
 
-class NetCDFConstituentRepository(ConstituentRepository):
+class FES2014ConstituentRepository:
     """
-    A repository of tidal constituents stored in a NetCDF file.
+    A repository of tidal constituents for FES2014 model.
+    FES2014 stores constituents in a directory with multiple files.
     """
 
-    _reader: ConstituentReaderProtocol
-
-    def __init__(self, fp: Path, *, model_name: Optional[str] = None) -> None:
+    def __init__(self, data_dir: Path) -> None:
         """
         Parameters
         ----------
-        fp : Path
-            The path to the NetCDF file.
-        model : str
-            The model name, e.g., "FES2014" or "DTU14
+        data_dir : Path
+            The path to the FES2014 data directory.
         """
-        self._fp = fp
-        self.model_name = model_name
-        if model_name is not None:
-            # TODO inline functions from reader
-            if model_name.upper() == "FES2014":
-                self._reader = ConstituentReaderFES(fp)
-            elif model_name.upper() == "DTU14":
-                self._reader = ConstituentReaderDTU14(fp)
-            else:
-                raise ValueError(
-                    f"Unsupported model name: {model_name}. Available models: 'DTU14' and 'FES2014'"
-                )
-        else:
-            raise ValueError(
-                "Specify a model! Available models: 'DTU14' and 'FES2014' ."
-            )
+        self._data_dir = data_dir
+        self._reader = ConstituentReaderFES(data_dir)
 
     def get_bathymetry(self, lon: float, lat: float) -> float:
-        if self.model_name == "FES2014":
-            bathy_path = self._fp / "Bathymetry.nc"
-            with xr.open_dataset(bathy_path) as ds:
-                bathy = -ds.elevation.sel(lon=lon, lat=lat, method="nearest").item()
-            return bathy
-        else:
-            with xr.open_dataset(self._fp) as ds:
-                bathy = -ds.bathymetry.sel(lon=lon, lat=lat, method="nearest").item()
-            return bathy
+        bathy_path = self._data_dir / "Bathymetry.nc"
+        with xr.open_dataset(bathy_path) as ds:
+            bathy = -ds.elevation.sel(lon=lon, lat=lat, method="nearest").item()
+        return bathy
 
     def get_level_constituents(
         self, lon: float, lat: float
@@ -446,6 +424,103 @@ class NetCDFConstituentRepository(ConstituentRepository):
             The current constituents.
         """
         return self._reader.get_current_constituents(lat=lat, lon=lon)
+
+
+class DTU14ConstituentRepository:
+    """
+    A repository of tidal constituents for DTU14 model.
+    DTU14 stores all constituents in a single file.
+    """
+
+    def __init__(self, data_file: Path) -> None:
+        """
+        Parameters
+        ----------
+        data_file : Path
+            The path to the DTU14 data file.
+        """
+        self._data_file = data_file
+        self._reader = ConstituentReaderDTU14(data_file)
+
+    def get_bathymetry(self, lon: float, lat: float) -> float:
+        with xr.open_dataset(self._data_file) as ds:
+            bathy = -ds.bathymetry.sel(lon=lon, lat=lat, method="nearest").item()
+        return bathy
+
+    def get_level_constituents(
+        self, lon: float, lat: float
+    ) -> dict[str, LevelConstituent]:
+        """
+        Get the level constituents for a given longitude and latitude.
+
+        Parameters
+        ----------
+        lon : float
+            The longitude.
+        lat : float
+            The latitude.
+
+        Returns
+        -------
+        dict[str, LevelConstituent]
+            The level constituents.
+        """
+        return self._reader.get_level_constituents(lat=lat, lon=lon)
+
+    def get_current_constituents(
+        self, lon: float, lat: float
+    ) -> dict[str, CurrentConstituent]:
+        """
+        Get the current constituents for a given longitude and latitude.
+
+        Parameters
+        ----------
+        lon : float
+            The longitude.
+        lat : float
+            The latitude.
+
+        Returns
+        -------
+        dict[str, CurrentConstituent]
+            The current constituents.
+        """
+        return self._reader.get_current_constituents(lat=lat, lon=lon)
+
+
+def NetCDFConstituentRepository(
+    fp: Path, *, model_name: str
+) -> FES2014ConstituentRepository | DTU14ConstituentRepository:
+    """
+    Factory function to create the appropriate constituent repository.
+
+    Parameters
+    ----------
+    fp : Path
+        The path to the data (directory for FES2014, file for DTU14).
+    model_name : str
+        The model name, either "FES2014" or "DTU14".
+
+    Returns
+    -------
+    FES2014ConstituentRepository | DTU14ConstituentRepository
+        The appropriate repository instance.
+
+    Raises
+    ------
+    ValueError
+        If the model name is not supported.
+    """
+    model_name_upper = model_name.upper()
+
+    if model_name_upper == "FES2014":
+        return FES2014ConstituentRepository(fp)
+    elif model_name_upper == "DTU14":
+        return DTU14ConstituentRepository(fp)
+    else:
+        raise ValueError(
+            f"Unsupported model name: {model_name}. Available models: 'DTU14' and 'FES2014'"
+        )
 
 
 def _convert_FES2014_coords(lon: float, lat: float) -> tuple[float, float]:
