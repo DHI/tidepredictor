@@ -47,6 +47,7 @@ pip install https://github.com/DHI/tidepredictor/releases/download/v0.1.0/tidepr
     ```
 ## Bathymetry
 Note that the bathymetry file (fx. GEBCO) must be located for FES2014 current profile calculations. Please see the folder tree above for the correct file naming and location.
+Global bathymetry file from GEBCO [GEBCO_2025 Grid (sub-ice topo/bathy)] can be downloaded from here: https://www.gebco.net/data-products/gridded-bathymetry-data
 
 ## Usage
 

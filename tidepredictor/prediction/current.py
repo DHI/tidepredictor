@@ -55,13 +55,13 @@ class CurrentPredictor:
 
         u_vals = df["uavg"].to_numpy()
         v_vals = df["vavg"].to_numpy()
-        # Caculate speed and direction
+
         cs, cd = uv2spddir(u_vals, v_vals)
 
         # Assign speed and direction
         df = df.with_columns(
-            pl.Series("CS_avg [m/s]", cs),
-            pl.Series(r"CD_avg [\Deg.N-to]", cd),
+            pl.Series("CS_avg", cs),
+            pl.Series(r"CD_avg", cd),
         )
 
         if water_depth is None:
@@ -74,13 +74,15 @@ class CurrentPredictor:
         else:
             depths = levels  # type: ignore
 
-        # TODO validate depths is in valid range
+        # Validate depths are in valid range
+        depths_list = []
         for depth in depths:
             if abs(depth) > total_water_depth:
-                depths.remove(depth)
-                warnings.warn(
-                    f"Depth: {depth} is not available! Total water depth: {total_water_depth} m"
+                raise ValueError(
+                    f"Depth: {depth} exceeds total water depth of {total_water_depth} m"
                 )
+            depths_list.append(depth)
+        depths = depths_list
         z = total_water_depth
         alpha = self._alpha
 
@@ -94,8 +96,8 @@ class CurrentPredictor:
 
             # Assign calculated speed and direction of each layer
             df = df.with_columns(
-                pl.Series(f"CS_({depth}) [m/s]", cs),
-                pl.Series(rf"CD_({depth}) [\Deg.N-to]", cd),
+                pl.Series(f"CS_({depth})", cs),
+                pl.Series(rf"CD_({depth})", cd),
             )
 
         return df.drop(["uavg", "vavg"])

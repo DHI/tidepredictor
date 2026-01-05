@@ -488,7 +488,7 @@ def uv2spddir(
         (spd,dir) Magnitude and direction of the current speed
     """
 
-    mag = np.sqrt(u**2, v**2)
+    mag = np.sqrt(u**2 + v**2)
     direction = np.arctan2(u, v) * 180 / np.pi
 
     direction = np.mod(direction, 360)
