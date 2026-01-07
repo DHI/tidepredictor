@@ -119,9 +119,9 @@ import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots(figsize=(7,4))
 
-ax.plot(df["time"],df["CS_avg [m/s]"],marker=".",label="Depth-averaged")
+ax.plot(df["time"],df["CS_avg"],marker=".",label="Depth-averaged")
 for depth in [-1.0, -10.0, -27.0]:
-    ax.plot(df["time"],df[f"CS_({depth}) [m/s]"],marker=".",label=f"{depth} m")
+    ax.plot(df["time"],df[f"CS_({depth})"],marker=".",label=f"{depth} m")
 
 ax.grid("True",ls="--")
 ax.set_ylabel("CS [m/s]")
