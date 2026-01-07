@@ -17,7 +17,7 @@ with warnings.catch_warnings():
     warnings.filterwarnings("ignore", category=UserWarning)
     from utide import reconstruct, ut_constants
 
-from ..data import ut_constants, uv2spddir
+from ..data import ut_constants
 
 
 class CurrentPredictor:
@@ -182,3 +182,30 @@ class CurrentPredictor:
         coef.aux["lind"] = np.array([unames.tolist().index(n) for n in names])
 
         return coef
+
+
+def uv2spddir(
+    u: float | np.ndarray, v: float | np.ndarray
+) -> tuple[float | np.ndarray, float | np.ndarray]:
+    """
+    Function to convert u and v component of the current speed into magnitude (m/s) and direction (degree)
+
+    Parameters
+    ----------
+    u : float | np.ndarray
+        Horizontal component of the current speed (m/s)
+    v : float | np.ndarray
+        Vertical component of the current speed (m/s)
+
+    Returns
+    -------
+    tuple[ float | np.ndarray, float | np.ndarray ]
+        (spd,dir) Magnitude and direction of the current speed
+    """
+
+    mag = np.sqrt(u**2 + v**2)
+    direction = np.arctan2(u, v) * 180 / np.pi
+
+    direction = np.mod(direction, 360)
+
+    return mag, direction

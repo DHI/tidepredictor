@@ -542,30 +542,3 @@ def _convert_FES2014_coords(lon: float, lat: float) -> tuple[float, float]:
 
     # Conversion to FES2014 format
     return (lon + 360 if lon < 0 else lon, lat)
-
-
-def uv2spddir(
-    u: float | np.ndarray, v: float | np.ndarray
-) -> tuple[float | np.ndarray, float | np.ndarray]:
-    """
-    Function to convert u and v component of the current speed into magnitude (m/s) and direction (degree)
-
-    Parameters
-    ----------
-    u : float | np.ndarray
-        Horizontal component of the current speed (m/s)
-    v : float | np.ndarray
-        Vertical component of the current speed (m/s)
-
-    Returns
-    -------
-    tuple[ float | np.ndarray, float | np.ndarray ]
-        (spd,dir) Magnitude and direction of the current speed
-    """
-
-    mag = np.sqrt(u**2 + v**2)
-    direction = np.arctan2(u, v) * 180 / np.pi
-
-    direction = np.mod(direction, 360)
-
-    return mag, direction
