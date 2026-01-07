@@ -32,9 +32,9 @@ clean:
 
 install:
 	uv tool install .
-	mkdir -p ~/.local/share/tidepredictor/DTU10
+	mkdir -p ~/.local/share/tidepredictor/DTU14
 	mkdir -p ~/.local/share/tidepredictor/FES2014
-	cp tests/data/DTU10/*.nc ~/.local/share/tidepredictor/DTU10
+	cp tests/data/DTU14/*.nc ~/.local/share/tidepredictor/DTU14
 	cp -r tests/data/FES2014/* ~/.local/share/tidepredictor/FES2014
 
 uninstall:

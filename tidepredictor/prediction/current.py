@@ -44,6 +44,7 @@ class CurrentPredictor:
         lat: float,
         start: datetime,
         end: datetime,
+        water_depth: float | None = None,
         interval: timedelta = timedelta(hours=1),
         levels: Collection[float] | None = None,
     ) -> pl.DataFrame:
@@ -52,28 +53,54 @@ class CurrentPredictor:
             lon=lon, lat=lat, start=start, end=end, interval=interval
         ).rename({"u": "uavg", "v": "vavg"})
 
-        total_water_depth = self._constituent_repo.get_bathymetry(lon, lat)
+        u_vals = df["uavg"].to_numpy()
+        v_vals = df["vavg"].to_numpy()
+
+        cs, cd = uv2spddir(u_vals, v_vals)
+
+        # Assign speed and direction
+        df = df.with_columns(
+            pl.Series("CS_avg", cs),
+            pl.Series(r"CD_avg", cd),
+        )
+
+        if water_depth is None:
+            total_water_depth = self._constituent_repo.get_bathymetry(lon, lat)
+        else:
+            total_water_depth = water_depth
 
         if levels is None:
             depths = np.linspace(-total_water_depth, 0, num=10)
         else:
             depths = levels  # type: ignore
 
-        # TODO validate depths is in valid range
-
-        df_expanded = df.join(pl.DataFrame({"depth": depths}), how="cross")
-
+        # Validate depths are in valid range
+        depths_list = []
+        for depth in depths:
+            if abs(depth) > total_water_depth:
+                raise ValueError(
+                    f"Depth: {depth} exceeds total water depth of {total_water_depth} m"
+                )
+            depths_list.append(depth)
+        depths = depths_list
         z = total_water_depth
         alpha = self._alpha
-        factor = (1.0 + alpha) * ((pl.col("depth") + z) / z).pow(alpha)
 
-        dfr = df_expanded.with_columns(
-            (pl.col("uavg") * factor).alias("u"),
-            (pl.col("vavg") * factor).alias("v"),
-            pl.lit(total_water_depth).alias("total_water_depth"),
-        )
+        for depth in depths:
+            factor = (1.0 + alpha) * ((depth + z) / z) ** (alpha)
 
-        return dfr["time", "depth", "uavg", "u", "vavg", "v", "total_water_depth"]
+            # Calculate speed and direction for each layer
+            u_vals = df["uavg"].to_numpy() * factor
+            v_vals = df["vavg"].to_numpy() * factor
+            cs, cd = uv2spddir(u_vals, v_vals)
+
+            # Assign calculated speed and direction of each layer
+            df = df.with_columns(
+                pl.Series(f"CS_({depth})", cs),
+                pl.Series(rf"CD_({depth})", cd),
+            )
+
+        return df.drop(["uavg", "vavg"])
 
     def predict_depth_averaged(
         self,
@@ -155,3 +182,30 @@ class CurrentPredictor:
         coef.aux["lind"] = np.array([unames.tolist().index(n) for n in names])
 
         return coef
+
+
+def uv2spddir(
+    u: float | np.ndarray, v: float | np.ndarray
+) -> tuple[float | np.ndarray, float | np.ndarray]:
+    """
+    Function to convert u and v component of the current speed into magnitude (m/s) and direction (degree)
+
+    Parameters
+    ----------
+    u : float | np.ndarray
+        Horizontal component of the current speed (m/s)
+    v : float | np.ndarray
+        Vertical component of the current speed (m/s)
+
+    Returns
+    -------
+    tuple[ float | np.ndarray, float | np.ndarray ]
+        (spd,dir) Magnitude and direction of the current speed
+    """
+
+    mag = np.sqrt(u**2 + v**2)
+    direction = np.arctan2(u, v) * 180 / np.pi
+
+    direction = np.mod(direction, 360)
+
+    return mag, direction

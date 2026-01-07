@@ -10,11 +10,11 @@ E.g. for version 0.1.0:
 pip install https://github.com/DHI/tidepredictor/releases/download/v0.1.0/tidepredictor-0.1.0-py3-none-any.whl
 ```
 
-2. Copy constituent files (`.nc` files) for both `DTU10` and `FES2014` models to the local machine with the following directory tree:
+2. Copy constituent files (`.nc` files) for both `DTU14` and `FES2014` models to the local machine with the following directory tree:
 
     ```text
     ~/.local/share/tidepredictor/
-    ├── DTU10/
+    ├── DTU14/
     │   ├── current.nc
     │   └── level.nc
     └── FES2014/
@@ -27,6 +27,7 @@ pip install https://github.com/DHI/tidepredictor/releases/download/v0.1.0/tidepr
         │   ├── ssa.nc
         │   └── t2.nc
         └── current/
+            ├── Bathymetry.nc
             ├── eastward_velocity/
             │   ├── 2n2.nc
             │   ├── eps2.nc
@@ -44,10 +45,13 @@ pip install https://github.com/DHI/tidepredictor/releases/download/v0.1.0/tidepr
                 ├── ssa.nc
                 └── t2.nc
     ```
+## Bathymetry
+Note that the bathymetry file (fx. GEBCO) must be located for FES2014 current profile calculations. Please see the folder tree above for the correct file naming and location.
+Global bathymetry file from GEBCO [GEBCO_2025 Grid (sub-ice topo/bathy)] can be downloaded from here: https://www.gebco.net/data-products/gridded-bathymetry-data
 
 ## Usage
 
-`tidepredictor` can be used both as a command-line application and as a Python library. The package currently supports two tidal models: `DTU10` and `FES2014`. The desired model can be selected using the `model_name` keyword argument, with `FES2014` set as the default option.
+`tidepredictor` can be used both as a command-line application and as a Python library. The package currently supports two tidal models: `DTU14` and `FES2014`. The desired model can be selected using the `model_name` keyword argument, with `FES2014` set as the default option.
 
 ### Python library
 
@@ -55,9 +59,9 @@ pip install https://github.com/DHI/tidepredictor/releases/download/v0.1.0/tidepr
 import tidepredictor as tp
 from datetime import datetime, timedelta
 
-path = tp.get_default_constituent_path(tp.PredictionType.level, model_name="DTU10")
+path = tp.get_default_constituent_path(tp.PredictionType.level, model_name="DTU14")
 
-repo = tp.NetCDFConstituentRepository(path, model_name="DTU10")
+repo = tp.NetCDFConstituentRepository(path, model_name="DTU14")
 
 predictor = tp.LevelPredictor(repo)
 
@@ -92,9 +96,9 @@ df = predictor.predict_depth_averaged(
 And current profiles.
 
 ```{python}
-path = tp.get_default_constituent_path(tp.PredictionType.current,model_name="DTU10")
+path = tp.get_default_constituent_path(tp.PredictionType.current,model_name="FES2014")
 
-repo = tp.NetCDFConstituentRepository(path,model_name="DTU10")
+repo = tp.NetCDFConstituentRepository(path,model_name="FES2014")
 
 predictor = tp.CurrentPredictor(repo, alpha=1.0/3)
 
@@ -109,19 +113,22 @@ df = predictor.predict_profile(
 ```
 
 ```{python}
-from plotnine import *
 
-(
-    ggplot(df, aes("time","u", color="factor(depth)"))
-    + geom_line() + geom_point()
-    + labs(color="Depth")
+import pandas as pd
+import matplotlib.pyplot as plt
 
-)
+fig, ax = plt.subplots(figsize=(7,4))
 
+ax.plot(df["time"],df["CS_avg"],marker=".",label="Depth-averaged")
+for depth in [-1.0, -10.0, -27.0]:
+    ax.plot(df["time"],df[f"CS_({depth})"],marker=".",label=f"{depth} m")
 
+ax.grid("True",ls="--")
+ax.set_ylabel("CS [m/s]")
+ax.legend(loc="upper left",bbox_to_anchor=(1.02,1.0))
+ax.tick_params(axis="x",rotation=30)
 ```
 
-![](images/output_4.png)
 
 ### Command line
 
