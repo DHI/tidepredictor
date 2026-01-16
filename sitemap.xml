@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://DHI.github.io/tidepredictor/index.html</loc>
-    <lastmod>2025-10-31T09:07:31.576Z</lastmod>
-  </url>
-  <url>
-    <loc>https://DHI.github.io/tidepredictor/api/index.html</loc>
-    <lastmod>2025-10-31T09:09:02.139Z</lastmod>
-  </url>
-  <url>
-    <loc>https://DHI.github.io/tidepredictor/api/get_default_constituent_path.html</loc>
-    <lastmod>2025-10-31T09:09:02.159Z</lastmod>
-  </url>
-  <url>
-    <loc>https://DHI.github.io/tidepredictor/api/NetCDFConstituentRepository.html</loc>
-    <lastmod>2025-10-31T09:09:02.159Z</lastmod>
-  </url>
-  <url>
     <loc>https://DHI.github.io/tidepredictor/profile.html</loc>
-    <lastmod>2025-10-31T09:07:31.576Z</lastmod>
+    <lastmod>2025-10-27T22:22:29.198Z</lastmod>
   </url>
   <url>
     <loc>https://DHI.github.io/tidepredictor/getting-started.html</loc>
-    <lastmod>2025-10-31T09:21:18.827Z</lastmod>
+    <lastmod>2026-01-07T13:54:43.960Z</lastmod>
   </url>
   <url>
-    <loc>https://DHI.github.io/tidepredictor/api/LevelPredictor.html</loc>
-    <lastmod>2025-10-31T09:09:02.151Z</lastmod>
+    <loc>https://DHI.github.io/tidepredictor/api/NetCDFConstituentRepository.html</loc>
+    <lastmod>2025-12-15T08:46:53.308Z</lastmod>
   </url>
   <url>
-    <loc>https://DHI.github.io/tidepredictor/api/PredictionType.html</loc>
-    <lastmod>2025-10-31T09:09:02.159Z</lastmod>
+    <loc>https://DHI.github.io/tidepredictor/api/index.html</loc>
+    <lastmod>2025-12-15T08:46:53.266Z</lastmod>
   </url>
   <url>
     <loc>https://DHI.github.io/tidepredictor/api/CurrentPredictor.html</loc>
-    <lastmod>2025-10-31T09:09:02.155Z</lastmod>
+    <lastmod>2025-12-15T08:46:53.308Z</lastmod>
+  </url>
+  <url>
+    <loc>https://DHI.github.io/tidepredictor/api/get_default_constituent_path.html</loc>
+    <lastmod>2025-12-15T08:46:53.323Z</lastmod>
+  </url>
+  <url>
+    <loc>https://DHI.github.io/tidepredictor/api/LevelPredictor.html</loc>
+    <lastmod>2025-12-15T08:46:53.301Z</lastmod>
+  </url>
+  <url>
+    <loc>https://DHI.github.io/tidepredictor/api/PredictionType.html</loc>
+    <lastmod>2025-12-15T08:46:53.323Z</lastmod>
+  </url>
+  <url>
+    <loc>https://DHI.github.io/tidepredictor/index.html</loc>
+    <lastmod>2025-06-30T11:55:47.953Z</lastmod>
   </url>
 </urlset>
